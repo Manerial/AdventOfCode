@@ -1,4 +1,4 @@
-package ca4;
+package aoc4;
 
 public class Range {
 	private Integer borneMin;

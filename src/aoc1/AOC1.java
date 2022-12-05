@@ -1,4 +1,4 @@
-package ca1;
+package aoc1;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,18 +7,22 @@ import java.util.List;
 
 import utilities.FileLoader;
 
-public class CA1 {
+public class AOC1 {
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		try {
-			List<String> list = FileLoader.readListFromFile("ca1.txt");
+			// Lecture des inputs
+			List<String> list = FileLoader.readListFromFile(AOC1.class.getSimpleName().toLowerCase() +  ".txt");
+			// Création d'une liste à trier
 			List<Integer> treeList = new ArrayList<>();
 			Integer currentCarry = 0;
-			for(String item : list) {
+			for(String line : list) {
 				try {
-					Integer carry = Integer.parseInt(item);
+					// Pour chaque entrée du fichier, on la converti et on le somme avec les précédents
+					Integer carry = Integer.parseInt(line);
 					currentCarry += carry;
 				} catch(NumberFormatException e) {
+					// Si on a une erreur de format, c'est qu'on est sur un nouvel enregistrement.
+					// On enregistre, on reset et on passe au suivant
 					treeList.add(currentCarry);
 					currentCarry = 0;
 				}

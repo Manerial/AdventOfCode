@@ -1,4 +1,4 @@
-package ca5;
+package aoc5;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -6,12 +6,12 @@ import java.util.List;
 
 import utilities.FileLoader;
 
-public class CA5 {
+public class AOC5 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			List<String> list = FileLoader.readListFromFile("ca5_2.txt");
+			List<String> list = FileLoader.readListFromFile("aoc5_2.txt");
 			List<String> pile = new LinkedList<>();
 			pile.add("JHGMZNTF");
 			pile.add("VWJ");
@@ -31,6 +31,7 @@ public class CA5 {
 				String pileFrom = pile.get(from);
 				String pileTo =  pile.get(to);
 				String toMove = pileFrom.substring(pileFrom.length() - move, pileFrom.length());
+				// Solution 2 : commenter la ligne suivante
 				toMove = reverseString(toMove); // Move 1 by 1 reverse the string
 				pileTo += toMove;
 				pileFrom = pileFrom.substring(0, pileFrom.length() - move);
