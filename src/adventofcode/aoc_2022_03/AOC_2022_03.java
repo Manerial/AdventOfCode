@@ -1,4 +1,4 @@
-package adventofcode.y2022.aoc3;
+package adventofcode.aoc_2022_03;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC3 extends AOC {
+public class AOC_2022_03 extends AOC {
     private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private List<String> stringList;
 

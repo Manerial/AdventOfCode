@@ -1,4 +1,4 @@
-package adventofcode.y2022.aoc1;
+package adventofcode.aoc_2022_01;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC1 extends AOC {
+public class AOC_2022_01 extends AOC {
     private Integer currentCarry = 0;
 
     @Override

@@ -1,4 +1,4 @@
-package adventofcode.y2021.aoc1;
+package adventofcode.aoc_2021_01;
 
 import utilities.FileLoader;
 import utilities.Printer;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import template.AOC;
 
-public class AOC1 extends AOC {
+public class AOC_2021_01 extends AOC {
 
     public void run(String file) {
         try {

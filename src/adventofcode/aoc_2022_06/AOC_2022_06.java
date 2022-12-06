@@ -1,4 +1,4 @@
-package adventofcode.y2022.aoc6;
+package adventofcode.aoc_2022_06;
 
 import utilities.FileLoader;
 import utilities.Printer;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import template.AOC;
 
-public class AOC6 extends AOC {
+public class AOC_2022_06 extends AOC {
     public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);

@@ -1,4 +1,4 @@
-package adventofcode.y2022.aoc2;
+package adventofcode.aoc_2022_02;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,7 +7,7 @@ import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC2 extends AOC {
+public class AOC_2022_02 extends AOC {
     private static final int VICT_POINT = 6;
     private static final int DRAW_POINT = 3;
     private static final int DEFT_POINT = 0;
