@@ -1,6 +1,7 @@
 package y2022.ca6;
 
 import utilities.FileLoader;
+import utilities.Printer;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,9 +11,9 @@ public class CA6 {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             for (String item : list) {
-                System.out.print("Solution 1 : ");
+                Printer.print("Solution 1 : ");
                 findFirstPacket(item, 4);
-                System.out.print("Solution 2 : ");
+                Printer.print("Solution 2 : ");
                 findFirstPacket(item, 14);
             }
         } catch (IOException e) {
@@ -28,7 +29,7 @@ public class CA6 {
             String subStr = item.substring(incr, incr + size);
             long count = subStr.chars().distinct().count();
             if (count == size) {
-                System.out.println(incr + size);
+                Printer.println(incr + size);
                 found = true;
             }
             incr++;

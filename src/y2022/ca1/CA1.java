@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import utilities.FileLoader;
+import utilities.Printer;
 
 public class CA1 {
     public static void run(String file) {
@@ -24,10 +25,10 @@ public class CA1 {
             }
             Collections.sort(treeList);
             // Solution 1 : Le plus
-            System.out.println("Solution 1 : " + treeList.get(treeList.size() - 1));
+            Printer.println("Solution 1 : " + treeList.get(treeList.size() - 1));
 
             // Solution 2 : Top 3
-            System.out.println("Solution 2 : " + (
+            Printer.println("Solution 2 : " + (
                     treeList.get(treeList.size() - 1)
                             + treeList.get(treeList.size() - 2)
                             + treeList.get(treeList.size() - 3)

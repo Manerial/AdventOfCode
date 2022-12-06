@@ -10,40 +10,36 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FileLoader extends Thread {
-	private static String RESOURCE_PATH = System.getProperty("user.dir") + "\\resources\\";
+    private static String RESOURCE_PATH = System.getProperty("user.dir") + "\\resources\\";
 
-	/**
-	 * Read a file and return the content
-	 *
-	 * @param filePath : the path to the file to read
-	 * @return the content of the file
-	 * @throws IOException
-	 */
-	public static List<String> readListFromFile(String filePath) throws IOException {
-		List<String> stringList = new LinkedList<String>();
-		BufferedReader br = getBufferReader(filePath);
-		String line;
-		while ((line = br.readLine()) != null) {
-			stringList.add(line);
-		}
-		br.close();
-		return stringList;
-	}
+    /**
+     * Read a file and return the content
+     *
+     * @param filePath : the path to the file to read
+     * @return the content of the file
+     * @throws IOException
+     */
+    public static List<String> readListFromFile(String filePath) throws IOException {
+        List<String> stringList = new LinkedList<String>();
+        BufferedReader br = getBufferReader(filePath);
+        String line;
+        while ((line = br.readLine()) != null) {
+            stringList.add(line);
+        }
+        br.close();
+        return stringList;
+    }
 
-	/**
-	 * Return a BufferedReader to read a file
-	 * 
-	 * @param fileName : the file name to read
-	 * @return a BufferedReader with the path of the file to read
-	 * @throws FileNotFoundException : All the File Not Found exceptions
-	 */
-	private static BufferedReader getBufferReader(String fileName) throws FileNotFoundException {
-		InputStream ips = new FileInputStream(RESOURCE_PATH + fileName);
-		InputStreamReader ipsr = new InputStreamReader(ips);
-		return new BufferedReader(ipsr);
-	}
-
-    public static void print(Object o) {
-		System.out.println(o);
+    /**
+     * Return a BufferedReader to read a file
+     *
+     * @param fileName : the file name to read
+     * @return a BufferedReader with the path of the file to read
+     * @throws FileNotFoundException : All the File Not Found exceptions
+     */
+    private static BufferedReader getBufferReader(String fileName) throws FileNotFoundException {
+        InputStream ips = new FileInputStream(RESOURCE_PATH + fileName);
+        InputStreamReader ipsr = new InputStreamReader(ips);
+        return new BufferedReader(ipsr);
     }
 }

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import utilities.FileLoader;
+import utilities.Printer;
 
 public class CA5 {
     public static void run(String file) {
@@ -37,9 +38,9 @@ public class CA5 {
             }
 
             for (String item : pile) {
-                System.out.print(item.charAt(item.length() - 1));
+                Printer.print(item.charAt(item.length() - 1));
             }
-            System.out.println();
+            Printer.println();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

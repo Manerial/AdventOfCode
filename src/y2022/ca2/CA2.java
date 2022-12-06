@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import utilities.FileLoader;
+import utilities.Printer;
 
 public class CA2 {
     public static void run(String file) {
@@ -42,7 +43,7 @@ public class CA2 {
                         break;
                 }
             }
-            System.out.println(score + deft * 0 + draw * 3 + vict * 6);
+            Printer.println(score + deft * 0 + draw * 3 + vict * 6);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import utilities.FileLoader;
+import utilities.Printer;
 
 public class CA3 {
     private static String alphabetOrder = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -35,7 +36,7 @@ public class CA3 {
                     priority += alphabetOrder.indexOf(item) + 1;
                 }
             }
-            System.out.println(priority);
+            Printer.println(priority);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

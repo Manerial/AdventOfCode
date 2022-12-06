@@ -1,6 +1,7 @@
 package y2021.ca1;
 
 import utilities.FileLoader;
+import utilities.Printer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ public class CA1 {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             int count = countGreaterMeasure(list, 1);
-            FileLoader.print("Solution 1 : " + count);
+            Printer.print("Solution 1 : " + count);
             int countGlide = countGreaterMeasure(list, 3);
-            FileLoader.print("Solution 2 : " + countGlide);
+            Printer.print("Solution 2 : " + countGlide);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

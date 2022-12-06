@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import utilities.FileLoader;
+import utilities.Printer;
 
 public class CA4 {
     public static void run(String file) {
@@ -23,7 +24,7 @@ public class CA4 {
                     incr++;
                 }
             }
-            System.out.println(incr);
+            Printer.println(incr);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
