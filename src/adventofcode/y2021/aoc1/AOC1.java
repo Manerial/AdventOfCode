@@ -13,9 +13,9 @@ public class AOC1 {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             int count = countGreaterMeasure(list, 1);
-            Printer.print("Solution 1 : " + count);
+            Printer.println("Solution 1 : " + count);
             int countGlide = countGreaterMeasure(list, 3);
-            Printer.print("Solution 2 : " + countGlide);
+            Printer.println("Solution 2 : " + countGlide);
         } catch (IOException e) {
             e.printStackTrace();
         }

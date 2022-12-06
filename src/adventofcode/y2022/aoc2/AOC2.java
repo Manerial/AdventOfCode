@@ -17,7 +17,9 @@ public class AOC2 {
 
     public static void run(String file) {
         try {
+			// Lecture des inputs
             List<String> list = FileLoader.readListFromFile(file);
+			// On initialise le score à 0
             resetScore();
             for (String item : list) {
                 item = systeme1(item);
@@ -41,6 +43,7 @@ public class AOC2 {
     }
 
     private static void getScore(String item) {
+		// On récupère le score du coup joué
         switch (item.split(" ")[1]) {
             case "C":
                 score += 1;
@@ -52,6 +55,7 @@ public class AOC2 {
             default:
                 break;
         }
+		// On regarde quel est le bon cas de figure
         switch (item) {
             case "C C":
             case "B B":

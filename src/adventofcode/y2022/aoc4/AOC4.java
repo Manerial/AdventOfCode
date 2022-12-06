@@ -13,11 +13,14 @@ public class AOC4 {
             int contains = 0;
             int overlap = 0;
             for (String string : list) {
+				// On récupère nos ranges
                 Range range1 = getRange(string.split(",")[0]);
                 Range range2 = getRange(string.split(",")[1]);
+				// Si l'un contient l'autre, on incrémente
                 if (range1.contains(range2) || range2.contains(range1)) {
                     contains++;
                 }
+				// Si l'un dépasse sur l'autre, on incrémente
                 if (range1.isOverlappedBy(range2) || range2.isOverlappedBy(range1)) {
                     overlap++;
                 }

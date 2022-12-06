@@ -13,7 +13,9 @@ public class AOC1 {
 
     public static void run(String file) {
         try {
+			// Lecture des inputs
             List<String> list = FileLoader.readListFromFile(file);
+			// Création d'une liste à trier
             List<Integer> treeList = new ArrayList<>();
             for (String item : list) {
                 getCurrentCarry(treeList, item);
@@ -35,9 +37,12 @@ public class AOC1 {
 
     private static void getCurrentCarry(List<Integer> treeList, String item) {
         try {
+			// Pour chaque entrée du fichier, on la converti et on le somme avec les précédents
             int carry = Integer.parseInt(item);
             currentCarry += carry;
         } catch (NumberFormatException e) {
+			// Si on a une erreur de format, c'est qu'on est sur un nouvel enregistrement.
+			// On enregistre, on reset et on passe au suivant
             treeList.add(currentCarry);
             currentCarry = 0;
         }

@@ -1,72 +1,100 @@
 package adventofcode.y2022.aoc3;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import utilities.FileLoader;
 import utilities.Printer;
 
 public class AOC3 {
+	private static List<String> stringList;
     private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static void run(String file) {
-        try {
+		try {
+			// Lecture des inputs
             List<String> list = FileLoader.readListFromFile(file);
-            int priority = 0;
-            int incr = 0;
-            String s1 = "", s2 = "", s3 = "";
-            for (String string : list) {
-                incr++;
-                // char item = getCommonItemSameLine(string);
-                char item = 0;
-                switch (incr % 3) {
-                    case 0:
-                        s3 = string;
-                        item = getItem(s1, s2, s3);
-                        break;
-                    case 1:
-                        s1 = string;
-                        break;
-                    case 2:
-                        s2 = string;
-                        break;
-                    default:
-                        break;
-                }
+            Printer.print("Solution 1 : ");
+			parseLines(list, true);
+            Printer.print("Solution 2 : ");
+			parseLines(list, false);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-                if (item > 0) {
-                    priority += ALPHABET_ORDER.indexOf(item) + 1;
-                }
-            }
-            Printer.println(priority);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	private static void parseLines(List<String> list, boolean sameLine) {
+		// On initialise les variables
+		int score = 0;
+		int incr = 0;
+		char item = 0;
+		stringList = new ArrayList<>();
+		for(String line : list) {
+			if(sameLine) {				
+				item = getCommonItemSameLine(line);
+			} else {				
+				incr++;
+				item = getCommonItem3Lines(line, incr);
+			}
 
-    private static char getCommonItemSameLine(String string) {
-        String a = string.substring(0, string.length() / 2);
-        String b = string.substring(string.length() / 2, string.length());
-        char item = getCommonItem(a, b);
-        return item;
-    }
+			if(item > 0) {					
+				score += ALPHABET_ORDER.indexOf(item) + 1;
+				stringList = new ArrayList<>();
+			}
+		}
+		Printer.println(score);
+	}
 
-    private static char getCommonItem(String a, String b) {
-        for (char c : a.toCharArray()) {
-            if (b.indexOf(c) >= 0) {
-                return c;
-            }
-        }
-        return 0;
-    }
+	/**<pre>
+	 * Retourne le caractère commun entre trois chaines différentes
+	 * </pre>
+	 * @param string : La chaine à comparer aux deux autres
+	 * @param incr : Le numéro de chaine qu'on cherche à analyser
+	 * @return
+	 */
+	private static char getCommonItem3Lines(String string, int incr) {
+		stringList.add(string);
+		if(incr % 3 == 0) {
+			return getCommonItem();
+		}
+		return 0;
+	}
 
-    private static char getItem(String s1, String s2, String s3) {
-        for (char c : s1.toCharArray()) {
-            if (s2.indexOf(c) >= 0 && s3.indexOf(c) >= 0) {
-                return c;
-            }
-        }
-        return 0;
-    }
+	/**<pre>
+	 * Retourne le caractère commun dans une chaine séparée en deux
+	 * </pre>
+	 * @param string : La chaine à analyser
+	 * @return
+	 */
+	private static char getCommonItemSameLine(String string) {
+		// On coupe la chaine en deux sous-chaines
+		stringList.add(string.substring(0, string.length()/2));
+		stringList.add(string.substring(string.length()/2, string.length()));
+		// On récupère le caractère commun entre deux chaines
+		char item = getCommonItem();
+		return item;
+	}
 
+	/**<pre>
+	 * Retourne le caractère commun entre n'importe quel nombre de lignes
+	 * </pre>
+	 * @return
+	 */
+	private static char getCommonItem() {
+		// On récupère la première chaine
+		String firstString = stringList.remove(0);
+		// Pour chaque caractère, on compare avec les autres chaines
+		for(char c : firstString.toCharArray()) {
+			boolean found = true;
+			for(String string : stringList) {
+				// Si on a un indexe < 0, ce n'est pas le bon caractère
+				found &= string.indexOf(c) >= 0;
+			}
+			if(found) {
+				return c;
+			}
+		}
+		return 0;
+	}
 }
