@@ -1,0 +1,42 @@
+package y2021.ca1;
+
+import utilities.FileLoader;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CA1 {
+
+    public static void run(String file) {
+        // TODO Auto-generated method stub
+        try {
+            List<String> list = FileLoader.readListFromFile(file);
+            int count = countGreaterMeasure(list, 1);
+            FileLoader.print("Solution 1 : " + count);
+            int countGlide = countGreaterMeasure(list, 3);
+            FileLoader.print("Solution 2 : " + countGlide);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    private static int countGreaterMeasure(List<String> list, int glide) {
+        int count = 0;
+        int last = 0;
+        List<Integer> glider = new ArrayList<>();
+        for (String item : list) {
+            glider.add(Integer.parseInt(item));
+            if(glider.size() > glide) {
+                glider.remove(0);
+                int current = glider.stream().reduce(Integer::sum).get();
+                if(last < current) {
+                    count++;
+                }
+                last = current;
+            }
+        }
+        return count;
+    }
+}

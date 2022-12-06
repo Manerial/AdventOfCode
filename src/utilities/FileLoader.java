@@ -42,4 +42,8 @@ public class FileLoader extends Thread {
 		InputStreamReader ipsr = new InputStreamReader(ips);
 		return new BufferedReader(ipsr);
 	}
+
+    public static void print(Object o) {
+		System.out.println(o);
+    }
 }
