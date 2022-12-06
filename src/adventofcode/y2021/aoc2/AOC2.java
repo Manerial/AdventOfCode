@@ -6,9 +6,11 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
-public class AOC2 {
+import template.AOC;
 
-    public static void run(String file) {
+public class AOC2 extends AOC {
+
+    public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             for (String item : list) {

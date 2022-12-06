@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AOC1 {
+import template.AOC;
 
-    public static void run(String file) {
+public class AOC1 extends AOC {
+
+    public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             int count = countGreaterMeasure(list, 1);
@@ -21,7 +23,7 @@ public class AOC1 {
         }
     }
 
-    private static int countGreaterMeasure(List<String> list, int glide) {
+    private int countGreaterMeasure(List<String> list, int glide) {
         int count = 0;
         int last = 0;
         List<Integer> glider = new ArrayList<>();

@@ -3,19 +3,20 @@ package adventofcode.y2022.aoc2;
 import java.io.IOException;
 import java.util.List;
 
+import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC2 {
+public class AOC2 extends AOC {
     private static final int VICT_POINT = 6;
     private static final int DRAW_POINT = 3;
     private static final int DEFT_POINT = 0;
-    private static int score;
-    private static int vict;
-    private static int deft;
-    private static int draw;
+    private int score;
+    private int vict;
+    private int deft;
+    private int draw;
 
-    public static void run(String file) {
+    public void run(String file) {
         try {
 			// Lecture des inputs
             List<String> list = FileLoader.readListFromFile(file);
@@ -38,11 +39,11 @@ public class AOC2 {
         }
     }
 
-    private static void resetScore() {
+    private void resetScore() {
         score = vict = deft = draw = 0;
     }
 
-    private static void getScore(String item) {
+    private void getScore(String item) {
 		// On récupère le score du coup joué
         switch (item.split(" ")[1]) {
             case "C":
@@ -78,7 +79,7 @@ public class AOC2 {
     }
 
     // Solution 1
-    private static String systeme1(String item) {
+    private String systeme1(String item) {
         item = item.replace("X", "A");
         item = item.replace("Y", "B");
         item = item.replace("Z", "C");
@@ -86,7 +87,7 @@ public class AOC2 {
     }
 
     // Solution 2
-    private static String systeme2(String item) {
+    private String systeme2(String item) {
         if (item.contains("A")) {
             item = item.replace("X", "C");
             item = item.replace("Y", "A");

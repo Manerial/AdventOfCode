@@ -4,14 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC3 {
-	private static List<String> stringList;
+public class AOC3 extends AOC {
     private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private List<String> stringList;
 
-    public static void run(String file) {
+    public void run(String file) {
 		try {
 			// Lecture des inputs
             List<String> list = FileLoader.readListFromFile(file);
@@ -24,7 +25,7 @@ public class AOC3 {
 		}
 	}
 
-	private static void parseLines(List<String> list, boolean sameLine) {
+	private void parseLines(List<String> list, boolean sameLine) {
 		// On initialise les variables
 		int score = 0;
 		int incr = 0;
@@ -53,7 +54,7 @@ public class AOC3 {
 	 * @param incr : Le numéro de chaine qu'on cherche à analyser
 	 * @return
 	 */
-	private static char getCommonItem3Lines(String string, int incr) {
+	private char getCommonItem3Lines(String string, int incr) {
 		stringList.add(string);
 		if(incr % 3 == 0) {
 			return getCommonItem();
@@ -67,7 +68,7 @@ public class AOC3 {
 	 * @param string : La chaine à analyser
 	 * @return
 	 */
-	private static char getCommonItemSameLine(String string) {
+	private char getCommonItemSameLine(String string) {
 		// On coupe la chaine en deux sous-chaines
 		stringList.add(string.substring(0, string.length()/2));
 		stringList.add(string.substring(string.length()/2, string.length()));
@@ -81,7 +82,7 @@ public class AOC3 {
 	 * </pre>
 	 * @return
 	 */
-	private static char getCommonItem() {
+	private char getCommonItem() {
 		// On récupère la première chaine
 		String firstString = stringList.remove(0);
 		// Pour chaque caractère, on compare avec les autres chaines

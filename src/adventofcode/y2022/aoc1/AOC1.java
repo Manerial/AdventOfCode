@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC1 {
-    private static Integer currentCarry = 0;
+public class AOC1 extends AOC {
+    private Integer currentCarry = 0;
 
-    public static void run(String file) {
+    @Override
+    public void run(String file) {
         try {
 			// Lecture des inputs
             List<String> list = FileLoader.readListFromFile(file);
@@ -35,7 +37,7 @@ public class AOC1 {
         }
     }
 
-    private static void getCurrentCarry(List<Integer> treeList, String item) {
+    private void getCurrentCarry(List<Integer> treeList, String item) {
         try {
 			// Pour chaque entrée du fichier, on la converti et on le somme avec les précédents
             int carry = Integer.parseInt(item);

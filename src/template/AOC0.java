@@ -6,8 +6,9 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
-public class AOC0 {
-    public static void run(String file) {
+public class AOC0 extends AOC {
+    @Override
+    public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             for (String item : list) {

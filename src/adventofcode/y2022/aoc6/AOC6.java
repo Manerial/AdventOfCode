@@ -6,8 +6,10 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
-public class AOC6 {
-    public static void run(String file) {
+import template.AOC;
+
+public class AOC6 extends AOC {
+    public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             for (String item : list) {
@@ -21,7 +23,7 @@ public class AOC6 {
         }
     }
 
-    private static void findFirstPacket(String item, int size) {
+    private void findFirstPacket(String item, int size) {
         int incr = 0;
         boolean found = false;
         while (!found && incr < item.length() - size) {

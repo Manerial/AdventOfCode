@@ -3,11 +3,12 @@ package adventofcode.y2022.aoc4;
 import java.io.IOException;
 import java.util.List;
 
+import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC4 {
-    public static void run(String file) {
+public class AOC4 extends AOC {
+    public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             int contains = 0;
@@ -32,7 +33,7 @@ public class AOC4 {
         }
     }
 
-    private static Range getRange(String str) {
+    private Range getRange(String str) {
         int borne1 = Integer.parseInt(str.split("-")[0]);
         int borne2 = Integer.parseInt(str.split("-")[1]);
         return new Range(borne1, borne2);

@@ -1,71 +1,93 @@
 package adventofcode.y2022.aoc5;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC5 {
-    public static void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            List<String> pile = new LinkedList<>();
-            pile.add("JHGMZNTF");
-            pile.add("VWJ");
-            pile.add("GVLJBTH");
-            pile.add("BPJNCDVL");
-            pile.add("FWSMPRG");
-            pile.add("GHCFBNVM");
-            pile.add("DHGMR");
-            pile.add("HNMVZD");
-            pile.add("GNFH");
-            Printer.print("Solution 1 : ");
-            moveAndPrint(list, pile, false);
-            Printer.print("Solution 2 : ");
-            moveAndPrint(list, pile, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+public class AOC5 extends AOC {
+	public void run(String file) {
+		try {
+			List<String> list = FileLoader.readListFromFile(file);
+			List<String> pile = parsePile(list.subList(0, list.indexOf("")));
+			List<String> moves = list.subList(list.indexOf("") + 1, list.size());
+			Printer.print("Solution 1 : ");
+			moveAndPrint(moves, pile, false);
+			Printer.print("Solution 2 : ");
+			moveAndPrint(moves, pile, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    private static void moveAndPrint(List<String> list, List<String> pile, boolean stack) {
-        List<String> copyOfPile = new LinkedList<>(pile);
-        for (String item : list) {
-            // move 6 from 4 to 3
-            moveCrates(copyOfPile, item, stack);
-        }
+	/**<pre>
+	 * Permet de parser une liste de la forme :
+	 * [A] [B] ...
+	 * [C] [D] [E] ...
+	 * </pre>
+	 * @param list : La liste à parser
+	 * @return une nouvelle liste contenant les valeurs de la forme CA, DB, E
+	 */
+	private List<String> parsePile(List<String> list) {
+		Pattern pattern = Pattern.compile("\\[(.)\\]");
+		String splitIn4 = "(?<=\\G.{4})";
+		int numberOfPiles = list.get(0).split(splitIn4).length;
+		List<String> pile = new ArrayList<>();
+		for(int i = 0; i < numberOfPiles; i++) {
+			pile.add("");
+		}
 
-        for (String item : copyOfPile) {
-            Printer.print(item.charAt(item.length() - 1));
-        }
-        Printer.println();
-    }
+		for(String item : list) {
+			String[] packets = item.split(splitIn4);
+			for(int i = 0; i < packets.length; i++) {
+				Matcher matcher = pattern.matcher(packets[i]);
+				if(matcher.find()) {
+					pile.set(i, matcher.group(1) + pile.get(i));
+				}
+			}
+		}
+		return pile;
+	}
 
-    private static void moveCrates(List<String> pile, String item, boolean stack) {
-        int move = Integer.parseInt(item.split(" ")[1]);
-        int from = Integer.parseInt(item.split(" ")[3]) - 1; // index start at 0
-        int to = Integer.parseInt(item.split(" ")[5]) - 1; // index start at 0
+	private void moveAndPrint(List<String> moves, List<String> pile, boolean stack) {
+		List<String> copyOfPile = new ArrayList<>(pile);
+		for (String move : moves) {     		
+			moveCrates(copyOfPile, move, stack);
+		}
 
-        String pileFrom = pile.get(from);
-        String pileTo = pile.get(to);
-        String toMove = pileFrom.substring(pileFrom.length() - move, pileFrom.length());
-        if (!stack) {
-            toMove = reverseString(toMove); // Move 1 by 1 reverse the string
-        }
-        pileTo += toMove;
-        pileFrom = pileFrom.substring(0, pileFrom.length() - move);
-        pile.set(from, pileFrom);
-        pile.set(to, pileTo);
-    }
+		String result = copyOfPile.stream()
+		  .reduce("", (partialString, element) -> partialString + element.charAt(element.length() - 1));
+		Printer.println(result);
+	}
 
-    private static String reverseString(String str) {
-        StringBuilder reverse = new StringBuilder();
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            reverse.insert(0, ch);
-        }
-        return reverse.toString();
-    }
+	private void moveCrates(List<String> pile, String move, boolean stack) {
+		int number = Integer.parseInt(move.split(" ")[1]);
+		int from = Integer.parseInt(move.split(" ")[3]) - 1; // index start at 0
+		int to = Integer.parseInt(move.split(" ")[5]) - 1; // index start at 0
+
+		String pileFrom = pile.get(from);
+		String pileTo = pile.get(to);
+		String toMove = pileFrom.substring(pileFrom.length() - number, pileFrom.length());
+		if (!stack) {
+			toMove = reverseString(toMove); // Move 1 by 1 = reverse the string
+		}
+		pileTo += toMove;
+		pileFrom = pileFrom.substring(0, pileFrom.length() - number);
+		pile.set(from, pileFrom);
+		pile.set(to, pileTo);
+	}
+
+	private String reverseString(String str) {
+		StringBuilder reverse = new StringBuilder();
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+			reverse.insert(0, ch);
+		}
+		return reverse.toString();
+	}
 }
