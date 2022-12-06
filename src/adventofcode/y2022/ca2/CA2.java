@@ -1,4 +1,4 @@
-package y2022.ca2;
+package adventofcode.y2022.ca2;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +45,6 @@ public class CA2 {
             }
             Printer.println(score + deft * 0 + draw * 3 + vict * 6);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

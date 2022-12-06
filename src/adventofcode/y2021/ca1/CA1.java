@@ -1,4 +1,4 @@
-package y2021.ca1;
+package adventofcode.y2021.ca1;
 
 import utilities.FileLoader;
 import utilities.Printer;
@@ -10,7 +10,6 @@ import java.util.List;
 public class CA1 {
 
     public static void run(String file) {
-        // TODO Auto-generated method stub
         try {
             List<String> list = FileLoader.readListFromFile(file);
             int count = countGreaterMeasure(list, 1);
@@ -18,7 +17,6 @@ public class CA1 {
             int countGlide = countGreaterMeasure(list, 3);
             Printer.print("Solution 2 : " + countGlide);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -31,7 +29,7 @@ public class CA1 {
             glider.add(Integer.parseInt(item));
             if(glider.size() > glide) {
                 glider.remove(0);
-                int current = glider.stream().reduce(Integer::sum).get();
+                int current = glider.stream().reduce(0, Integer::sum);
                 if(last < current) {
                     count++;
                 }

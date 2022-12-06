@@ -1,4 +1,4 @@
-package y2022.ca3;
+package adventofcode.y2022.ca3;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,7 +7,7 @@ import utilities.FileLoader;
 import utilities.Printer;
 
 public class CA3 {
-    private static String alphabetOrder = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static void run(String file) {
         try {
@@ -33,12 +33,11 @@ public class CA3 {
                 }
 
                 if (item > 0) {
-                    priority += alphabetOrder.indexOf(item) + 1;
+                    priority += ALPHABET_ORDER.indexOf(item) + 1;
                 }
             }
             Printer.println(priority);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

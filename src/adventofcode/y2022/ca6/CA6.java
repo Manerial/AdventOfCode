@@ -1,4 +1,4 @@
-package y2022.ca6;
+package adventofcode.y2022.ca6;
 
 import utilities.FileLoader;
 import utilities.Printer;
@@ -17,7 +17,6 @@ public class CA6 {
                 findFirstPacket(item, 14);
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

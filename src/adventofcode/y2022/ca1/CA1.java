@@ -1,4 +1,4 @@
-package y2022.ca1;
+package adventofcode.y2022.ca1;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,19 +9,13 @@ import utilities.FileLoader;
 import utilities.Printer;
 
 public class CA1 {
+    private static Integer currentCarry = 0;
     public static void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             List<Integer> treeList = new ArrayList<>();
-            Integer currentCarry = 0;
             for (String item : list) {
-                try {
-                    Integer carry = Integer.parseInt(item);
-                    currentCarry += carry;
-                } catch (NumberFormatException e) {
-                    treeList.add(currentCarry);
-                    currentCarry = 0;
-                }
+                getCurrentCarry(treeList, item);
             }
             Collections.sort(treeList);
             // Solution 1 : Le plus
@@ -35,6 +29,16 @@ public class CA1 {
             ));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void getCurrentCarry(List<Integer> treeList, String item) {
+        try {
+            int carry = Integer.parseInt(item);
+            currentCarry += carry;
+        } catch (NumberFormatException e) {
+            treeList.add(currentCarry);
+            currentCarry = 0;
         }
     }
 }

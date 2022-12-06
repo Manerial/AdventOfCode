@@ -1,4 +1,4 @@
-package y2022.ca4;
+package adventofcode.y2022.ca4;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +26,6 @@ public class CA4 {
             }
             Printer.println(incr);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

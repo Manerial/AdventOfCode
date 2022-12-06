@@ -1,4 +1,4 @@
-package y2022.ca5;
+package adventofcode.y2022.ca5;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -42,7 +42,6 @@ public class CA5 {
             }
             Printer.println();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
