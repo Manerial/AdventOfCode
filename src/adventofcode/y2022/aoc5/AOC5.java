@@ -21,7 +21,9 @@ public class AOC5 {
             pile.add("DHGMR");
             pile.add("HNMVZD");
             pile.add("GNFH");
+            Printer.print("Solution 1 : ");
             moveAndPrint(list, pile, false);
+            Printer.print("Solution 2 : ");
             moveAndPrint(list, pile, true);
         } catch (IOException e) {
             e.printStackTrace();
