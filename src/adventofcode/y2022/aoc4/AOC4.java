@@ -10,24 +10,29 @@ public class AOC4 {
     public static void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
-            int incr = 0;
+            int contains = 0;
+            int overlap = 0;
             for (String string : list) {
-                String s1 = string.split(",")[0];
-                String s2 = string.split(",")[1];
-                int i11 = Integer.parseInt(s1.split("-")[0]);
-                int i12 = Integer.parseInt(s1.split("-")[1]);
-                int i21 = Integer.parseInt(s2.split("-")[0]);
-                int i22 = Integer.parseInt(s2.split("-")[1]);
-                Range range1 = new Range(i11, i12);
-                Range range2 = new Range(i21, i22);
+                Range range1 = getRange(string.split(",")[0]);
+                Range range2 = getRange(string.split(",")[1]);
                 if (range1.contains(range2) || range2.contains(range1)) {
-                    incr++;
+                    contains++;
+                }
+                if (range1.isOverlappedBy(range2) || range2.isOverlappedBy(range1)) {
+                    overlap++;
                 }
             }
-            Printer.println(incr);
+            Printer.println("Solution 1 : " + contains);
+            Printer.println("Solution 2 : " + overlap);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static Range getRange(String str) {
+        int borne1 = Integer.parseInt(str.split("-")[0]);
+        int borne2 = Integer.parseInt(str.split("-")[1]);
+        return new Range(borne1, borne2);
     }
 
 }

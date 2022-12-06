@@ -2,7 +2,7 @@ package adventofcode.y2022;
 
 import adventofcode.y2022.aoc1.AOC1;
 import adventofcode.y2022.aoc2.AOC2;
-import adventofcode.y2022.aoc3.CA3;
+import adventofcode.y2022.aoc3.AOC3;
 import adventofcode.y2022.aoc4.AOC4;
 import adventofcode.y2022.aoc5.AOC5;
 import adventofcode.y2022.aoc6.AOC6;
@@ -16,7 +16,7 @@ public class Launcher2022 {
         Printer.println("Solution jour 2");
         AOC2.run(YEAR + "/ca2.txt");
         Printer.println("Solution jour 3");
-        CA3.run(YEAR + "/ca3.txt");
+        AOC3.run(YEAR + "/ca3.txt");
         Printer.println("Solution jour 4");
         AOC4.run(YEAR + "/ca4.txt");
         Printer.println("Solution jour 5");
