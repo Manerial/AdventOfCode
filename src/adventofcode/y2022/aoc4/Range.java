@@ -1,4 +1,4 @@
-package adventofcode.y2022.ca4;
+package adventofcode.y2022.aoc4;
 
 public class Range {
 	private Integer borneMin;

@@ -1,4 +1,4 @@
-package adventofcode.y2022.ca1;
+package adventofcode.y2022.aoc1;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,8 +8,9 @@ import java.util.List;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class CA1 {
+public class AOC1 {
     private static Integer currentCarry = 0;
+
     public static void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);

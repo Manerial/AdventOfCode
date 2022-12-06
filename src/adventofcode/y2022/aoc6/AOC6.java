@@ -1,4 +1,4 @@
-package adventofcode.y2022.ca6;
+package adventofcode.y2022.aoc6;
 
 import utilities.FileLoader;
 import utilities.Printer;
@@ -6,7 +6,7 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
-public class CA6 {
+public class AOC6 {
     public static void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);

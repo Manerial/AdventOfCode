@@ -1,4 +1,4 @@
-package adventofcode.y2022.ca5;
+package adventofcode.y2022.aoc5;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -7,7 +7,7 @@ import java.util.List;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class CA5 {
+public class AOC5 {
     public static void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);

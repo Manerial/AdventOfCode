@@ -1,4 +1,4 @@
-package adventofcode.y2022.ca4;
+package adventofcode.y2022.aoc4;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class CA4 {
+public class AOC4 {
     public static void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);

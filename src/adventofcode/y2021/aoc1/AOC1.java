@@ -1,4 +1,4 @@
-package adventofcode.y2021.ca1;
+package adventofcode.y2021.aoc1;
 
 import utilities.FileLoader;
 import utilities.Printer;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CA1 {
+public class AOC1 {
 
     public static void run(String file) {
         try {

@@ -1,4 +1,4 @@
-package adventofcode.y2022.ca3;
+package adventofcode.y2022.aoc3;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class CA3 {
+public class AOC3 {
     private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static void run(String file) {
@@ -29,6 +29,8 @@ public class CA3 {
                         break;
                     case 2:
                         s2 = string;
+                        break;
+                    default:
                         break;
                 }
 
