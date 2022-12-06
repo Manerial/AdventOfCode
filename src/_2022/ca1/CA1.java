@@ -1,4 +1,4 @@
-package ca1;
+package _2022.ca1;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ public class CA1 {
 			List<String> list = FileLoader.readListFromFile("ca1.txt");
 			List<Integer> treeList = new ArrayList<>();
 			Integer currentCarry = 0;
-			for(String item : list) {
+			for (String item : list) {
 				try {
 					Integer carry = Integer.parseInt(item);
 					currentCarry += carry;
-				} catch(NumberFormatException e) {
+				} catch (NumberFormatException e) {
 					treeList.add(currentCarry);
 					currentCarry = 0;
 				}

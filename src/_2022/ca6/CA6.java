@@ -1,10 +1,9 @@
-package ca6;
+package _2022.ca6;
 
 import utilities.FileLoader;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CA6 {
 	public static void main(String[] args) {

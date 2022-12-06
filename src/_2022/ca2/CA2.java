@@ -1,4 +1,4 @@
-package ca2;
+package _2022.ca2;
 
 import java.io.IOException;
 import java.util.List;

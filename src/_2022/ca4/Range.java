@@ -1,4 +1,4 @@
-package ca4;
+package _2022.ca4;
 
 public class Range {
 	private Integer borneMin;
