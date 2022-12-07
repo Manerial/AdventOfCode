@@ -1,9 +1,11 @@
 package adventofcode.aoc_2022_07;
 
 import lombok.*;
+import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -12,37 +14,32 @@ public class Directory {
     private static final String T = "\t";
 
     private String name;
-    private Map<String, Object> directories;
+    private List<Directory> directories;
+    private List<File> files;
 
     public Directory(String name) {
         this.name = name;
-        directories = new HashMap<>();
+        directories = new ArrayList<>();
+        files = new ArrayList<>();
     }
 
     public int getTotalSize() {
-        int size = 0;
-        Iterator<String> iter = directories.keySet().iterator();
-        while (iter.hasNext()) {
-            String name = iter.next();
-            Object object = directories.get(name);
-            if(object instanceof Directory) {
-                size += ((Directory) object).getTotalSize();
-            } else {
-                size += (int) object;
-            }
-        }
+        int size = files.stream().map(File::getSize).reduce(0, Integer::sum);
+        size += directories.stream()
+                .map(Directory::getTotalSize)
+                .reduce(0, Integer::sum);
         return size;
     }
 
     @Override
     public String toString() {
         String str = name + RN;
-        Iterator<String> iter = directories.keySet().iterator();
-        while (iter.hasNext()) {
-            String name = iter.next();
-            Object object = directories.get(name);
-            str += object.toString().replaceAll("(?m)^", T) + RN;
-        }
+        str += files.stream().map(File::toString).reduce(String::join);
+        str += directories.stream()
+                .map(Directory::toString)
+                .reduce("", ((s, s2) ->
+                        s + s2.replaceAll("(?m)^", "|___")
+                ));
         return str;
     }
 }

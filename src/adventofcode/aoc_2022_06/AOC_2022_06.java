@@ -9,6 +9,8 @@ import java.util.List;
 import template.AOC;
 
 public class AOC_2022_06 extends AOC {
+
+    @Override
     public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);

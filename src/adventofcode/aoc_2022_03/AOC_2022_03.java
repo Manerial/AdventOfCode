@@ -12,6 +12,7 @@ public class AOC_2022_03 extends AOC {
     private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private List<String> stringList;
 
+	@Override
     public void run(String file) {
 		try {
 			// Inputs reading

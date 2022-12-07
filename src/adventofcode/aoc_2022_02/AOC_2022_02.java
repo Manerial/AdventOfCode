@@ -16,6 +16,7 @@ public class AOC_2022_02 extends AOC {
     private int deft;
     private int draw;
 
+    @Override
     public void run(String file) {
         try {
 			// Inputs reading

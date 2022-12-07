@@ -11,6 +11,7 @@ import template.AOC;
 
 public class AOC_2021_01 extends AOC {
 
+    @Override
     public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);

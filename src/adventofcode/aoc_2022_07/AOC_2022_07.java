@@ -5,8 +5,8 @@ import utilities.FileLoader;
 import utilities.Printer;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AOC_2022_07 extends AOC {
     private Directory mainDirectory = new Directory("/");
@@ -14,12 +14,15 @@ public class AOC_2022_07 extends AOC {
     private Directory parentDirectory;
     private int minSizeThatMatch;
 
+    @Override
     public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             for (String item : list) {
                 parseLine(item);
             }
+
+            Printer.println(mainDirectory);
 
             int sum = getMaxSize(mainDirectory, 100000);
             Printer.println("Solution 1 : " + sum);
@@ -38,38 +41,29 @@ public class AOC_2022_07 extends AOC {
 
     private int getMaxSize(Directory currentDirectory, int maxSize) {
         int size = 0;
-        Iterator<String> iter = currentDirectory.getDirectories().keySet().iterator();
-        while (iter.hasNext()) {
-            String name = iter.next();
-            Object object = currentDirectory.getDirectories().get(name);
-            if(object instanceof Directory) {
-                // subDir
-                size += getMaxSize((Directory) object, maxSize);
-                // currentDir
-                int sizeCurrentDirectory = ((Directory) object).getTotalSize();
-                size += (sizeCurrentDirectory <= maxSize) ? sizeCurrentDirectory : 0;
-            }
+        for (Directory directory : currentDirectory.getDirectories()) {
+            // subDir
+            size += getMaxSize(directory, maxSize);
+            // currentDir
+            int sizeCurrentDirectory = (directory).getTotalSize();
+            size += (sizeCurrentDirectory <= maxSize) ? sizeCurrentDirectory : 0;
         }
         return size;
     }
 
     private void getFirstSize(Directory currentDirectory, int minSize) {
         int size = currentDirectory.getTotalSize();
-        if(size >= minSize && size < minSizeThatMatch) {
+        if (size >= minSize && size < minSizeThatMatch) {
             minSizeThatMatch = size;
         }
+
         // for each dir in the current dir
-        Iterator<String> iter = currentDirectory.getDirectories().keySet().iterator();
-        while (iter.hasNext()) {
-            String name = iter.next();
-            Object object = currentDirectory.getDirectories().get(name);
-            if(object instanceof Directory) {
-                // if the directory matches the size
-                int subDirSize = ((Directory) object).getTotalSize();
-                if(subDirSize >= minSize) {
-                    // get the min size of the directory
-                    getFirstSize((Directory) object, minSize);
-                }
+        for (Directory directory : currentDirectory.getDirectories()) {
+            // if the directory matches the size
+            int subDirSize = directory.getTotalSize();
+            if (subDirSize >= minSize) {
+                // get the min size of the directory
+                getFirstSize(directory, minSize);
             }
         }
     }
@@ -85,22 +79,14 @@ public class AOC_2022_07 extends AOC {
     private void parseInput(String item) {
         String[] elts = item.replace("$", "").trim().split(" ");
         String cmd = elts[0];
-        if (cmd.equals("ls")) {
-            return;
-        } else if (cmd.equals("cd")) {
+        if (cmd.equals("cd")) {
             String target = elts[1];
             if (target.equals("/")) {
                 currentDirectory = mainDirectory;
             } else if (target.equals("..")) {
-                currentDirectory = parentDirectory;
-                if (currentDirectory == mainDirectory) {
-                    parentDirectory = null;
-                } else {
-                    parentDirectory = getParentDirectory(mainDirectory);
-                }
+                goToParent();
             } else {
-                parentDirectory = currentDirectory;
-                currentDirectory = (Directory) currentDirectory.getDirectories().get(target);
+                goToChild(target);
             }
         }
     }
@@ -109,26 +95,34 @@ public class AOC_2022_07 extends AOC {
         String[] elts = item.replace("$", "").trim().split(" ");
         if (item.startsWith("dir")) {
             String dirName = elts[1];
-            // On ne peut pas autoréférencer un objet
-            Directory newDir = new Directory(dirName);
-            currentDirectory.getDirectories().put(dirName, newDir);
+            currentDirectory.getDirectories().add(new Directory(dirName));
         } else {
             int fileSize = Integer.parseInt(elts[0]);
             String fileName = elts[1];
-            currentDirectory.getDirectories().put(fileName, fileSize);
+            currentDirectory.getFiles().add(new File(fileName, fileSize));
         }
     }
 
-    private Directory getParentDirectory(Directory directory) {
-        Iterator<String> iter = directory.getDirectories().keySet().iterator();
-        while (iter.hasNext()) {
-            String dirName = iter.next();
-            Object object = directory.getDirectories().get(dirName);
-            if (object == currentDirectory) {
-                return directory;
-            } else if (object instanceof Directory) {
-                if (getParentDirectory((Directory) object) != null) {
-                    return getParentDirectory((Directory) object);
+    private void goToChild(String target) {
+        parentDirectory = currentDirectory;
+        currentDirectory = currentDirectory.getDirectories().stream()
+                .filter(directory -> directory.getName().equals(target))
+                .collect(Collectors.toList()).get(0);
+    }
+
+    private void goToParent() {
+        currentDirectory = parentDirectory;
+        parentDirectory = getParentOfCurrentDirectory(mainDirectory);
+    }
+
+    private Directory getParentOfCurrentDirectory(Directory superDirectory) {
+        if(superDirectory.getDirectories().contains(currentDirectory)) {
+            return superDirectory;
+        } else {
+            for(Directory potentialParent : superDirectory.getDirectories()) {
+                Directory parentDir = getParentOfCurrentDirectory(potentialParent);
+                if(parentDir != null) {
+                    return parentDir;
                 }
             }
         }

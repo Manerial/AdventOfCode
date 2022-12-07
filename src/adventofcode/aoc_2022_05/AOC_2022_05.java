@@ -11,6 +11,8 @@ import utilities.FileLoader;
 import utilities.Printer;
 
 public class AOC_2022_05 extends AOC {
+
+	@Override
 	public void run(String file) {
 		try {
 			List<String> list = FileLoader.readListFromFile(file);
