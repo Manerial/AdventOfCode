@@ -6,10 +6,10 @@ import utilities.Printer;
 
 public class Launcher {
     private static final int YEAR = 2022;
-    private static final int DAY = 5;
+    private static final int DAY = 7;
     public static void main(String[] args) {
     	AOC aoc = AOCFactory.getAOC(YEAR, DAY);
-        Printer.println("Solution jour " + DAY);
+        Printer.println("Solution " + YEAR + "/12/" + DAY);
         aoc.run(YEAR + "/aoc" + DAY + ".txt");
     }
 }

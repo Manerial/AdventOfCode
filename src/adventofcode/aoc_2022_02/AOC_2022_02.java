@@ -18,9 +18,9 @@ public class AOC_2022_02 extends AOC {
 
     public void run(String file) {
         try {
-			// Lecture des inputs
+			// Inputs reading
             List<String> list = FileLoader.readListFromFile(file);
-			// On initialise le score à 0
+			// Set the score to 0
             resetScore();
             for (String item : list) {
                 item = systeme1(item);
@@ -44,7 +44,7 @@ public class AOC_2022_02 extends AOC {
     }
 
     private void getScore(String item) {
-		// On récupère le score du coup joué
+		// Get the current play
         switch (item.split(" ")[1]) {
             case "C":
                 score += 1;
@@ -56,7 +56,7 @@ public class AOC_2022_02 extends AOC {
             default:
                 break;
         }
-		// On regarde quel est le bon cas de figure
+		// Get the correct case
         switch (item) {
             case "C C":
             case "B B":

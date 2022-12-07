@@ -2,14 +2,24 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>codeAdvent</groupId>
-	<artifactId>codeAdvent</artifactId>
+	<groupId>AdventOfCode</groupId>
+	<artifactId>AdventOfCode</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<dependencies><!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+	<properties>
+		<lombok-version>1.18.22</lombok-version>
+	</properties>
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.12.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok-version}</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -20,6 +30,13 @@
 				<version>3.8.1</version>
 				<configuration>
 					<release>11</release>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok-version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>

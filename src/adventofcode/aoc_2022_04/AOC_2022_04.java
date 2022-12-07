@@ -14,14 +14,14 @@ public class AOC_2022_04 extends AOC {
             int contains = 0;
             int overlap = 0;
             for (String string : list) {
-				// On récupère nos ranges
+				// We get our ranges
                 Range range1 = getRange(string.split(",")[0]);
                 Range range2 = getRange(string.split(",")[1]);
-				// Si l'un contient l'autre, on incrémente
+				// If one contains the other, ++
                 if (range1.contains(range2) || range2.contains(range1)) {
                     contains++;
                 }
-				// Si l'un dépasse sur l'autre, on incrémente
+				// If one overlap the other, ++
                 if (range1.isOverlappedBy(range2) || range2.isOverlappedBy(range1)) {
                     overlap++;
                 }

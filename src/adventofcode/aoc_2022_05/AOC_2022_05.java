@@ -26,12 +26,12 @@ public class AOC_2022_05 extends AOC {
 	}
 
 	/**<pre>
-	 * Permet de parser une liste de la forme :
+	 * Parse a list with the following shape :
 	 * [A] [B] ...
 	 * [C] [D] [E] ...
 	 * </pre>
-	 * @param list : La liste à parser
-	 * @return une nouvelle liste contenant les valeurs de la forme CA, DB, E
+	 * @param list : The list to parse
+	 * @return a new list containing values as CA, DB, E
 	 */
 	private List<String> parsePile(List<String> list) {
 		Pattern pattern = Pattern.compile("\\[(.)\\]");

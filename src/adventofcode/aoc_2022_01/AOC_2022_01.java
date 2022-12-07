@@ -15,15 +15,15 @@ public class AOC_2022_01 extends AOC {
     @Override
     public void run(String file) {
         try {
-			// Lecture des inputs
+			// Read inputs
             List<String> list = FileLoader.readListFromFile(file);
-			// Création d'une liste à trier
+			// Create a list to sort
             List<Integer> treeList = new ArrayList<>();
             for (String item : list) {
                 getCurrentCarry(treeList, item);
             }
             Collections.sort(treeList);
-            // Solution 1 : Le plus
+            // Solution 1 : The most
             Printer.println("Solution 1 : " + treeList.get(treeList.size() - 1));
 
             // Solution 2 : Top 3
@@ -39,12 +39,12 @@ public class AOC_2022_01 extends AOC {
 
     private void getCurrentCarry(List<Integer> treeList, String item) {
         try {
-			// Pour chaque entrée du fichier, on la converti et on le somme avec les précédents
+			// For each line, we convert into int and sum up with the previous one
             int carry = Integer.parseInt(item);
             currentCarry += carry;
         } catch (NumberFormatException e) {
-			// Si on a une erreur de format, c'est qu'on est sur un nouvel enregistrement.
-			// On enregistre, on reset et on passe au suivant
+			// If error, we are on a new item
+			// We save anf go next item
             treeList.add(currentCarry);
             currentCarry = 0;
         }

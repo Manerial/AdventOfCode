@@ -14,7 +14,7 @@ public class AOC_2022_03 extends AOC {
 
     public void run(String file) {
 		try {
-			// Lecture des inputs
+			// Inputs reading
             List<String> list = FileLoader.readListFromFile(file);
             Printer.print("Solution 1 : ");
 			parseLines(list, true);
@@ -26,7 +26,7 @@ public class AOC_2022_03 extends AOC {
 	}
 
 	private void parseLines(List<String> list, boolean sameLine) {
-		// On initialise les variables
+		// Initialization of the variables
 		int score = 0;
 		int incr = 0;
 		char item = 0;
@@ -48,10 +48,10 @@ public class AOC_2022_03 extends AOC {
 	}
 
 	/**<pre>
-	 * Retourne le caractère commun entre trois chaines différentes
+	 * Return the common caractere between 3 lines
 	 * </pre>
-	 * @param string : La chaine à comparer aux deux autres
-	 * @param incr : Le numéro de chaine qu'on cherche à analyser
+	 * @param string : The string to compare with the two others
+	 * @param incr : The number of the line we are parsing
 	 * @return
 	 */
 	private char getCommonItem3Lines(String string, int incr) {
@@ -63,33 +63,28 @@ public class AOC_2022_03 extends AOC {
 	}
 
 	/**<pre>
-	 * Retourne le caractère commun dans une chaine séparée en deux
+	 * Return the common char in a string split in two
 	 * </pre>
-	 * @param string : La chaine à analyser
+	 * @param string : The string to parse
 	 * @return
 	 */
 	private char getCommonItemSameLine(String string) {
-		// On coupe la chaine en deux sous-chaines
 		stringList.add(string.substring(0, string.length()/2));
-		stringList.add(string.substring(string.length()/2, string.length()));
-		// On récupère le caractère commun entre deux chaines
+		stringList.add(string.substring(string.length()/2));
 		char item = getCommonItem();
 		return item;
 	}
 
 	/**<pre>
-	 * Retourne le caractère commun entre n'importe quel nombre de lignes
+	 * Return the common char between any number of lines
 	 * </pre>
 	 * @return
 	 */
 	private char getCommonItem() {
-		// On récupère la première chaine
 		String firstString = stringList.remove(0);
-		// Pour chaque caractère, on compare avec les autres chaines
 		for(char c : firstString.toCharArray()) {
 			boolean found = true;
 			for(String string : stringList) {
-				// Si on a un indexe < 0, ce n'est pas le bon caractère
 				found &= string.indexOf(c) >= 0;
 			}
 			if(found) {
