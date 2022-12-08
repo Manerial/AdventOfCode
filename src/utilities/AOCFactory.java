@@ -2,6 +2,7 @@ package utilities;
 
 import adventofcode.aoc_2021_03.AOC_2021_03;
 import adventofcode.aoc_2022_07.AOC_2022_07;
+import adventofcode.aoc_2022_08.AOC_2022_08;
 import template.AOC;
 
 import org.apache.commons.lang3.NotImplementedException;
@@ -34,6 +35,8 @@ public class AOCFactory {
                         return new AOC_2022_06();
                     case 7:
                         return new AOC_2022_07();
+                    case 8:
+                        return new AOC_2022_08();
                     default:
                         throw new NotImplementedException();
                 }

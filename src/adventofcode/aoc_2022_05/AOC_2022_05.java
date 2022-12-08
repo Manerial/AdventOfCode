@@ -86,10 +86,8 @@ public class AOC_2022_05 extends AOC {
 
 	private String reverseString(String str) {
 		StringBuilder reverse = new StringBuilder();
-		for (int i = 0; i < str.length(); i++) {
-			char ch = str.charAt(i);
-			reverse.insert(0, ch);
-		}
+		reverse.append(str);
+		reverse.reverse();
 		return reverse.toString();
 	}
 }
