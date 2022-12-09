@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class AOC_2022_09 implements AOC {
-    private GridOfMoves grid = new GridOfMoves();
+    private GridOfMoves grid = new GridOfMoves(10);
     @Override
     public void run(String file) {
         try {

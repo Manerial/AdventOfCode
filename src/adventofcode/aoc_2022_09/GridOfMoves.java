@@ -1,42 +1,42 @@
 package adventofcode.aoc_2022_09;
 
-import utilities.Printer;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GridOfMoves {
-    private int xHead = 0;
-    private int yHead = 0;
-    private int xQueue = 0;
-    private int yQueue = 0;
+    List<Position> knotPositions = new ArrayList<>();
     private final Map<Integer, List<Integer>> gridQueue = new TreeMap<>();
 
+    GridOfMoves(int ropeSize) {
+        for (int i = 0; i < ropeSize; i++) {
+            knotPositions.add(new Position());
+        }
+    }
+
     public boolean move(String direction, int move) {
-        int copyX = xHead;
-        int copyY = yHead;
+        int copyX = knotPositions.get(0).getX();
+        int copyY = knotPositions.get(0).getY();
         switch (direction) {
             case "L":
-                while (xHead > copyX - move) {
-                    xHead--;
+                while (knotPositions.get(0).getX() > copyX - move) {
+                    knotPositions.get(0).decX();
                     play();
                 }
                 break;
             case "R":
-                while (xHead < copyX + move) {
-                    xHead++;
+                while (knotPositions.get(0).getX() < copyX + move) {
+                    knotPositions.get(0).incX();
                     play();
                 }
                 break;
             case "U":
-                while (yHead > copyY - move) {
-                    yHead--;
+                while (knotPositions.get(0).getY() > copyY - move) {
+                    knotPositions.get(0).decY();
                     play();
                 }
                 break;
             case "D":
-                while (yHead < copyY + move) {
-                    yHead++;
+                while (knotPositions.get(0).getY() < copyY + move) {
+                    knotPositions.get(0).incY();
                     play();
                 }
                 break;
@@ -47,61 +47,62 @@ public class GridOfMoves {
     }
 
     private void play() {
-        getQueuePos();
+        for (int i = 1; i < knotPositions.size(); i++) {
+            getQueuePos(knotPositions.get(i - 1), knotPositions.get(i));
+        }
 
-        Printer.println("Head : " + xHead + " " + yHead);
-        Printer.println("Queue : " + xQueue + " " + yQueue);
-        Printer.println();
+        Position queuePos = knotPositions.get(knotPositions.size() - 1);
 
-        gridQueue.putIfAbsent(xQueue, new ArrayList<>());
-        if (!gridQueue.get(xQueue).contains(yQueue)) {
-            gridQueue.get(xQueue).add(yQueue);
+        gridQueue.putIfAbsent(queuePos.getX(), new ArrayList<>());
+        if (!gridQueue.get(queuePos.getX()).contains(queuePos.getY())) {
+            gridQueue.get(queuePos.getX()).add(queuePos.getY());
         }
     }
 
-    private void getQueuePos() {
-        int deltaX = xHead - xQueue;
-        int deltaY = yHead - yQueue;
+    private void getQueuePos(Position head, Position knot) {
+        int deltaX = head.getX() - knot.getX();
+        int deltaY = head.getY() - knot.getY();
         switch (deltaX) {
             case 2:
-                xQueue++;
-                checkDiagY(deltaY);
+                knot.incX();
+                checkDiagY(deltaY, knot);
                 break;
             case -2:
-                xQueue--;
-                checkDiagY(deltaY);
+                knot.decX();
+                checkDiagY(deltaY, knot);
                 break;
             default:
                 break;
         }
         switch (deltaY) {
             case 2:
-                yQueue++;
-                checkDiagX(deltaX);
+                knot.incY();
+                checkDiagX(deltaX, knot);
                 break;
             case -2:
-                yQueue--;
-                checkDiagX(deltaX);
+                knot.decY();
+                checkDiagX(deltaX, knot);
                 break;
             default:
                 break;
         }
     }
 
-    private void checkDiagX(int deltaX) {
+    private void checkDiagX(int deltaX, Position knot) {
         if (deltaX == 1) {
-            xQueue++;
+            knot.incX();
         } else if (deltaX == -1) {
-            xQueue--;
+            knot.decX();
         }
     }
 
-    private void checkDiagY(int deltaY) {
+    private int checkDiagY(int deltaY, Position knot) {
         if (deltaY == 1) {
-            yQueue++;
+            knot.incY();
         } else if (deltaY == -1) {
-            yQueue--;
+            knot.decY();
         }
+        return 0;
     }
 
     public int countQueue() {
