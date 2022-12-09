@@ -36,8 +36,8 @@ public class FileLoader {
      * @throws FileNotFoundException : All the File Not Found exceptions
      */
     private static BufferedReader getBufferReader(String fileName) throws FileNotFoundException {
-        InputStream ips = new FileInputStream(RESOURCE_PATH + fileName);
-        InputStreamReader ipsr = new InputStreamReader(ips);
-        return new BufferedReader(ipsr);
+        InputStream inputStream = new FileInputStream(RESOURCE_PATH + fileName);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        return new BufferedReader(inputStreamReader);
     }
 }

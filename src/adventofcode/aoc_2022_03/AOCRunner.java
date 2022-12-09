@@ -49,7 +49,7 @@ public class AOCRunner implements AOC {
 	}
 
 	/**<pre>
-	 * Return the common caractere between 3 lines
+	 * Return the common character between 3 lines
 	 * </pre>
 	 * @param string : The string to compare with the two others
 	 * @param incr : The number of the line we are parsing

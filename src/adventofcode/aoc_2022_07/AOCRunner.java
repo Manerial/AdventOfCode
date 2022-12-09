@@ -77,10 +77,10 @@ public class AOCRunner implements AOC {
     }
 
     private void parseInput(String item) {
-        String[] elts = item.replace("$", "").trim().split(" ");
-        String cmd = elts[0];
+        String[] elements = item.replace("$", "").trim().split(" ");
+        String cmd = elements[0];
         if (cmd.equals("cd")) {
-            String target = elts[1];
+            String target = elements[1];
             if (target.equals("/")) {
                 currentDirectory = mainDirectory;
             } else if (target.equals("..")) {
@@ -92,13 +92,13 @@ public class AOCRunner implements AOC {
     }
 
     private void parseOutput(String item) {
-        String[] elts = item.replace("$", "").trim().split(" ");
+        String[] elements = item.replace("$", "").trim().split(" ");
         if (item.startsWith("dir")) {
-            String dirName = elts[1];
+            String dirName = elements[1];
             currentDirectory.getDirectories().add(new Directory(dirName));
         } else {
-            int fileSize = Integer.parseInt(elts[0]);
-            String fileName = elts[1];
+            int fileSize = Integer.parseInt(elements[0]);
+            String fileName = elements[1];
             currentDirectory.getFiles().add(new File(fileName, fileSize));
         }
     }

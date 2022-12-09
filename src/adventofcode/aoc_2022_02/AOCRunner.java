@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class AOCRunner implements AOC {
-    private static final int VICT_POINT = 6;
+    private static final int VICTORY_POINT = 6;
     private static final int DRAW_POINT = 3;
-    private static final int DEFT_POINT = 0;
+    private static final int DEFEAT_POINT = 0;
     private int score;
-    private int vict;
-    private int deft;
+    private int victory;
+    private int defeat;
     private int draw;
 
     @Override
@@ -24,24 +24,24 @@ public class AOCRunner implements AOC {
 			// Set the score to 0
             resetScore();
             for (String item : list) {
-                item = systeme1(item);
+                item = system1(item);
                 getScore(item);
             }
-            Printer.println("Solution 1 : " + (score + deft * DEFT_POINT + draw * DRAW_POINT + vict * VICT_POINT));
+            Printer.println("Solution 1 : " + (score + defeat * DEFEAT_POINT + draw * DRAW_POINT + victory * VICTORY_POINT));
 
             resetScore();
             for (String item : list) {
-                item = systeme2(item);
+                item = system2(item);
                 getScore(item);
             }
-            Printer.println("Solution 2 : " + (score + deft * DEFT_POINT + draw * DRAW_POINT + vict * VICT_POINT));
+            Printer.println("Solution 2 : " + (score + defeat * DEFEAT_POINT + draw * DRAW_POINT + victory * VICTORY_POINT));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void resetScore() {
-        score = vict = deft = draw = 0;
+        score = victory = defeat = draw = 0;
     }
 
     private void getScore(String item) {
@@ -69,12 +69,12 @@ public class AOCRunner implements AOC {
             case "B C":
             case "A B":
             case "C A":
-                vict++;
+                victory++;
                 break;
             case "A C":
             case "C B":
             case "B A":
-                deft++;
+                defeat++;
                 break;
             default:
                 break;
@@ -82,7 +82,7 @@ public class AOCRunner implements AOC {
     }
 
     // Solution 1
-    private String systeme1(String item) {
+    private String system1(String item) {
         item = item.replace("X", "A");
         item = item.replace("Y", "B");
         item = item.replace("Z", "C");
@@ -90,7 +90,7 @@ public class AOCRunner implements AOC {
     }
 
     // Solution 2
-    private String systeme2(String item) {
+    private String system2(String item) {
         if (item.contains("A")) {
             item = item.replace("X", "C");
             item = item.replace("Y", "A");

@@ -16,17 +16,17 @@ public class AOCRunner implements AOC {
     public void run(String file) {
         try {
             List<String> list = FileLoader.readListFromFile(file);
-            List<String> listTranspo = new ArrayList<>(list);
-            listTranspo = listTranspo.stream().map(e -> "").collect(Collectors.toList());
+            List<String> listTransposed = new ArrayList<>(list);
+            listTransposed = listTransposed.stream().map(e -> "").collect(Collectors.toList());
             for (String item : list) {
                 int i = 0;
                 for (char c : item.toCharArray()) {
-                    listTranspo.set(i, listTranspo.get(i) + c);
+                    listTransposed.set(i, listTransposed.get(i) + c);
                     i++;
                 }
             }
 
-            int count = getVisibleTree(list, listTranspo);
+            int count = getVisibleTree(list, listTransposed);
             Printer.println("Solution 1 : " + count);
 
             Printer.println("Solution 2 : " + maxVisibility);
@@ -35,14 +35,14 @@ public class AOCRunner implements AOC {
         }
     }
 
-    private int getVisibleTree(List<String> list, List<String> listTranspo) {
+    private int getVisibleTree(List<String> list, List<String> listTransposed) {
         int count = (list.get(0).length() - 1) * 4;
         for (int i = 1; i < list.size() - 1; i++) {
             String item = list.get(i);
             for (int j = 1; j < item.length() - 1; j++) {
                 char currentTree = item.charAt(j);
-                String treesNorth = listTranspo.get(j).substring(0, i);
-                String treesSouth = listTranspo.get(j).substring(i + 1);
+                String treesNorth = listTransposed.get(j).substring(0, i);
+                String treesSouth = listTransposed.get(j).substring(i + 1);
                 String treesEast = item.substring(0, j);
                 String treesWest = item.substring(j + 1);
 

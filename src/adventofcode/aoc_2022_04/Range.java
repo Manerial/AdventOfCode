@@ -1,8 +1,8 @@
 package adventofcode.aoc_2022_04;
 
 public class Range {
-	private Integer borneMin;
-	private Integer borneMax;
+	private final Integer borneMin;
+	private final Integer borneMax;
 
 	public Range(Integer a, Integer b) {
 		borneMin = (a > b) ? b : a;

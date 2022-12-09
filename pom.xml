@@ -6,7 +6,7 @@
 	<artifactId>AdventOfCode</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<lombok-version>1.18.22</lombok-version>
+		<lombok-version>1.18.24</lombok-version>
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->

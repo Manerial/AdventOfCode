@@ -3,7 +3,7 @@ package adventofcode.aoc_2022_09;
 import java.util.*;
 
 public class GridOfMoves {
-    List<Position> knotPositions = new ArrayList<>();
+    final List<Position> knotPositions = new ArrayList<>();
     private final Map<Integer, List<Integer>> gridQueue = new TreeMap<>();
 
     GridOfMoves(int ropeSize) {
