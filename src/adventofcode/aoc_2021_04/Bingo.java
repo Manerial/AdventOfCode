@@ -21,8 +21,8 @@ public class Bingo {
 
     public void play(String play) {
         for (Map<String, Boolean> line : grid) {
+            line.computeIfPresent(play, (s, aBoolean) -> true);
             if (line.containsKey(play)) {
-                line.put(play, true);
                 win = hasWin(line, play);
                 if(win) {
                     winPlay = play;
@@ -48,7 +48,7 @@ public class Bingo {
         List<String> content = new ArrayList<>();
         grid.forEach(stringBooleanMap ->
                 stringBooleanMap.forEach((s, aBoolean) -> {
-                    if (check == aBoolean) {
+                    if (check == Boolean.TRUE.equals(aBoolean)) {
                         content.add(s);
                     }
                 })

@@ -51,7 +51,7 @@ public class AOCRunner implements AOC {
     }
 
     private void printGrid(Bingo bingo) {
-        int sum = bingo.getGridContentByCheck(false).stream().map(Integer::parseInt).reduce(Integer::sum).get();
+        int sum = bingo.getGridContentByCheck(false).stream().map(Integer::parseInt).reduce(Integer::sum).orElse(0);
         Printer.println(sum * Integer.parseInt(bingo.getWinPlay()));
     }
 

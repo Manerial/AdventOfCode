@@ -12,7 +12,7 @@ public class GridOfMoves {
         }
     }
 
-    public boolean move(String direction, int move) {
+    public void move(String direction, int move) {
         int copyX = knotPositions.get(0).getX();
         int copyY = knotPositions.get(0).getY();
         switch (direction) {
@@ -43,7 +43,6 @@ public class GridOfMoves {
             default:
                 break;
         }
-        return false;
     }
 
     private void play() {
@@ -96,17 +95,16 @@ public class GridOfMoves {
         }
     }
 
-    private int checkDiagY(int deltaY, Position knot) {
+    private void checkDiagY(int deltaY, Position knot) {
         if (deltaY == 1) {
             knot.incY();
         } else if (deltaY == -1) {
             knot.decY();
         }
-        return 0;
     }
 
     public int countQueue() {
-        return gridQueue.values().stream().map(List::size).reduce(Integer::sum).get();
+        return gridQueue.values().stream().map(List::size).reduce(Integer::sum).orElse(0);
     }
 
     @Override
