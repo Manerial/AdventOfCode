@@ -11,7 +11,7 @@ public class AOCFactory {
     public static AOC getAOC(int year, int day) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         String z = (day < 10) ? "0" : "";
         String subPackageName = "aoc_" + year + "_" + z + day + ".";
-        String className = "AOC_" + year + "_" + z + day;
+        String className = "AOCRunner";
         String packageName = "adventofcode.";
         String factoredClassName = packageName + subPackageName + className;
         Class<?> classRef = Class.forName(factoredClassName);

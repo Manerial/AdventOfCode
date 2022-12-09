@@ -7,7 +7,7 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
-public class AOC_2022_04 implements AOC {
+public class AOCRunner implements AOC {
 
     @Override
     public void run(String file) {

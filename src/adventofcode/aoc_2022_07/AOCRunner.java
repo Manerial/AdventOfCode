@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AOC_2022_07 implements AOC {
-    private Directory mainDirectory = new Directory("/");
+public class AOCRunner implements AOC {
+    private final Directory mainDirectory = new Directory("/");
     private Directory currentDirectory;
     private Directory parentDirectory;
     private int minSizeThatMatch;

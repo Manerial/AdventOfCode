@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AOC_2022_05 implements AOC {
+public class AOCRunner implements AOC {
 
 	@Override
 	public void run(String file) {
@@ -36,7 +36,7 @@ public class AOC_2022_05 implements AOC {
 	 * @return a new list containing values as CA, DB, E
 	 */
 	private List<String> parsePile(List<String> list) {
-		Pattern pattern = Pattern.compile("\\[(.)\\]");
+		Pattern pattern = Pattern.compile("\\[(.)]");
 		String splitIn4 = "(?<=\\G.{4})";
 		int numberOfPiles = list.get(0).split(splitIn4).length;
 		List<String> pile = new ArrayList<>();
@@ -74,7 +74,7 @@ public class AOC_2022_05 implements AOC {
 
 		String pileFrom = pile.get(from);
 		String pileTo = pile.get(to);
-		String toMove = pileFrom.substring(pileFrom.length() - number, pileFrom.length());
+		String toMove = pileFrom.substring(pileFrom.length() - number);
 		if (!stack) {
 			toMove = reverseString(toMove); // Move 1 by 1 = reverse the string
 		}

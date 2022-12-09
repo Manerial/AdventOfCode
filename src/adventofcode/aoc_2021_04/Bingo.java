@@ -1,10 +1,15 @@
 package adventofcode.aoc_2021_04;
 
+import lombok.Getter;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Getter
 public class Bingo {
     private final List<Map<String, Boolean>> grid = new ArrayList<>();
+    private boolean win = false;
+    private String winPlay = "";
 
     public Bingo(List<String> lines) {
         for (String line : lines) {
@@ -14,17 +19,19 @@ public class Bingo {
         }
     }
 
-    public boolean playHasWin(String play) {
+    public void play(String play) {
         for (Map<String, Boolean> line : grid) {
             if (line.containsKey(play)) {
                 line.put(play, true);
-                return hasWin(line, play);
+                win = hasWin(line, play);
+                if(win) {
+                    winPlay = play;
+                }
             }
         }
-        return false;
     }
 
-    public boolean hasWin(Map<String, Boolean> line, String play) {
+    private boolean hasWin(Map<String, Boolean> line, String play) {
         if (!line.containsValue(false)) {
             return true;
         } else {

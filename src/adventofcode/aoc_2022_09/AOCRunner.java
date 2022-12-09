@@ -7,8 +7,9 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
-public class AOC_2022_09 implements AOC {
-    private GridOfMoves grid = new GridOfMoves(10);
+public class AOCRunner implements AOC {
+    private final GridOfMoves grid2 = new GridOfMoves(2);
+    private final GridOfMoves grid10 = new GridOfMoves(10);
     @Override
     public void run(String file) {
         try {
@@ -17,9 +18,11 @@ public class AOC_2022_09 implements AOC {
                 String direction = item.split(" ")[0];
                 int move = Integer.parseInt(item.split(" ")[1]);
 
-                grid.move(direction, move);
+                grid2.move(direction, move);
+                grid10.move(direction, move);
             }
-            Printer.println(grid.countQueue());
+            Printer.println("Solution 1 : " + grid2.countQueue());
+            Printer.println("Solution 2 : " + grid10.countQueue());
         } catch (IOException e) {
             e.printStackTrace();
         }

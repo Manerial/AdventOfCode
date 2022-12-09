@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AOC_2022_01 implements AOC {
+public class AOCRunner implements AOC {
     private Integer currentCarry = 0;
 
     @Override

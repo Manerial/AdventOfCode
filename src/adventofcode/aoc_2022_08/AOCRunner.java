@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AOC_2022_08 implements AOC {
+public class AOCRunner implements AOC {
     private int maxVisibility = 0;
 
     @Override
@@ -17,7 +17,7 @@ public class AOC_2022_08 implements AOC {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             List<String> listTranspo = new ArrayList<>(list);
-            listTranspo = listTranspo.stream().map(e -> e = "").collect(Collectors.toList());
+            listTranspo = listTranspo.stream().map(e -> "").collect(Collectors.toList());
             for (String item : list) {
                 int i = 0;
                 for (char c : item.toCharArray()) {

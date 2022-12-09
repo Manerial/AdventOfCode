@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AOC_2022_03 implements AOC {
+public class AOCRunner implements AOC {
     private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private List<String> stringList;
 
@@ -30,7 +30,7 @@ public class AOC_2022_03 implements AOC {
 		// Initialization of the variables
 		int score = 0;
 		int incr = 0;
-		char item = 0;
+		char item;
 		stringList = new ArrayList<>();
 		for(String line : list) {
 			if(sameLine) {				
@@ -53,7 +53,7 @@ public class AOC_2022_03 implements AOC {
 	 * </pre>
 	 * @param string : The string to compare with the two others
 	 * @param incr : The number of the line we are parsing
-	 * @return
+	 * @return The common char between 3 lines
 	 */
 	private char getCommonItem3Lines(String string, int incr) {
 		stringList.add(string);
@@ -67,7 +67,7 @@ public class AOC_2022_03 implements AOC {
 	 * Return the common char in a string split in two
 	 * </pre>
 	 * @param string : The string to parse
-	 * @return
+	 * @return The common char in a string split in two
 	 */
 	private char getCommonItemSameLine(String string) {
 		stringList.add(string.substring(0, string.length()/2));
@@ -78,7 +78,7 @@ public class AOC_2022_03 implements AOC {
 	/**<pre>
 	 * Return the common char between any number of lines
 	 * </pre>
-	 * @return
+	 * @return the common char
 	 */
 	private char getCommonItem() {
 		String firstString = stringList.remove(0);

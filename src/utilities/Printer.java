@@ -16,8 +16,4 @@ public class Printer {
     public static void println() {
         System.out.println();
     }
-
-    public static void printerr(String message) {
-        System.err.println(message);
-    }
 }

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AOC_2021_02 implements AOC {
+public class AOCRunner implements AOC {
     private static final String UP = "up";
     private static final String DOWN = "down";
     private static final String FORWARD = "forward";

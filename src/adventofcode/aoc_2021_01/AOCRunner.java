@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AOC_2021_01 implements AOC {
+public class AOCRunner implements AOC {
 
     @Override
     public void run(String file) {

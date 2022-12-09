@@ -7,7 +7,7 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
-public class AOC_2022_02 implements AOC {
+public class AOCRunner implements AOC {
     private static final int VICT_POINT = 6;
     private static final int DRAW_POINT = 3;
     private static final int DEFT_POINT = 0;
