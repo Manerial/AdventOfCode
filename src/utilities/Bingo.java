@@ -1,4 +1,4 @@
-package adventofcode.aoc_2021_04;
+package utilities;
 
 import lombok.Getter;
 

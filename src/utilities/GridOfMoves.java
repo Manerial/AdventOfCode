@@ -1,4 +1,4 @@
-package adventofcode.aoc_2022_09;
+package utilities;
 
 import java.util.*;
 
@@ -6,9 +6,9 @@ public class GridOfMoves {
     final List<Position> knotPositions = new ArrayList<>();
     private final Map<Integer, List<Integer>> gridQueue = new TreeMap<>();
 
-    GridOfMoves(int ropeSize) {
+    public GridOfMoves(int ropeSize) {
         for (int i = 0; i < ropeSize; i++) {
-            knotPositions.add(new Position());
+            knotPositions.add(new Position(0, 0));
         }
     }
 

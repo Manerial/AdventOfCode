@@ -1,4 +1,7 @@
-package adventofcode.aoc_2022_04;
+package utilities;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Range {
 	private final Integer borneMin;
@@ -21,5 +24,13 @@ public class Range {
 	@Override
 	public String toString() {
 		return "[" + borneMin + ".." + borneMax + "]";
+	}
+
+	public static List<Integer> toList(int a, int b) {
+		List<Integer> list = new ArrayList<>();
+		for(int i = a; i <= b; i++) {
+			list.add(i);
+		}
+		return list;
 	}
 }

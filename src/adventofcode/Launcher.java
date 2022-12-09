@@ -6,7 +6,7 @@ import utilities.Printer;
 
 public class Launcher {
     private static final int YEAR = 2021;
-    private static final int DAY = 4;
+    private static final int DAY = 5;
     public static void main(String[] args) {
         try {
             AOC aoc = AOCFactory.getAOC(YEAR, DAY);

@@ -1,4 +1,4 @@
-package adventofcode.aoc_2022_07;
+package utilities;
 
 import lombok.Data;
 
