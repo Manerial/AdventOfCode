@@ -28,8 +28,14 @@ public class Range {
 
 	public static List<Integer> toList(int a, int b) {
 		List<Integer> list = new ArrayList<>();
-		for(int i = a; i <= b; i++) {
-			list.add(i);
+		if(a < b) {
+			for(int i = a; i <= b; i++) {
+				list.add(i);
+			}
+		} else if(a > b) {
+			for(int i = a; i >= b; i--) {
+				list.add(i);
+			}
 		}
 		return list;
 	}

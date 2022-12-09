@@ -33,23 +33,16 @@ public class Position {
 
     public static List<Position> interval(Position p1, Position p2) {
         List<Position> positions = new ArrayList<>();
+        List<Integer> rangeX = Range.toList(p1.x, p2.x);
+        List<Integer> rangeY = Range.toList(p1.y, p2.y);
         if (isLine(p1, p2)) {
-            int xMin = Integer.min(p1.x, p2.x);
-            int xMax = Integer.max(p1.x, p2.x);
-            int yMin = Integer.min(p1.y, p2.y);
-            int yMax = Integer.max(p1.y, p2.y);
-            if (xMin != xMax) {
-                for (; xMin <= xMax; xMin++) {
-                    positions.add(new Position(xMin, p1.y));
-                }
-            } else {
-                for (; yMin <= yMax; yMin++) {
-                    positions.add(new Position(p1.x, yMin));
-                }
-            }
+            rangeX.forEach(x -> positions.add(new Position(x, p1.y)));
+            rangeY.forEach(y -> positions.add(new Position(p1.x, y)));
         } else if (isDiagonal(p1, p2)) {
-
-
+            for (int i = 0; i < rangeX.size(); i++) {
+                Position position = new Position(rangeX.get(i), rangeY.get(i));
+                positions.add(position);
+            }
         }
         return positions;
     }
