@@ -1,16 +1,16 @@
 package adventofcode.aoc_2022_05;
 
+import template.AOC;
+import utilities.FileLoader;
+import utilities.Printer;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import template.AOC;
-import utilities.FileLoader;
-import utilities.Printer;
-
-public class AOC_2022_05 extends AOC {
+public class AOC_2022_05 implements AOC {
 
 	@Override
 	public void run(String file) {

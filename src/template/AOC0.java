@@ -6,7 +6,7 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
-public class AOC0 extends AOC {
+public class AOC0 implements AOC {
     @Override
     public void run(String file) {
         try {

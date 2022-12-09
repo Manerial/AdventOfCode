@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AOC_2022_08 extends AOC {
+public class AOC_2022_08 implements AOC {
     private int maxVisibility = 0;
 
     @Override
@@ -64,7 +64,10 @@ public class AOC_2022_08 extends AOC {
     }
 
     private int getTotalVisibility(char currentTree, String treesNorth, String treesSouth, String treesEast, String treesWest) {
-        int visibilityNorth, visibilitySouth, visibilityEast, visibilityWest;
+        int visibilityNorth;
+        int visibilitySouth;
+        int visibilityEast;
+        int visibilityWest;
         StringBuilder stringBuilder = new StringBuilder();
         treesNorth = stringBuilder.append(treesNorth).reverse().toString();
         stringBuilder = new StringBuilder();

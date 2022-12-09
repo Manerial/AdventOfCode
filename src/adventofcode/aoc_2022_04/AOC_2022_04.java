@@ -1,13 +1,13 @@
 package adventofcode.aoc_2022_04;
 
-import java.io.IOException;
-import java.util.List;
-
 import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC_2022_04 extends AOC {
+import java.io.IOException;
+import java.util.List;
+
+public class AOC_2022_04 implements AOC {
 
     @Override
     public void run(String file) {

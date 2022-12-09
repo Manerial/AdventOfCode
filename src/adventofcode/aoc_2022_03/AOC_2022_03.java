@@ -1,14 +1,14 @@
 package adventofcode.aoc_2022_03;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC_2022_03 extends AOC {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AOC_2022_03 implements AOC {
     private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private List<String> stringList;
 
@@ -72,8 +72,7 @@ public class AOC_2022_03 extends AOC {
 	private char getCommonItemSameLine(String string) {
 		stringList.add(string.substring(0, string.length()/2));
 		stringList.add(string.substring(string.length()/2));
-		char item = getCommonItem();
-		return item;
+		return getCommonItem();
 	}
 
 	/**<pre>

@@ -2,23 +2,19 @@ package utilities;
 
 import template.AOC;
 
-public class AOCFactory {
-    private static String packageName = "adventofcode.";
+import java.lang.reflect.InvocationTargetException;
 
-    public static AOC getAOC(int year, int day) {
-        try {
-            String z = (day < 10) ? "0" : "";
-            String subPackageName = "aoc_" + year + "_" + z + day + ".";
-            String className = "AOC_" + year + "_" + z + day;
-            String factoredClassName = packageName + subPackageName + className;
-            Class classRef = Class.forName(factoredClassName);
-            return (AOC) classRef.newInstance();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+public class AOCFactory {
+    private AOCFactory() {
+    }
+
+    public static AOC getAOC(int year, int day) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        String z = (day < 10) ? "0" : "";
+        String subPackageName = "aoc_" + year + "_" + z + day + ".";
+        String className = "AOC_" + year + "_" + z + day;
+        String packageName = "adventofcode.";
+        String factoredClassName = packageName + subPackageName + className;
+        Class<?> classRef = Class.forName(factoredClassName);
+        return (AOC) classRef.getDeclaredConstructor().newInstance();
     }
 }

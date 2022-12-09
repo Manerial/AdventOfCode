@@ -8,9 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class AOC_2021_03 extends AOC {
+public class AOC_2021_03 implements AOC {
     @Override
     public void run(String file) {
         try {
@@ -37,12 +36,12 @@ public class AOC_2021_03 extends AOC {
             String binaryO2Rate = extractBinaryCountFiltered(list, 0,  true);
             String binaryCO2Rate = extractBinaryCountFiltered(list, 0, false);
 
-            int CO2Rate = Integer.parseInt(binaryCO2Rate, 2);
-            int O2Rate = Integer.parseInt(binaryO2Rate, 2);
+            int co2Rate = Integer.parseInt(binaryCO2Rate, 2);
+            int o2Rate = Integer.parseInt(binaryO2Rate, 2);
 
             Printer.println(binaryO2Rate + " " + binaryCO2Rate);
 
-            Printer.println("Solution 2 : " + (O2Rate * CO2Rate));
+            Printer.println("Solution 2 : " + (o2Rate * co2Rate));
 
         } catch (IOException e) {
             e.printStackTrace();

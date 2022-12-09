@@ -1,15 +1,15 @@
 package adventofcode.aoc_2022_01;
 
+import template.AOC;
+import utilities.FileLoader;
+import utilities.Printer;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import template.AOC;
-import utilities.FileLoader;
-import utilities.Printer;
-
-public class AOC_2022_01 extends AOC {
+public class AOC_2022_01 implements AOC {
     private Integer currentCarry = 0;
 
     @Override

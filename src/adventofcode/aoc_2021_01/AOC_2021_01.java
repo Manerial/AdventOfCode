@@ -1,5 +1,6 @@
 package adventofcode.aoc_2021_01;
 
+import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
@@ -7,9 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import template.AOC;
-
-public class AOC_2021_01 extends AOC {
+public class AOC_2021_01 implements AOC {
 
     @Override
     public void run(String file) {

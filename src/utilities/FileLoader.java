@@ -1,16 +1,14 @@
 package utilities;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
 public class FileLoader {
     private static final String RESOURCE_PATH = System.getProperty("user.dir") + "\\resources\\";
+
+    private FileLoader() {
+    }
 
     /**
      * Read a file and return the content

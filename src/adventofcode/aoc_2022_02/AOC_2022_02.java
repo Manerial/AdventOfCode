@@ -1,13 +1,13 @@
 package adventofcode.aoc_2022_02;
 
-import java.io.IOException;
-import java.util.List;
-
 import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
 
-public class AOC_2022_02 extends AOC {
+import java.io.IOException;
+import java.util.List;
+
+public class AOC_2022_02 implements AOC {
     private static final int VICT_POINT = 6;
     private static final int DRAW_POINT = 3;
     private static final int DEFT_POINT = 0;
@@ -48,9 +48,11 @@ public class AOC_2022_02 extends AOC {
 		// Get the current play
         switch (item.split(" ")[1]) {
             case "C":
-                score += 1;
+                score += 3;
+                break;
             case "B":
-                score += 1;
+                score += 2;
+                break;
             case "A":
                 score += 1;
                 break;

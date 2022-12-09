@@ -1,12 +1,9 @@
 package adventofcode.aoc_2022_07;
 
-import lombok.*;
-import org.apache.commons.lang3.tuple.Pair;
+import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class Directory {

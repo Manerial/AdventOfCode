@@ -1,10 +1,6 @@
 package adventofcode.aoc_2022_07;
 
 import lombok.Data;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class File {
