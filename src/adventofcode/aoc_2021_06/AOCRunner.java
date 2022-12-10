@@ -6,11 +6,10 @@ import utilities.Printer;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class AOCRunner implements AOC {
-    private Map<Integer, Long> fishes = new HashMap<>();
-    private List<Long> newbornFishes = new ArrayList<>();
+    private final Map<Integer, Long> fishes = new HashMap<>();
+    private final List<Long> newbornFishes = new ArrayList<>();
 
     @Override
     public void run(String file) {
@@ -24,12 +23,12 @@ public class AOCRunner implements AOC {
                 for (int day = 0; day < days1; day++) {
                     live(day);
                 }
-                Printer.println("Solution 1 : " + fishes.values().stream().reduce(Long::sum).orElse(0l));
+                Printer.println("Solution 1 : " + fishes.values().stream().reduce(Long::sum).orElse(0L));
 
                 for (int day = days1; day < days2; day++) {
                     live(day);
                 }
-                Printer.println("Solution 2 : " + fishes.values().stream().reduce(Long::sum).orElse(0l));
+                Printer.println("Solution 2 : " + fishes.values().stream().reduce(Long::sum).orElse(0L));
             }
         } catch (IOException e) {
             e.printStackTrace();
