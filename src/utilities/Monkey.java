@@ -7,24 +7,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-public class Monkey implements Comparable<Monkey>{
+public class Monkey implements Comparable<Monkey> {
     private List<Long> items = new ArrayList<>();
-    private Integer testDivide;
+    private Integer testDivisorBeforeLaunch;
     private Integer monkeyNumberTrue;
     private Integer monkeyNumberFalse;
-    private String stressOperation;
+    private String stressOperator;
     private String stressFactor;
     private Long inspections = 0L;
 
-    public Monkey copy() {
-        Monkey monkey = new Monkey();
-        monkey.items = new ArrayList<>(this.items);
-        monkey.testDivide = this.testDivide;
-        monkey.monkeyNumberTrue = this.monkeyNumberTrue;
-        monkey.monkeyNumberFalse = this.monkeyNumberFalse;
-        monkey.stressOperation = this.stressOperation;
-        monkey.stressFactor = this.stressFactor;
-        return monkey;
+    public Monkey() {
+    }
+
+    public Monkey(Monkey monkey) {
+        this.items = new ArrayList<>(monkey.items);
+        this.testDivisorBeforeLaunch = monkey.testDivisorBeforeLaunch;
+        this.monkeyNumberTrue = monkey.monkeyNumberTrue;
+        this.monkeyNumberFalse = monkey.monkeyNumberFalse;
+        this.stressOperator = monkey.stressOperator;
+        this.stressFactor = monkey.stressFactor;
     }
 
     private void addItem(long item) {
@@ -37,7 +38,7 @@ public class Monkey implements Comparable<Monkey>{
     }
 
     private long stressItem(long item) {
-        if (stressOperation.equals("*")) {
+        if (stressOperator.equals("*")) {
             return item * getStressFactorI(item);
         } else {
             return item + getStressFactorI(item);
@@ -52,18 +53,26 @@ public class Monkey implements Comparable<Monkey>{
         }
     }
 
-    public void unstressItems() {
+    public void releaseStress() {
         items = items.stream().map(item -> item / 3).collect(Collectors.toList());
     }
 
-    public void passItem(List<Monkey> monkeys, int sumOfModulos) {
+    /**
+     * Give all the items to another monkey from a list.
+     * Test the item to know the monkey to throw it.
+     * To avoid too big numbers, we apply a modulo.
+     *
+     * @param monkeys : the list of monkey to use to throw the item
+     * @param modulo  : The modulo to use to avoid too big numbers
+     */
+    public void passItem(List<Monkey> monkeys, int modulo) {
         Monkey monkeyTrue = monkeys.get(monkeyNumberTrue);
         Monkey monkeyFalse = monkeys.get(monkeyNumberFalse);
-        for(long item : items) {
-            if(item % testDivide == 0) {
-                monkeyTrue.addItem(item % sumOfModulos);
+        for (long item : items) {
+            if (item % testDivisorBeforeLaunch == 0) {
+                monkeyTrue.addItem(item % modulo);
             } else {
-                monkeyFalse.addItem(item % sumOfModulos);
+                monkeyFalse.addItem(item % modulo);
             }
         }
         items = new ArrayList<>();
