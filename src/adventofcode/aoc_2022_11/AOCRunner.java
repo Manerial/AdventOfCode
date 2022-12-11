@@ -63,7 +63,7 @@ public class AOCRunner implements AOC {
         String operande = item.trim().split(" ")[0];
         switch (operande) {
             case "Monkey":
-                addMonkey(item);
+                addMonkey();
                 break;
             case "Starting":
                 addStartings(item);
@@ -77,15 +77,13 @@ public class AOCRunner implements AOC {
             case "If":
                 addIfTest(item);
                 break;
-            case "":
-                break;
             default:
                 break;
         }
     }
 
     // Monkey 0:
-    private void addMonkey(String line) {
+    private void addMonkey() {
         Monkey monkey = new Monkey();
         monkeys.add(monkey);
     }
