@@ -1,6 +1,5 @@
 package utilities;
 
-import adventofcode.aoc_2022_04.Range;
 import lombok.Data;
 
 import java.util.ArrayList;
