@@ -1,4 +1,4 @@
-package utilities;
+package adventofcode.aoc_2022_04;
 
 import java.util.ArrayList;
 import java.util.List;

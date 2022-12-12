@@ -1,5 +1,6 @@
 package utilities;
 
+import adventofcode.aoc_2022_04.Range;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -60,5 +61,12 @@ public class Position {
 
     public static boolean isLine(Position position1, Position position2) {
         return position1.getX() == position2.getX() || position1.getY() == position2.getY();
+    }
+
+    public Position max(Position position) {
+        if(this.x * this.y < position.x * position.y) {
+            return position;
+        }
+        return this;
     }
 }

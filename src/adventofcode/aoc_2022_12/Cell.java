@@ -1,6 +1,7 @@
-package utilities;
+package adventofcode.aoc_2022_12;
 
 import lombok.Data;
+import utilities.Position;
 
 @Data
 public class Cell {

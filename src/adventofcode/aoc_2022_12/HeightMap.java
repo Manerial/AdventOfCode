@@ -1,6 +1,7 @@
-package utilities;
+package adventofcode.aoc_2022_12;
 
 import lombok.Data;
+import utilities.Position;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,13 +11,9 @@ import java.util.stream.Collectors;
 @Data
 public class HeightMap {
     private final Map<Position, Cell> grid = new HashMap<>();
-    private int maxX = 0;
-    private int maxY = 0;
     private boolean isFromStart = true;
 
     public void addCell(Position position, Cell cell) {
-        maxX = Integer.max(maxX, position.getX());
-        maxY = Integer.max(maxY, position.getY());
         grid.put(position, cell);
     }
 
@@ -108,9 +105,10 @@ public class HeightMap {
 
     @Override
     public java.lang.String toString() {
+        Position maxPosition = grid.keySet().stream().reduce(Position::max).orElse(new Position(0, 0));
         StringBuilder stringBuilder = new StringBuilder();
-        for (int y = 0; y <= maxY; y++) {
-            for (int x = 0; x <= maxX; x++) {
+        for (int y = 0; y <= maxPosition.getY(); y++) {
+            for (int x = 0; x <= maxPosition.getX(); x++) {
                 Position p = new Position(x, y);
                 Cell cell = grid.get(p);
                 stringBuilder.append("\t").append(cell.getDistance(isFromStart));

@@ -1,8 +1,6 @@
 package adventofcode.aoc_2022_07;
 
 import template.AOC;
-import utilities.Directory;
-import utilities.File;
 import utilities.FileLoader;
 import utilities.Printer;
 

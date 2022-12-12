@@ -1,4 +1,6 @@
-package utilities;
+package adventofcode.aoc_2022_09;
+
+import utilities.Position;
 
 import java.util.*;
 

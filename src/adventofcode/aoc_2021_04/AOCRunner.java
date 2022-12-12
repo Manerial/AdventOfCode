@@ -1,7 +1,6 @@
 package adventofcode.aoc_2021_04;
 
 import template.AOC;
-import utilities.Bingo;
 import utilities.FileLoader;
 import utilities.Printer;
 

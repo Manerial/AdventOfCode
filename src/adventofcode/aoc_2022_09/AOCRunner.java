@@ -2,7 +2,6 @@ package adventofcode.aoc_2022_09;
 
 import template.AOC;
 import utilities.FileLoader;
-import utilities.GridOfMoves;
 import utilities.Printer;
 
 import java.io.IOException;

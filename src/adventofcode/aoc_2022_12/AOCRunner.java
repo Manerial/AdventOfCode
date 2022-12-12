@@ -16,6 +16,9 @@ public class AOCRunner implements AOC {
             List<String> list = FileLoader.readListFromFile(file);
             Cell lastCell = initiateGridGetLastCell(list);
             grid.calculateGridFromStartAndEnd();
+            Printer.println(grid);
+            grid.setFromStart(true);
+            Printer.println(grid);
             Printer.println("Solution 1 :" + ((lastCell != null) ? lastCell.getDistanceFromStart() : -1));
 
             int minDistanceFromEnd = grid.getGrid().values().stream()
