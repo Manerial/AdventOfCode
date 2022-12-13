@@ -9,7 +9,7 @@ import utilities.Printer;
  */
 public class Launcher {
     private static final int YEAR = 2015;
-    private static final int DAY = 1;
+    private static final int DAY = 2;
     public static void main(String[] args) {
         try {
             AOC aoc = AOCFactory.getAOC(YEAR, DAY);
