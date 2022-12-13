@@ -1,11 +1,10 @@
 package adventofcode.aoc2022.day13;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.json.JSONArray;
 import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
-import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -8,7 +8,7 @@ import utilities.Printer;
  * Join AdventOfCode <a href="https://adventofcode.com">here</a>
  */
 public class Launcher {
-    private static final int YEAR = 2022;
+    private static final int YEAR = 2015;
     private static final int DAY = 1;
     public static void main(String[] args) {
         try {

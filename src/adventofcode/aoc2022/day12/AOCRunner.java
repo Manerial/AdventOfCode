@@ -1,7 +1,9 @@
 package adventofcode.aoc2022.day12;
 
 import template.AOC;
-import utilities.*;
+import utilities.FileLoader;
+import utilities.Position;
+import utilities.Printer;
 
 import java.io.IOException;
 import java.util.List;
