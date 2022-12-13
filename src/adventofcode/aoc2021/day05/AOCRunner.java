@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * AdventOfCode 2021 day 5's instructions are <a href="https://adventofcode.com/2021/day/5">here</a>
+ */
 public class AOCRunner implements AOC {
     private final Map<Position, Integer> gridLines = new HashMap<>();
     private final Map<Position, Integer> gridLinesAndDiagonals = new HashMap<>();

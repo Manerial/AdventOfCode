@@ -7,6 +7,9 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * AdventOfCode 2022 day 9's instructions are <a href="https://adventofcode.com/2022/day/9">here</a>
+ */
 public class AOCRunner implements AOC {
     private final GridOfMoves grid2 = new GridOfMoves(2);
     private final GridOfMoves grid10 = new GridOfMoves(10);

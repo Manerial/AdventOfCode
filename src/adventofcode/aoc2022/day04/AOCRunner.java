@@ -8,6 +8,9 @@ import utilities.Range;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * AdventOfCode 2022 day 4's instructions are <a href="https://adventofcode.com/2022/day/4">here</a>
+ */
 public class AOCRunner implements AOC {
 
     @Override

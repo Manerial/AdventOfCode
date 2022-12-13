@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * AdventOfCode 2022 day 3's instructions are <a href="https://adventofcode.com/2022/day/3">here</a>
+ */
 public class AOCRunner implements AOC {
     private static final String ALPHABET_ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private List<String> stringList;

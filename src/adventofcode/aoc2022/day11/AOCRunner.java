@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * AdventOfCode 2022 day 11's instructions are <a href="https://adventofcode.com/2022/day/11">here</a>
+ */
 public class AOCRunner implements AOC {
     private final List<Monkey> monkeys = new ArrayList<>();
     private final List<Monkey> monkeys2 = new ArrayList<>();

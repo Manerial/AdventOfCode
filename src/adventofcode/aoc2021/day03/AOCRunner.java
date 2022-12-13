@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * AdventOfCode 2021 day 3's instructions are <a href="https://adventofcode.com/2021/day/3">here</a>
+ */
 public class AOCRunner implements AOC {
     @Override
     public void run(String file) {

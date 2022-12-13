@@ -11,6 +11,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * AdventOfCode 2021 day 4's instructions are <a href="https://adventofcode.com/2021/day/4">here</a>
+ */
 public class AOCRunner implements AOC {
     private final List<Bingo> grids = new ArrayList<>();
 

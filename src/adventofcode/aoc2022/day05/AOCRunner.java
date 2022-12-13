@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * AdventOfCode 2022 day 5's instructions are <a href="https://adventofcode.com/2022/day/5">here</a>
+ */
 public class AOCRunner implements AOC {
 
 	@Override

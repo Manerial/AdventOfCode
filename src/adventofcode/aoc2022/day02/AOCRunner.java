@@ -7,6 +7,9 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * AdventOfCode 2022 day 2's instructions are <a href="https://adventofcode.com/2022/day/2">here</a>
+ */
 public class AOCRunner implements AOC {
     private static final int VICTORY_POINT = 6;
     private static final int DRAW_POINT = 3;

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * AdventOfCode 2022 day 13's instructions are <a href="https://adventofcode.com/2022/day/13">here</a>
+ */
 public class AOCRunner implements AOC {
     private final List<ImmutablePair<JSONArray, JSONArray>> pairPackets = new ArrayList<>();
 

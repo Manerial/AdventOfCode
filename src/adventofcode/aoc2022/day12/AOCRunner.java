@@ -6,6 +6,9 @@ import utilities.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * AdventOfCode 2022 day 12's instructions are <a href="https://adventofcode.com/2022/day/12">here</a>
+ */
 public class AOCRunner implements AOC {
 
     private final HeightMap grid = new HeightMap();

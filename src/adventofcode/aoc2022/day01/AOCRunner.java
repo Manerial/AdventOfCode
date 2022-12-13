@@ -5,48 +5,44 @@ import utilities.FileLoader;
 import utilities.Printer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+/**
+ * AdventOfCode 2022 day 1's instructions are <a href="https://adventofcode.com/2022/day/1">here</a>
+ */
 public class AOCRunner implements AOC {
-    private Integer currentCarry = 0;
+    private List<Integer> backpacks = new ArrayList<>();
 
     @Override
     public void run(String file) {
         try {
-			// Read inputs
             List<String> list = FileLoader.readListFromFile(file);
-			// Create a list to sort
-            List<Integer> treeList = new ArrayList<>();
-            for (String item : list) {
-                getCurrentCarry(treeList, item);
-            }
-            Collections.sort(treeList);
-            // Solution 1 : The most
-            Printer.println("Solution 1 : " + treeList.get(treeList.size() - 1));
-
-            // Solution 2 : Top 3
-            Printer.println("Solution 2 : " + (
-                    treeList.get(treeList.size() - 1)
-                            + treeList.get(treeList.size() - 2)
-                            + treeList.get(treeList.size() - 3)
-            ));
+            createBackPacks(list);
+            Collections.sort(backpacks);
+            int most = backpacks.get(backpacks.size() - 1);
+            int threeMost = backpacks.subList(backpacks.size() - 3, backpacks.size())
+                    .stream()
+                    .reduce(Integer::sum)
+                    .orElse(0);
+            Printer.println("Solution 1 : " + most);
+            Printer.println("Solution 2 : " + threeMost);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void getCurrentCarry(List<Integer> treeList, String item) {
-        try {
-			// For each line, we convert into int and sum up with the previous one
-            int carry = Integer.parseInt(item);
-            currentCarry += carry;
-        } catch (NumberFormatException e) {
-			// If error, we are on a new item
-			// We save anf go next item
-            treeList.add(currentCarry);
-            currentCarry = 0;
-        }
+    private void createBackPacks(List<String> list) {
+        String[] backpackStr = String.join("\r\n", list)
+                .split("\r\n\r\n");
+
+        backpacks = Stream.of(backpackStr)
+                .map(fruit -> Stream.of(fruit.split("\r\n"))
+                        .map(Integer::parseInt)
+                        .reduce(Integer::sum)
+                        .orElse(0)
+                )
+                .collect(Collectors.toList());
     }
 }

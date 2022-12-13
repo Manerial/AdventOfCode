@@ -7,6 +7,9 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * AdventOfCode 2022 day 6's instructions are <a href="https://adventofcode.com/2022/day/6">here</a>
+ */
 public class AOCRunner implements AOC {
 
     @Override

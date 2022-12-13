@@ -7,6 +7,9 @@ import utilities.Printer;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * AdventOfCode 2021 day 6's instructions are <a href="https://adventofcode.com/2021/day/6">here</a>
+ */
 public class AOCRunner implements AOC {
     private final Map<Integer, Long> fishes = new HashMap<>();
     private final List<Long> newbornFishes = new ArrayList<>();
