@@ -26,6 +26,7 @@ public class Monkey implements Comparable<Monkey> {
         this.monkeyNumberFalse = monkey.monkeyNumberFalse;
         this.stressOperator = monkey.stressOperator;
         this.stressFactor = monkey.stressFactor;
+        this.inspections = monkey.inspections;
     }
 
     private void addItem(long item) {
