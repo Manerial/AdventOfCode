@@ -13,7 +13,7 @@ public class AOCRunner implements AOC {
     private final List<Monkey> monkeys = new ArrayList<>();
     private final List<Monkey> monkeys2 = new ArrayList<>();
 
-    private int sumOfModulos;
+    private int sumOfModules;
 
     @Override
     public void run(String file) {
@@ -25,7 +25,7 @@ public class AOCRunner implements AOC {
             // This is the trickiest part to comprehend :D
             // We can manage a simple long as item using the multiplication of all the dividers factors.
             // This will be used as a modulo before sending item to another monkey
-            sumOfModulos = monkeys.stream().map(Monkey::getTestDivisorBeforeLaunch).reduce((a, b) -> a * b).orElse(0);
+            sumOfModules = monkeys.stream().map(Monkey::getTestDivisorBeforeLaunch).reduce((a, b) -> a * b).orElse(0);
             // copy all the monkeys to another list to avoid a new parsing of our input
             monkeys.forEach(monkey -> monkeys2.add(new Monkey(monkey)));
             playRounds(20);
@@ -48,7 +48,7 @@ public class AOCRunner implements AOC {
             for (Monkey monkey : monkeys) {
                 monkey.stressItems();
                 monkey.releaseStress();
-                monkey.passItem(monkeys, sumOfModulos);
+                monkey.passItem(monkeys, sumOfModules);
             }
         }
     }
@@ -57,7 +57,7 @@ public class AOCRunner implements AOC {
         for (int round = 1; round <= rounds; round++) {
             for (Monkey monkey : monkeys2) {
                 monkey.stressItems();
-                monkey.passItem(monkeys2, sumOfModulos);
+                monkey.passItem(monkeys2, sumOfModules);
             }
         }
     }
