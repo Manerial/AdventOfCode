@@ -76,14 +76,11 @@ public class Cavern {
 
         if (reachAbyss(bottom)) {
             return null;
-        }
-        if (containsAir(bottom)) {
+        } else if (containsAir(bottom)) {
             return bottom;
-        }
-        if (containsAir(bottomLeft)) {
+        } else if (containsAir(bottomLeft)) {
             return bottomLeft;
-        }
-        if (containsAir(bottomRight)) {
+        } else if (containsAir(bottomRight)) {
             return bottomRight;
         }
         return position;
