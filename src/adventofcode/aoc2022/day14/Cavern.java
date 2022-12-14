@@ -10,26 +10,26 @@ public class Cavern {
     private final Map<Position, Block> grid = new HashMap<>();
     @Setter
     private Position dropPosition;
-    private final Position topLeft;
-    private final Position bottomRight;
+    private final Position positionMin;
+    private final Position positionMax;
 
 
     public Cavern(int deep) {
-        topLeft = new Position(0, 0);
-        bottomRight = new Position(1000, deep + 2);
+        positionMin = new Position(0, 0);
+        positionMax = new Position(1000, deep + 2);
     }
 
     public void fillWithAir() {
-        for (int x = topLeft.getX(); x <= bottomRight.getX(); x++) {
-            for (int y = topLeft.getY(); y <= bottomRight.getY(); y++) {
+        for (int x = positionMin.getX(); x <= positionMax.getX(); x++) {
+            for (int y = positionMin.getY(); y <= positionMax.getY(); y++) {
                 grid.put(new Position(x, y), Block.AIR);
             }
         }
     }
 
     public void fillBottomWithRocks() {
-        Position bottomLeft = new Position(topLeft.getX(), bottomRight.getY());
-        addRocks(bottomLeft, bottomRight);
+        Position bottomLeft = new Position(positionMin.getX(), positionMax.getY());
+        addRocks(bottomLeft, positionMax);
     }
 
     public void addRocks(Position position1, Position position2) {
@@ -38,8 +38,8 @@ public class Cavern {
     }
 
     public void dropSandUntilAbyss() {
-        boolean reachAbyss = true;
-        while (reachAbyss) {
+        boolean reachAbyss = false;
+        while (!reachAbyss) {
             reachAbyss = dropSand();
         }
     }
@@ -51,44 +51,54 @@ public class Cavern {
     }
 
     public boolean dropSand() {
-        Position currentPosition = new Position(dropPosition);
-        Position nextPosition = getNextPosition(currentPosition);
+        Position currentPosition; // sand has not spawned yet
+        Position nextPosition = new Position(dropPosition);
 
-        while (nextPosition != null && !nextPosition.equals(currentPosition)) {
+        do {
             currentPosition = nextPosition;
             nextPosition = getNextPosition(currentPosition);
-        }
+        } while (nextPosition != null && !nextPosition.equals(currentPosition));
 
-        if (nextPosition == null) {
+        if (nextPosition == currentPosition) {
             grid.put(currentPosition, Block.SAND);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     private Position getNextPosition(Position position) {
-        Position p1 = new Position(position);
-        Position p2 = new Position(position);
-        Position p3 = new Position(position);
-        p1.incY();
-        p2.incY();
-        p3.incY();
-        p1.decX();
-        p3.incX();
-        if (grid.containsKey(p2) && grid.get(p2) == Block.AIR) {
-            return p2;
-        } else if (grid.containsKey(p1) && grid.get(p1) == Block.AIR) {
-            return p1;
-        } else if (grid.containsKey(p3) && grid.get(p3) == Block.AIR) {
-            return p3;
-        } else if(grid.containsKey(p1) || grid.containsKey(p2) || grid.containsKey(p3)) {
+        Position bottom = new Position(position);
+        bottom.incY();
+        Position bottomLeft = new Position(bottom);
+        Position bottomRight = new Position(bottom);
+        bottomLeft.decX();
+        bottomRight.incX();
+
+        if (reachAbyss(bottom)) {
             return null;
+        }
+        if (containsAir(bottom)) {
+            return bottom;
+        }
+        if (containsAir(bottomLeft)) {
+            return bottomLeft;
+        }
+        if (containsAir(bottomRight)) {
+            return bottomRight;
         }
         return position;
     }
 
+    private boolean reachAbyss(Position bottom) {
+        return !grid.containsKey(bottom);
+    }
+
+    private boolean containsAir(Position position) {
+        return grid.get(position) == Block.AIR;
+    }
+
     public long countSand() {
-       return grid.values().stream().filter(character -> character == Block.SAND).count();
+        return grid.values().stream().filter(character -> character == Block.SAND).count();
     }
 
     public boolean isFull() {
@@ -98,8 +108,8 @@ public class Cavern {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int y = topLeft.getY(); y <= bottomRight.getY(); y++) {
-            for (Position position : Position.interval(new Position(topLeft.getX(), y), new Position(bottomRight.getX(), y))) {
+        for (int y = positionMin.getY(); y <= positionMax.getY(); y++) {
+            for (Position position : Position.interval(new Position(positionMin.getX(), y), new Position(positionMax.getX(), y))) {
                 stringBuilder.append(grid.get(position));
             }
             stringBuilder.append("\r\n");
