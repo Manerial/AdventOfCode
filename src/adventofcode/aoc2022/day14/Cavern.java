@@ -1,53 +1,72 @@
 package adventofcode.aoc2022.day14;
 
+import lombok.Setter;
 import utilities.Position;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Cavern {
-    private final Map<Position, Character> grid = new HashMap<>();
-    private static final char ROCK = '#';
-    private static final char AIR = ' ';
-    private static final char SAND = 'O';
-    private Position positionMin;
-    private Position positionMax;
+    private final Map<Position, Block> grid = new HashMap<>();
+    @Setter
+    private Position dropPosition;
+    private final Position topLeft;
+    private final Position bottomRight;
 
-    public void fill(int minX, int minY, int maxX, int maxY) {
-        positionMin = new Position(minX, minY);
-        positionMax = new Position(maxX, maxY);
-        for (int x = minX; x <= maxX; x++) {
-            for (int y = minY; y <= maxY; y++) {
-                grid.put(new Position(x, y), AIR);
+
+    public Cavern(int deep) {
+        topLeft = new Position(0, 0);
+        bottomRight = new Position(1000, deep + 2);
+    }
+
+    public void fillWithAir() {
+        for (int x = topLeft.getX(); x <= bottomRight.getX(); x++) {
+            for (int y = topLeft.getY(); y <= bottomRight.getY(); y++) {
+                grid.put(new Position(x, y), Block.AIR);
             }
         }
     }
 
     public void fillBottomWithRocks() {
-        int y = positionMax.getY();
-        for (int x = positionMin.getX(); x <= positionMax.getX(); x++) {
-                grid.put(new Position(x, y), ROCK);
-        }
+        Position bottomLeft = new Position(topLeft.getX(), bottomRight.getY());
+        addRocks(bottomLeft, bottomRight);
     }
 
     public void addRocks(Position position1, Position position2) {
-        Position.interval(position1, position2).forEach(position -> grid.put(position, ROCK));
+        Position.interval(position1, position2)
+                .forEach(position -> grid.replace(position, Block.ROCK));
     }
 
-    public boolean dropSand(Position position) {
-        Position nextPosition = getNext(position);
-        while (nextPosition != null && !nextPosition.equals(position)) {
-            position = nextPosition;
-            nextPosition = getNext(position);
+    public void dropSandUntilAbyss() {
+        boolean reachAbyss = true;
+        while (reachAbyss) {
+            reachAbyss = dropSand();
         }
+    }
+
+    public void dropSandUntilFull() {
+        while (!isFull()) {
+            dropSand();
+        }
+    }
+
+    public boolean dropSand() {
+        Position currentPosition = new Position(dropPosition);
+        Position nextPosition = getNextPosition(currentPosition);
+
+        while (nextPosition != null && !nextPosition.equals(currentPosition)) {
+            currentPosition = nextPosition;
+            nextPosition = getNextPosition(currentPosition);
+        }
+
         if (nextPosition == null) {
-            grid.put(position, SAND);
+            grid.put(currentPosition, Block.SAND);
             return true;
         }
         return false;
     }
 
-    private Position getNext(Position position) {
+    private Position getNextPosition(Position position) {
         Position p1 = new Position(position);
         Position p2 = new Position(position);
         Position p3 = new Position(position);
@@ -56,11 +75,11 @@ public class Cavern {
         p3.incY();
         p1.decX();
         p3.incX();
-        if (grid.containsKey(p2) && grid.get(p2) == AIR) {
+        if (grid.containsKey(p2) && grid.get(p2) == Block.AIR) {
             return p2;
-        } else if (grid.containsKey(p1) && grid.get(p1) == AIR) {
+        } else if (grid.containsKey(p1) && grid.get(p1) == Block.AIR) {
             return p1;
-        } else if (grid.containsKey(p3) && grid.get(p3) == AIR) {
+        } else if (grid.containsKey(p3) && grid.get(p3) == Block.AIR) {
             return p3;
         } else if(grid.containsKey(p1) || grid.containsKey(p2) || grid.containsKey(p3)) {
             return null;
@@ -69,22 +88,22 @@ public class Cavern {
     }
 
     public long countSand() {
-       return grid.values().stream().filter(character -> character == SAND).count();
+       return grid.values().stream().filter(character -> character == Block.SAND).count();
+    }
+
+    public boolean isFull() {
+        return grid.get(dropPosition) == Block.SAND;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int y = positionMin.getY(); y <= positionMax.getY(); y++) {
-            for (Position position : Position.interval(new Position(positionMin.getX(), y), new Position(positionMax.getX(), y))) {
+        for (int y = topLeft.getY(); y <= bottomRight.getY(); y++) {
+            for (Position position : Position.interval(new Position(topLeft.getX(), y), new Position(bottomRight.getX(), y))) {
                 stringBuilder.append(grid.get(position));
             }
             stringBuilder.append("\r\n");
         }
         return stringBuilder.toString();
-    }
-
-    public boolean isFull(Position dropPosition) {
-        return grid.get(dropPosition) == SAND;
     }
 }
