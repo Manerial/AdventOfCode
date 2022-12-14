@@ -6,12 +6,7 @@ import utilities.Position;
 import utilities.Printer;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * AdventOfCode 2022 day 14's instructions are <a href="https://adventofcode.com/2022/day/14">here</a>
@@ -26,7 +21,9 @@ public class AOCRunner implements AOC {
             Position dropPosition = new Position(500, 0);
             addAir(list);
             addRocks(list);
-            while (cavern.dropSand(dropPosition)) {
+            boolean canDrop = true;
+            while (canDrop) {
+                canDrop = cavern.dropSand(dropPosition);
             }
             Printer.println(cavern.countSand());
 
@@ -47,7 +44,6 @@ public class AOCRunner implements AOC {
 
         for (String item : list) {
             for (String coordinates : item.split(" -> ")) {
-                int x = Integer.parseInt(coordinates.split(",")[0]);
                 int y = Integer.parseInt(coordinates.split(",")[1]);
                 maxY = Integer.max(y, maxY);
             }
