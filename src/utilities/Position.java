@@ -15,6 +15,11 @@ public class Position {
         this.y = y;
     }
 
+    public Position(String coordinates, String regex) {
+        x = Integer.parseInt(coordinates.split(regex)[0]);
+        y = Integer.parseInt(coordinates.split(regex)[1]);
+    }
+
     public Position(Position position) {
         this.x = position.x;
         this.y = position.y;
@@ -64,6 +69,13 @@ public class Position {
 
     public Position max(Position position) {
         if(this.x * this.y < position.x * position.y) {
+            return position;
+        }
+        return this;
+    }
+
+    public Position min(Position position) {
+        if(this.x * this.y > position.x * position.y) {
             return position;
         }
         return this;
