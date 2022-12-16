@@ -1,9 +1,12 @@
 package utilities;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Range {
+@Getter
+public class Range implements Comparable<Range> {
     private Integer borneMin;
     private Integer borneMax;
 
@@ -51,5 +54,10 @@ public class Range {
 
     public boolean canBeMerge(Range range) {
         return isOverlappedBy(range) || range.isOverlappedBy(this) || contains(range) || range.contains(this) || borneMin == range.borneMax + 1 || range.borneMin == borneMax + 1;
+    }
+
+    @Override
+    public int compareTo(Range o) {
+        return borneMin - o.borneMin;
     }
 }

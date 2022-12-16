@@ -22,6 +22,9 @@ public class Sensor {
 
     public ImmutablePair<Position, Position> scanEmptyLine(int yCoordinate) {
         int manathanDistance = position.getManhattanDistance(nearestBeaconPosition);
+        if(yCoordinate < position.getY() - manathanDistance || yCoordinate > position.getY() + manathanDistance) {
+            return null;
+        }
         int distance = manathanDistance - Math.abs(position.getY() - yCoordinate);
         int minX = position.getX() - distance;
         int maxX = position.getX() + distance;
