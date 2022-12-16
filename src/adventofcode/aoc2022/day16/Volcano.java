@@ -1,5 +1,6 @@
 package adventofcode.aoc2022.day16;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,24 @@ public class Volcano {
                 recursiveSetDistance(roomFrom, valveRooms.get(nextRoomName), distance + 1);
             }
         }
+    }
+
+    public List<SearchOrder> getSearchOrders(List<String> rooms, SearchOrder oldSearchOrder) {
+        List<SearchOrder> searchOrders = new ArrayList<>();
+        boolean isComplete = true;
+        for (String room : rooms) {
+            if (!oldSearchOrder.contains(room)) {
+                SearchOrder newSearchOrder = new SearchOrder(oldSearchOrder);
+                newSearchOrder.addOrder(room);
+                searchOrders.addAll(getSearchOrders(rooms, newSearchOrder));
+                isComplete = false;
+            }
+        }
+        if (isComplete) {
+            searchOrders.add(oldSearchOrder);
+        }
+
+        return searchOrders;
     }
 
     public int search(List<String> searchOrder, String startRoomName, int startTime) {

@@ -17,6 +17,10 @@ public class SearchOrder {
         this.order = new ArrayList<>(s.order);
     }
 
+    public SearchOrder(List<String> subList) {
+        this.order = subList;
+    }
+
     public void addOrder(String room) {
         order.add(room);
     }
