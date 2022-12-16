@@ -18,21 +18,43 @@ public class AOCRunner implements AOC {
         try {
             List<String> list = FileLoader.readListFromFile(file);
             initVolcano(list);
-            Integer maxPresure = getMaxPresure();
+            Integer maxPresure = getMaxPresure("AA", 30, 1);
             Printer.println("Solution 1 : " + maxPresure);
+
+            Integer maxPresureWithElephants = getMaxPresure("AA", 26, 2);
+            Printer.println("Solution 2 : " + maxPresureWithElephants);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Integer getMaxPresure() {
-        List<Map<String, Integer>> maps = volcano.getAllFlowMapForCurrentRoom("AA", new HashMap<>(), 30);
-        for (Map<String, Integer> map : maps) {
-            Printer.println(map);
+    private Integer getMaxPresure(String startPosition, int timeBeforeBoom, int groups) {
+        List<Integer> searchOrderResults = new ArrayList<>();
+        List<String> rooms = new ArrayList<>(volcano.getFlowMapForCurrentRoom(timeBeforeBoom, startPosition).keySet());
+        List<SearchOrder> searchOrders = getSearchOrders(rooms, new SearchOrder());
+        for (SearchOrder searchOrder : searchOrders) {
+                searchOrderResults.add(volcano.search(searchOrder.getOrder(), startPosition, timeBeforeBoom));
         }
-        Integer maxValue = maps.stream().map(map -> map.values().stream().reduce(Integer::sum).orElse(0)).reduce(Integer::max).orElse(0);
-        return maxValue;
+        return searchOrderResults.stream().reduce(Integer::max).orElse(0);
+    }
+
+    private List<SearchOrder> getSearchOrders(List<String> rooms, SearchOrder construction) {
+        List<SearchOrder> searchOrders = new ArrayList<>();
+        boolean isComplete = true;
+        for (String room : rooms) {
+            if (!construction.contains(room)) {
+                SearchOrder newSearchOrder = new SearchOrder(construction);
+                newSearchOrder.addOrder(room);
+                searchOrders.addAll(getSearchOrders(rooms, newSearchOrder));
+                isComplete = false;
+            }
+        }
+        if (isComplete) {
+            searchOrders.add(construction);
+        }
+
+        return searchOrders;
     }
 
 

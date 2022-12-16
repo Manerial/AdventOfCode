@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -16,6 +15,10 @@ public class ValveRoom {
     private final Map<String, Integer> connectedRoomsDistance;
     @Setter
     private boolean isOpen = false;
+
+    public Integer getRoomDistance(String roomName) {
+        return connectedRoomsDistance.get(roomName);
+    }
 
     public int getFlowByTime(int time) {
         return flow * time;
