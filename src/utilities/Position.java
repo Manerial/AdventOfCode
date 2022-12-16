@@ -80,4 +80,16 @@ public class Position {
         }
         return this;
     }
+
+    public int getManhattanDistance(Position sensorPosition) {
+        return getManhattanX(sensorPosition) + getManhattanY(sensorPosition);
+    }
+
+    public int getManhattanY(Position sensorPosition) {
+        return Math.abs(y - sensorPosition.y);
+    }
+
+    public int getManhattanX(Position sensorPosition) {
+        return Math.abs(x - sensorPosition.x);
+    }
 }
