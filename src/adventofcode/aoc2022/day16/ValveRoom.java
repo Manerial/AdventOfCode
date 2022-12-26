@@ -15,13 +15,23 @@ public class ValveRoom {
     private final Map<String, Integer> connectedRoomsDistance;
     @Setter
     private boolean isOpen = false;
+    @Setter
+    private int timeOpen = 1;
+
+    public ValveRoom(ValveRoom valveRoom, int timeOpen) {
+        this.name= valveRoom.name;
+        this.flow = valveRoom.flow;
+        this.connectedRoomsDistance = valveRoom.getConnectedRoomsDistance();
+        this.isOpen = true;
+        this.timeOpen = timeOpen;
+    }
 
     public Integer getRoomDistance(String roomName) {
         return connectedRoomsDistance.get(roomName);
     }
 
-    public int getFlowByTime(int time) {
-        return flow * time;
+    public int getFlow() {
+        return flow * timeOpen;
     }
 
     public void addConnectedRoomDistance(String valveRoomName, int distance) {

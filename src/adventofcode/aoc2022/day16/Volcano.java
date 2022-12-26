@@ -10,6 +10,10 @@ public class Volcano {
     private static final int TIME_TO_OPEN = 1;
     private final Map<String, ValveRoom> valveRooms;
 
+    public ValveRoom getValveRoom(String aa) {
+        return valveRooms.get(aa);
+    }
+
     public Volcano() {
         valveRooms = new HashMap<>();
     }
@@ -39,56 +43,55 @@ public class Volcano {
         }
     }
 
-    public List<SearchOrder> getSearchOrders(List<String> rooms, SearchOrder oldSearchOrder) {
-        List<SearchOrder> searchOrders = new ArrayList<>();
+    public Integer getMaxPresure1(ValveRoom startRoom, int timeBeforeBoom) {
+        List<Integer> maxPreasures = getMaxPresureList(startRoom, timeBeforeBoom, new ArrayList<>());
+        return maxPreasures.stream().reduce(Integer::max).orElse(0);
+    }
+
+    public Integer getMaxPresure2(ValveRoom startRoom, int timeBeforeBoom) {
+        return 0;
+    }
+
+    public List<Integer> getMaxPresureList(ValveRoom currentRoom, int timeBeforeBoom, List<ValveRoom> alreadyVisitedRooms) {
+        List<Integer> maxPreasures = new ArrayList<>();
         boolean isComplete = true;
-        for (String room : rooms) {
-            if (!oldSearchOrder.contains(room)) {
-                SearchOrder newSearchOrder = new SearchOrder(oldSearchOrder);
-                newSearchOrder.addOrder(room);
-                searchOrders.addAll(getSearchOrders(rooms, newSearchOrder));
+        for (String nextRoomName : getFlowMapExcluding(alreadyVisitedRooms)) {
+            int newTimeBeforeBoom = newTimeAfterMoveAndOpen(timeBeforeBoom, currentRoom, nextRoomName);
+            if (newTimeBeforeBoom > 0) {
+                List<ValveRoom> newAlreadyVisitedRooms = new ArrayList<>(alreadyVisitedRooms);
+                ValveRoom nextRoom = goIntoNextRoom(nextRoomName, newTimeBeforeBoom);
+                newAlreadyVisitedRooms.add(nextRoom);
+
+                maxPreasures.addAll(getMaxPresureList(nextRoom, newTimeBeforeBoom, newAlreadyVisitedRooms));
                 isComplete = false;
             }
         }
         if (isComplete) {
-            searchOrders.add(oldSearchOrder);
+            int maxPreasure = alreadyVisitedRooms.stream().map(ValveRoom::getFlow).reduce(Integer::sum).orElse(0);
+            maxPreasures.add(maxPreasure);
         }
 
-        return searchOrders;
+        return maxPreasures;
     }
 
-    public int search(List<String> searchOrder, String startRoomName, int startTime) {
-        String currentRoomName = startRoomName;
-        int timeBeforeBoom = startTime;
-        int finalFlow = 0;
-        for(String roomName : searchOrder) {
-            ValveRoom currentRoom = valveRooms.get(currentRoomName);
-            ValveRoom nextRoom = valveRooms.get(roomName);
-            int timeToMove = currentRoom.getRoomDistance(roomName);
-            timeBeforeBoom = newTimeAfterMoveAndOpen(timeBeforeBoom, timeToMove);
-            if(timeBeforeBoom < 0) {
-                break;
-            }
-            finalFlow += nextRoom.getFlowByTime(timeBeforeBoom);
-            currentRoomName = roomName;
-        }
-        return finalFlow;
+    private ValveRoom goIntoNextRoom(String nextRoomName, int newTimeBeforeBoom) {
+        return new ValveRoom(getValveRoom(nextRoomName), newTimeBeforeBoom);
     }
 
-    private int newTimeAfterMoveAndOpen(int timeBeforeBoom, int timeToMove) {
-        return timeBeforeBoom - TIME_TO_OPEN - timeToMove;
+    private int newTimeAfterMoveAndOpen(int timeBeforeBoom, ValveRoom currentRoom, String nextRoomName) {
+        return timeBeforeBoom - getTimeToMoveAndOpen(currentRoom, nextRoomName);
     }
 
-    public Map<String, Integer> getFlowMapForCurrentRoom(int timeBeforeBoom, String currentRoom) {
-        Map<String, Integer> flowMapCurrentRoom = new HashMap<>();
-        valveRooms.keySet().stream()
+    private int getTimeToMoveAndOpen(ValveRoom currentRoom, String nextRoomName) {
+        return currentRoom.getRoomDistance(nextRoomName) + TIME_TO_OPEN;
+    }
+
+    private List<String> getFlowMapExcluding(List<ValveRoom> alreadyVisitedRooms) {
+        List<String> alreadyVisitedRoomsNames = alreadyVisitedRooms.stream().map(ValveRoom::getName).collect(Collectors.toList());
+        return valveRooms.keySet().stream()
                 .sorted()
-                .filter(room -> valveRooms.get(room).getFlow() > 0)
-                .forEach(room -> {
-                    ValveRoom valveRoom = valveRooms.get(room);
-                    int flowTime = valveRoom.getFlowByTime(newTimeAfterMoveAndOpen(timeBeforeBoom, valveRoom.getRoomDistance(currentRoom)));
-                    flowMapCurrentRoom.put(room, flowTime);
-                });
-        return flowMapCurrentRoom;
+                .filter(roomName -> valveRooms.get(roomName).getFlow() > 0)
+                .filter(roomName -> !alreadyVisitedRoomsNames.contains(roomName))
+                .collect(Collectors.toList());
     }
 }
