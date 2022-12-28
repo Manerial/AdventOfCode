@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,26 @@ public class ValveRoom {
         this.connectedRoomsDistance = valveRoom.getConnectedRoomsDistance();
         this.isOpen = true;
         this.timeOpen = timeOpen;
+    }
+
+    public ValveRoom(ValveRoom valveRoom) {
+        this.name= valveRoom.name;
+        this.flow = valveRoom.flow;
+        this.connectedRoomsDistance = valveRoom.getConnectedRoomsDistance();
+        this.isOpen = true;
+        this.timeOpen = valveRoom.timeOpen;
+    }
+
+    public static List<ValveRoom> copyList(List<ValveRoom> valveRooms) {
+        List<ValveRoom> copyOfValveRooms = new ArrayList<>();
+        for(ValveRoom valveRoom : valveRooms) {
+            copyOfValveRooms.add(new ValveRoom(valveRoom));
+        }
+        return copyOfValveRooms;
+    }
+
+    public static boolean containsRoomName(List<ValveRoom> rooms, String roomName) {
+        return rooms.stream().map(ValveRoom::getName).anyMatch(s -> s.equals(roomName));
     }
 
     public Integer getRoomDistance(String roomName) {

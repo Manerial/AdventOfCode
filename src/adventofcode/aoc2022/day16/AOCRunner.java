@@ -24,11 +24,11 @@ public class AOCRunner implements AOC {
             ValveRoom startRoom = volcano.getValveRoom("AA");
             int timeBeforeBoom = 30;
 
-            Integer maxPresure = volcano.getMaxPresure1(startRoom, timeBeforeBoom);
+            Integer maxPresure = volcano.getMaxPresure(startRoom, timeBeforeBoom, 1);
             Printer.println("Solution 1 : " + maxPresure);
 
             timeBeforeBoom = 26;
-            maxPresure = volcano.getMaxPresure2(startRoom, timeBeforeBoom);
+            maxPresure = volcano.getMaxPresure(startRoom, timeBeforeBoom, 2);
             Printer.println("Solution 2 : " + maxPresure);
         } catch (IOException e) {
             e.printStackTrace();
