@@ -7,7 +7,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Getter
@@ -63,8 +62,7 @@ public class ValveRoom {
     @Override
     public String toString() {
         return "Room " + name +
-                " -> Valve open : " + isOpen +
-                "; Flow : " + flow +
-                "; Connections : " + connectedRoomsDistance.keySet().stream().map(s -> s + " " + connectedRoomsDistance.get(s)).sorted().collect(Collectors.toList());
+                " -> Valve open : " + timeOpen +
+                "; Flow : " + flow;
     }
 }

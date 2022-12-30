@@ -2,19 +2,14 @@ package adventofcode.aoc2022.day16;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import utilities.Printer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Volcano {
     private static final int TIME_TO_OPEN = 1;
     private final Map<String, ValveRoom> valveRooms;
     private int maxPreasure;
-    private int timeBeforeBoom;
 
     public ValveRoom getValveRoom(String aa) {
         return valveRooms.get(aa);
@@ -49,14 +44,13 @@ public class Volcano {
         }
     }
 
-    public Integer getMaxPresure(ValveRoom startRoom, int timeBeforeBoom, int groups) {
+    public Integer getMaxPresure(ValveRoom startRoom, int groups) {
         List<Voyager> voyagers = new ArrayList<>();
         for (int group = 0; group < groups; group++) {
-            Voyager voyager = new Voyager(timeBeforeBoom, startRoom);
+            Voyager voyager = new Voyager(group, startRoom);
             voyagers.add(voyager);
         }
         maxPreasure = 0;
-        this.timeBeforeBoom = timeBeforeBoom;
         computeMaxPreasureRecursive(voyagers);
         return maxPreasure;
     }
@@ -65,58 +59,49 @@ public class Volcano {
         List<ValveRoom> alreadyVisitedRooms = getAlreadyVisitedRooms(voyagers);
         List<ValveRoom> nextRooms = getRoomsExcluding(alreadyVisitedRooms);
 
-        boolean isComplete = visitAllNextRooms(voyagers, nextRooms);
 
+        boolean isComplete = nextRooms.isEmpty() || visitAllNextRooms(voyagers, nextRooms);
         if (isComplete) {
             int currentPreasure = Voyager.getPreasure(voyagers);
-            if (maxPreasure < currentPreasure) {
-                maxPreasure = Integer.max(maxPreasure, currentPreasure);
-                Printer.println(maxPreasure);
-            }
+            maxPreasure = Integer.max(maxPreasure, currentPreasure);
         }
     }
 
     private boolean visitAllNextRooms(List<Voyager> voyagers, List<ValveRoom> nextRooms) {
-        boolean isComplete = true;
         List<Pair<Voyager, ValveRoom>> cartesianProduct = getCartesianProduct(voyagers, nextRooms);
+        return test(cartesianProduct, Voyager.copyList(voyagers), new ArrayList<>());
+    }
 
-        List<ValveRoom> takenRooms;
-        for (Pair<Voyager, ValveRoom> coupleVVR1 : cartesianProduct) {
-            Voyager voyager1 = coupleVVR1.getLeft();
-            ValveRoom room1 = coupleVVR1.getRight();
-            takenRooms = new ArrayList<>();
-            if(takenRooms.contains(room1)) {
-                continue;
-            } else {
-                takenRooms.add(room1);
-            }
-            List<Pair<Voyager, ValveRoom>> subCartesianProduct = getSubCartesianProduct(cartesianProduct, voyager1);
-            int newTimeBeforeBoom1 = newTimeAfterMoveAndOpen(voyager1.getTimeLeft(), voyager1.getLastRoom(), room1);
-
-            if (newTimeBeforeBoom1 > 0) {
-                for (Pair<Voyager, ValveRoom> coupleVVR2 : subCartesianProduct) {
-                    List<Voyager> copyOfVoyagers = Voyager.copyList(voyagers);
-                    Voyager voyager2 = coupleVVR2.getLeft();
-                    ValveRoom room2 = coupleVVR2.getRight();
-                    if(takenRooms.contains(room2)) {
-                        continue;
-                    } else {
-                        takenRooms.add(room2);
-                    }
-                    int newTimeBeforeBoom2 = newTimeAfterMoveAndOpen(voyager2.getTimeLeft(), voyager2.getLastRoom(), room2);
-
-                    if (newTimeBeforeBoom2 > 0) {
-                        ValveRoom nextRoom1 = visitNextRoom(room1.getName(), newTimeBeforeBoom1);
-                        ValveRoom nextRoom2 = visitNextRoom(room2.getName(), newTimeBeforeBoom2);
-                        copyOfVoyagers.get(0).addRoom(nextRoom1);
-                        copyOfVoyagers.get(1).addRoom(nextRoom2);
-                        computeMaxPreasureRecursive(copyOfVoyagers);
-                        isComplete = false;
-                    }
+    private boolean test(List<Pair<Voyager, ValveRoom>> cartesianProduct, List<Voyager> voyagers, List<ValveRoom> takenRooms) {
+        boolean isComplete = true;
+        for (Pair<Voyager, ValveRoom> coupleVVR : cartesianProduct) {
+            Voyager voyager = coupleVVR.getLeft();
+            ValveRoom room = coupleVVR.getRight();
+            int newTimeBeforeBoom = newTimeAfterMoveAndOpen(voyager.getTimeLeft(), voyager.getLastRoom(), room);
+            List<Pair<Voyager, ValveRoom>> subCartesianProduct = getSubCartesianProduct(cartesianProduct, voyager);
+            if (!takenRooms.contains(room) && newTimeBeforeBoom >= 0) {
+                List<ValveRoom> newTakenRooms = ValveRoom.copyList(takenRooms);
+                newTakenRooms.add(room);
+                ValveRoom nextRoom = visitNextRoom(room.getName(), newTimeBeforeBoom);
+                List<Voyager> newVoyagers = Voyager.copyList(voyagers);
+                setVoyagerNextRoom(newVoyagers, voyager, nextRoom);
+                if (!subCartesianProduct.isEmpty()) {
+                    test(subCartesianProduct, newVoyagers, newTakenRooms);
+                } else {
+                    computeMaxPreasureRecursive(newVoyagers);
                 }
+                isComplete = false;
             }
         }
         return isComplete;
+    }
+
+    private static void setVoyagerNextRoom(List<Voyager> voyagers, Voyager voyager, ValveRoom nextRoom) {
+        Voyager inListVoyager = voyagers.stream().filter(voyager1 -> voyager1.getId() == voyager.getId()).findFirst().orElse(null);
+        if (inListVoyager == null) {
+            throw new NullPointerException();
+        }
+        inListVoyager.addRoom(nextRoom);
     }
 
     private static List<Pair<Voyager, ValveRoom>> getCartesianProduct(List<Voyager> voyagers, List<ValveRoom> nextRooms) {
@@ -127,6 +112,10 @@ public class Volcano {
                 cartesianProduct.add(newPair);
             }
         }
+        cartesianProduct.sort(Comparator.comparingInt(o -> o.getRight().getFlow()));
+        cartesianProduct.sort(Comparator.comparingInt(o -> o.getLeft().getId()));
+        cartesianProduct.sort(Comparator.comparingInt(o -> o.getLeft().getTimeLeft()));
+        Collections.reverse(cartesianProduct);
         return cartesianProduct;
     }
 
