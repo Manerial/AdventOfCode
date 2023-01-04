@@ -58,13 +58,23 @@ public class Volcano {
     public void computeMaxPreasureRecursive(List<Voyager> voyagers) {
         List<ValveRoom> alreadyVisitedRooms = getAlreadyVisitedRooms(voyagers);
         List<ValveRoom> nextRooms = getRoomsExcluding(alreadyVisitedRooms);
-
-
+        int currentPreasure = Voyager.getPreasure(voyagers);
+        int maxTime = voyagers.stream().map(Voyager::getTimeLeft).reduce(Integer::max).orElse(0);
+        if(currentPreasure + getPossibleMax(nextRooms, maxTime) <= maxPreasure) {
+            return;
+        }
         boolean isComplete = nextRooms.isEmpty() || visitAllNextRooms(voyagers, nextRooms);
         if (isComplete) {
-            int currentPreasure = Voyager.getPreasure(voyagers);
             maxPreasure = Integer.max(maxPreasure, currentPreasure);
         }
+    }
+
+    private int getPossibleMax(List<ValveRoom> nextRooms, int maxTime) {
+        int possibleMax = 0;
+        for(ValveRoom valveRoom : nextRooms) {
+            possibleMax += valveRoom.getInitialFlow() * maxTime;
+        }
+        return possibleMax;
     }
 
     private boolean visitAllNextRooms(List<Voyager> voyagers, List<ValveRoom> nextRooms) {

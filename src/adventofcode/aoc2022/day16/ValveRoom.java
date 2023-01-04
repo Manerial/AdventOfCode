@@ -54,6 +54,9 @@ public class ValveRoom {
     public int getFlow() {
         return flow * timeOpen;
     }
+    public int getInitialFlow() {
+        return flow;
+    }
 
     public void addConnectedRoomDistance(String valveRoomName, int distance) {
         connectedRoomsDistance.put(valveRoomName, distance);

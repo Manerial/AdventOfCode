@@ -5,6 +5,7 @@ import utilities.FileLoader;
 import utilities.Printer;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,13 @@ public class AOCRunner implements AOC {
             startRoom.setTimeOpen(30);
 
             Integer maxPresure = volcano.getMaxPresure(startRoom, 1);
-            Printer.println("Solution 1 : " + maxPresure + ". Should be 2029");
+            Printer.println("Solution 1 : " + maxPresure);
+            Printer.println(new Date());
 
             startRoom.setTimeOpen(26);
             maxPresure = volcano.getMaxPresure(startRoom, 2);
-            Printer.println("Solution 2 : " + maxPresure + ". Should be greater than 2711");
+            Printer.println("Solution 2 : " + maxPresure);
+            Printer.println(new Date());
         } catch (IOException e) {
             e.printStackTrace();
         }
