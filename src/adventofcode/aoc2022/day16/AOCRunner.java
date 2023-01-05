@@ -3,9 +3,9 @@ package adventofcode.aoc2022.day16;
 import template.AOC;
 import utilities.FileLoader;
 import utilities.Printer;
+import utilities.Timer;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +19,7 @@ public class AOCRunner implements AOC {
     @Override
     public void run(String file) {
         try {
+            Timer timer = new Timer();
             List<String> list = FileLoader.readListFromFile(file);
             initVolcano(list);
 
@@ -27,13 +28,13 @@ public class AOCRunner implements AOC {
 
             Integer maxPresure = volcano.getMaxPressure(startRoom, 1);
             Printer.println("Solution 1 : " + maxPresure);
-            Printer.println(new Date());
+            timer.time();
 
             // Will run in 26 minutes (quite long...)
             startRoom.setOpenTime(26);
             maxPresure = volcano.getMaxPressure(startRoom, 2);
             Printer.println("Solution 2 : " + maxPresure);
-            Printer.println(new Date());
+            timer.time();
         } catch (IOException e) {
             e.printStackTrace();
         }

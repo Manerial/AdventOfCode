@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Volcano {
     private static final int TIME_TO_OPEN = 1;
     private final Map<String, ValveRoom> valveRooms;
-    private int maxPreasure;
+    private int maxPressure;
 
     public Volcano() {
         valveRooms = new HashMap<>();
@@ -65,28 +65,22 @@ public class Volcano {
             Voyager voyager = new Voyager(group, startRoom);
             voyagers.add(voyager);
         }
-        maxPreasure = 0;
+        maxPressure = 0;
         computeMaxPreassure(voyagers);
-        return maxPreasure;
+        return maxPressure;
     }
 
     public void computeMaxPreassure(List<Voyager> voyagers) {
-        List<String> alreadyVisitedRooms = getAlreadyVisitedRooms(voyagers);
-        List<ValveRoom> nextRooms = getRoomsExcluding(alreadyVisitedRooms);
-        int currentPreassure = Voyager.getPreassure(voyagers);
-        int maxTime = voyagers.stream().map(Voyager::getTimeLeft).reduce(Integer::max).orElse(0);
-        if(currentPreassure + getPossibleMax(nextRooms, maxTime) <= maxPreasure) {
+        List<ValveRoom> nextRooms = getRoomsExcludingAlreadyVisited(voyagers);
+        if (isMaxPressure(voyagers, nextRooms)) {
             return;
         }
-        boolean isComplete = nextRooms.isEmpty() || visitAllNextRooms(voyagers, nextRooms);
-        if (isComplete) {
-            maxPreasure = Integer.max(maxPreasure, currentPreassure);
-        }
-    }
-
-    private boolean visitAllNextRooms(List<Voyager> voyagers, List<ValveRoom> nextRooms) {
         List<Pair<Voyager, ValveRoom>> cartesianProduct = getCartesianProduct(voyagers, nextRooms);
-        return visitAllRoomsWithAllGroups(cartesianProduct, Voyager.copyList(voyagers), new ArrayList<>());
+        boolean isComplete = nextRooms.isEmpty() || visitAllRoomsWithAllGroups(cartesianProduct, Voyager.copyList(voyagers), new ArrayList<>());
+        if (isComplete) {
+            int currentPreassure = Voyager.getPreassure(voyagers);
+            maxPressure = Integer.max(maxPressure, currentPreassure);
+        }
     }
 
     private boolean visitAllRoomsWithAllGroups(List<Pair<Voyager, ValveRoom>> cartesianProduct, List<Voyager> voyagers, List<ValveRoom> takenRooms) {
@@ -113,12 +107,11 @@ public class Volcano {
         return isComplete;
     }
 
-    private int getPossibleMax(List<ValveRoom> nextRooms, int maxTime) {
-        int possibleMax = 0;
-        for(ValveRoom valveRoom : nextRooms) {
-            possibleMax += valveRoom.getInitialFlow() * maxTime;
-        }
-        return possibleMax;
+    private boolean isMaxPressure(List<Voyager> voyagers, List<ValveRoom> nextRooms) {
+        int currentPressure = Voyager.getPreassure(voyagers);
+        int maxTime = voyagers.stream().map(Voyager::getTimeLeft).reduce(Integer::max).orElse(0);
+        int possibleMax = nextRooms.stream().map(room -> room.getFlow() * maxTime).reduce(Integer::sum).orElse(0);
+        return currentPressure + possibleMax <= maxPressure;
     }
 
     /**
@@ -168,10 +161,11 @@ public class Volcano {
 
     /**
      * Get all the rooms with a flow and not in the list
-     * @param exclusion : The list of rooms to exclude
+     * @param voyagers : The list of voyagers (contains rooms to exclude from path)
      * @return : the list of rooms with a flow that are not in the list
      */
-    private List<ValveRoom> getRoomsExcluding(List<String> exclusion) {
+    private List<ValveRoom> getRoomsExcludingAlreadyVisited(List<Voyager> voyagers) {
+        List<String> exclusion = getAlreadyVisitedRooms(voyagers);
         return valveRooms.values().stream()
                 .filter(room -> valveRooms.get(room.getName()).getFlow() > 0)
                 .filter(room -> !ValveRoom.containsRoomName(exclusion, room.getName()))
