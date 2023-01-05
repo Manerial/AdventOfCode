@@ -11,24 +11,33 @@ public class Volcano {
     private final Map<String, ValveRoom> valveRooms;
     private int maxPreasure;
 
-    public ValveRoom getValveRoom(String aa) {
-        return valveRooms.get(aa);
-    }
-
     public Volcano() {
         valveRooms = new HashMap<>();
+    }
+
+    public ValveRoom getValveRoom(String aa) {
+        return valveRooms.get(aa);
     }
 
     public void addValveRoom(String name, ValveRoom valveRoom) {
         this.valveRooms.put(name, valveRoom);
     }
 
+    /**
+     * For each room, get the distance to each different rooms
+     */
     public void computeDistances() {
         for (ValveRoom valveRoom : this.valveRooms.values()) {
             recursiveSetDistance(valveRoom.getName(), valveRoom, 0);
         }
     }
 
+    /**
+     * For each room directly connected, get each other rooms and set distance + 1
+     * @param roomFrom : The room we are currently parsing
+     * @param roomTo : The next room
+     * @param distance : The distance to set if inferior to previous one
+     */
     private void recursiveSetDistance(String roomFrom, ValveRoom roomTo, int distance) {
         Integer savedDistance = roomTo.getConnectedRoomsDistance().get(roomFrom);
         if (savedDistance == null || savedDistance > distance || distance == 1) {
@@ -44,45 +53,43 @@ public class Volcano {
         }
     }
 
-    public Integer getMaxPresure(ValveRoom startRoom, int groups) {
+    /**
+     * For a starting room and a number of groups, parse the whole graph to find the best pressure we can possibly have
+     * @param startRoom : The room we shall start
+     * @param groups : The number of groups
+     * @return : The max pressure possible
+     */
+    public Integer getMaxPressure(ValveRoom startRoom, int groups) {
         List<Voyager> voyagers = new ArrayList<>();
         for (int group = 0; group < groups; group++) {
             Voyager voyager = new Voyager(group, startRoom);
             voyagers.add(voyager);
         }
         maxPreasure = 0;
-        computeMaxPreasureRecursive(voyagers);
+        computeMaxPreassure(voyagers);
         return maxPreasure;
     }
 
-    public void computeMaxPreasureRecursive(List<Voyager> voyagers) {
-        List<ValveRoom> alreadyVisitedRooms = getAlreadyVisitedRooms(voyagers);
+    public void computeMaxPreassure(List<Voyager> voyagers) {
+        List<String> alreadyVisitedRooms = getAlreadyVisitedRooms(voyagers);
         List<ValveRoom> nextRooms = getRoomsExcluding(alreadyVisitedRooms);
-        int currentPreasure = Voyager.getPreasure(voyagers);
+        int currentPreassure = Voyager.getPreassure(voyagers);
         int maxTime = voyagers.stream().map(Voyager::getTimeLeft).reduce(Integer::max).orElse(0);
-        if(currentPreasure + getPossibleMax(nextRooms, maxTime) <= maxPreasure) {
+        if(currentPreassure + getPossibleMax(nextRooms, maxTime) <= maxPreasure) {
             return;
         }
         boolean isComplete = nextRooms.isEmpty() || visitAllNextRooms(voyagers, nextRooms);
         if (isComplete) {
-            maxPreasure = Integer.max(maxPreasure, currentPreasure);
+            maxPreasure = Integer.max(maxPreasure, currentPreassure);
         }
-    }
-
-    private int getPossibleMax(List<ValveRoom> nextRooms, int maxTime) {
-        int possibleMax = 0;
-        for(ValveRoom valveRoom : nextRooms) {
-            possibleMax += valveRoom.getInitialFlow() * maxTime;
-        }
-        return possibleMax;
     }
 
     private boolean visitAllNextRooms(List<Voyager> voyagers, List<ValveRoom> nextRooms) {
         List<Pair<Voyager, ValveRoom>> cartesianProduct = getCartesianProduct(voyagers, nextRooms);
-        return test(cartesianProduct, Voyager.copyList(voyagers), new ArrayList<>());
+        return visitAllRoomsWithAllGroups(cartesianProduct, Voyager.copyList(voyagers), new ArrayList<>());
     }
 
-    private boolean test(List<Pair<Voyager, ValveRoom>> cartesianProduct, List<Voyager> voyagers, List<ValveRoom> takenRooms) {
+    private boolean visitAllRoomsWithAllGroups(List<Pair<Voyager, ValveRoom>> cartesianProduct, List<Voyager> voyagers, List<ValveRoom> takenRooms) {
         boolean isComplete = true;
         for (Pair<Voyager, ValveRoom> coupleVVR : cartesianProduct) {
             Voyager voyager = coupleVVR.getLeft();
@@ -96,9 +103,9 @@ public class Volcano {
                 List<Voyager> newVoyagers = Voyager.copyList(voyagers);
                 setVoyagerNextRoom(newVoyagers, voyager, nextRoom);
                 if (!subCartesianProduct.isEmpty()) {
-                    test(subCartesianProduct, newVoyagers, newTakenRooms);
+                    visitAllRoomsWithAllGroups(subCartesianProduct, newVoyagers, newTakenRooms);
                 } else {
-                    computeMaxPreasureRecursive(newVoyagers);
+                    computeMaxPreassure(newVoyagers);
                 }
                 isComplete = false;
             }
@@ -106,14 +113,19 @@ public class Volcano {
         return isComplete;
     }
 
-    private static void setVoyagerNextRoom(List<Voyager> voyagers, Voyager voyager, ValveRoom nextRoom) {
-        Voyager inListVoyager = voyagers.stream().filter(voyager1 -> voyager1.getId() == voyager.getId()).findFirst().orElse(null);
-        if (inListVoyager == null) {
-            throw new NullPointerException();
+    private int getPossibleMax(List<ValveRoom> nextRooms, int maxTime) {
+        int possibleMax = 0;
+        for(ValveRoom valveRoom : nextRooms) {
+            possibleMax += valveRoom.getInitialFlow() * maxTime;
         }
-        inListVoyager.addRoom(nextRoom);
+        return possibleMax;
     }
 
+    /**
+     * Combine all the possibilities
+     * @param voyagers : the first list to combine
+     * @param nextRooms : the second list to combine
+     */
     private static List<Pair<Voyager, ValveRoom>> getCartesianProduct(List<Voyager> voyagers, List<ValveRoom> nextRooms) {
         List<Pair<Voyager, ValveRoom>> cartesianProduct = new ArrayList<>();
         for (Voyager voyager : voyagers) {
@@ -122,25 +134,28 @@ public class Volcano {
                 cartesianProduct.add(newPair);
             }
         }
-        cartesianProduct.sort(Comparator.comparingInt(o -> o.getRight().getFlow()));
-        cartesianProduct.sort(Comparator.comparingInt(o -> o.getLeft().getId()));
-        cartesianProduct.sort(Comparator.comparingInt(o -> o.getLeft().getTimeLeft()));
-        Collections.reverse(cartesianProduct);
         return cartesianProduct;
     }
 
+    /**
+     * Get a new cartesian product excluding a value
+     * @param cartesianProduct : the map to reduce
+     * @param voyager : the value to remove
+     * @return : cartesianProduct excluding voyager
+     */
     private static List<Pair<Voyager, ValveRoom>> getSubCartesianProduct(List<Pair<Voyager, ValveRoom>> cartesianProduct, Voyager voyager) {
         return cartesianProduct.stream()
                 .filter(pair -> pair.getLeft() != voyager)
                 .collect(Collectors.toList());
     }
 
-    private List<ValveRoom> getAlreadyVisitedRooms(List<Voyager> voyagers) {
-        List<ValveRoom> alreadyVisitedRooms = new ArrayList<>();
+    private List<String> getAlreadyVisitedRooms(List<Voyager> voyagers) {
+        Set<String> alreadyVisitedRooms = new HashSet<>();
         for (Voyager voyager : voyagers) {
-            alreadyVisitedRooms.addAll(voyager.getVisitedRooms());
+            List<String> roomNames = voyager.getVisitedRooms().stream().map(ValveRoom::getName).collect(Collectors.toList());
+            alreadyVisitedRooms.addAll(roomNames);
         }
-        return alreadyVisitedRooms;
+        return new ArrayList<>(alreadyVisitedRooms);
     }
 
     private ValveRoom visitNextRoom(String nextRoomName, int newTimeBeforeBoom) {
@@ -148,17 +163,25 @@ public class Volcano {
     }
 
     private int newTimeAfterMoveAndOpen(int timeBeforeBoom, ValveRoom currentRoom, ValveRoom nextRoom) {
-        return timeBeforeBoom - getTimeToMoveAndOpen(currentRoom, nextRoom);
+        return timeBeforeBoom - (currentRoom.getRoomDistance(nextRoom.getName()) + TIME_TO_OPEN);
     }
 
-    private int getTimeToMoveAndOpen(ValveRoom currentRoom, ValveRoom nextRoom) {
-        return currentRoom.getRoomDistance(nextRoom.getName()) + TIME_TO_OPEN;
-    }
-
-    private List<ValveRoom> getRoomsExcluding(List<ValveRoom> alreadyVisitedRooms) {
+    /**
+     * Get all the rooms with a flow and not in the list
+     * @param exclusion : The list of rooms to exclude
+     * @return : the list of rooms with a flow that are not in the list
+     */
+    private List<ValveRoom> getRoomsExcluding(List<String> exclusion) {
         return valveRooms.values().stream()
                 .filter(room -> valveRooms.get(room.getName()).getFlow() > 0)
-                .filter(room -> !ValveRoom.containsRoomName(alreadyVisitedRooms, room.getName()))
+                .filter(room -> !ValveRoom.containsRoomName(exclusion, room.getName()))
                 .collect(Collectors.toList());
+    }
+
+    private void setVoyagerNextRoom(List<Voyager> voyagers, Voyager voyager, ValveRoom nextRoom) {
+        voyagers.stream()
+                .filter(voyager1 -> voyager1.getId() == voyager.getId())
+                .findFirst()
+                .ifPresent(value -> value.addRoom(nextRoom));
     }
 }

@@ -23,14 +23,15 @@ public class AOCRunner implements AOC {
             initVolcano(list);
 
             ValveRoom startRoom = volcano.getValveRoom("AA");
-            startRoom.setTimeOpen(30);
+            startRoom.setOpenTime(30);
 
-            Integer maxPresure = volcano.getMaxPresure(startRoom, 1);
+            Integer maxPresure = volcano.getMaxPressure(startRoom, 1);
             Printer.println("Solution 1 : " + maxPresure);
             Printer.println(new Date());
 
-            startRoom.setTimeOpen(26);
-            maxPresure = volcano.getMaxPresure(startRoom, 2);
+            // Will run in 26 minutes (quite long...)
+            startRoom.setOpenTime(26);
+            maxPresure = volcano.getMaxPressure(startRoom, 2);
             Printer.println("Solution 2 : " + maxPresure);
             Printer.println(new Date());
         } catch (IOException e) {
@@ -38,14 +39,22 @@ public class AOCRunner implements AOC {
         }
     }
 
-
+    /**
+     * Set default graph to the Volcano
+     *
+     * @param list The input to parse
+     */
     private void initVolcano(List<String> list) {
         volcano = new Volcano();
         list.stream().map(AOCRunner::cleanInput).forEach(this::addRoom);
         volcano.computeDistances();
     }
 
-    // Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
+    /**
+     * Clear the input so we can have something more useful
+     * @param input : Something like -> alve AA has flow rate=0; tunnels lead to valves DD, II, BB
+     * @return : Something like -> AA;O;DD,II,BB
+     */
     private static String cleanInput(String input) {
         return input
                 .replace("Valve ", "")
@@ -55,6 +64,10 @@ public class AOCRunner implements AOC {
                 .replace(", ", ",");
     }
 
+    /**
+     * Turn an input string into a new room
+     * @param input : Something like -> AA;O;DD,II,BB
+     */
     private void addRoom(String input) {
         String[] params = input.split(";");
         String name = params[0];

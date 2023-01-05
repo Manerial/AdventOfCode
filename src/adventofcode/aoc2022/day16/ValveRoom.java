@@ -17,14 +17,14 @@ public class ValveRoom {
     @Setter
     private boolean isOpen = false;
     @Setter
-    private int timeOpen = 1;
+    private int openTime = 1;
 
-    public ValveRoom(ValveRoom valveRoom, int timeOpen) {
+    public ValveRoom(ValveRoom valveRoom, int openTime) {
         this.name= valveRoom.name;
         this.flow = valveRoom.flow;
         this.connectedRoomsDistance = valveRoom.getConnectedRoomsDistance();
         this.isOpen = true;
-        this.timeOpen = timeOpen;
+        this.openTime = openTime;
     }
 
     public ValveRoom(ValveRoom valveRoom) {
@@ -32,7 +32,7 @@ public class ValveRoom {
         this.flow = valveRoom.flow;
         this.connectedRoomsDistance = valveRoom.getConnectedRoomsDistance();
         this.isOpen = true;
-        this.timeOpen = valveRoom.timeOpen;
+        this.openTime = valveRoom.openTime;
     }
 
     public static List<ValveRoom> copyList(List<ValveRoom> valveRooms) {
@@ -43,8 +43,8 @@ public class ValveRoom {
         return copyOfValveRooms;
     }
 
-    public static boolean containsRoomName(List<ValveRoom> rooms, String roomName) {
-        return rooms.stream().map(ValveRoom::getName).anyMatch(s -> s.equals(roomName));
+    public static boolean containsRoomName(List<String> rooms, String roomName) {
+        return rooms.stream().anyMatch(s -> s.equals(roomName));
     }
 
     public Integer getRoomDistance(String roomName) {
@@ -52,7 +52,7 @@ public class ValveRoom {
     }
 
     public int getFlow() {
-        return flow * timeOpen;
+        return flow * openTime;
     }
     public int getInitialFlow() {
         return flow;
@@ -65,7 +65,7 @@ public class ValveRoom {
     @Override
     public String toString() {
         return "Room " + name +
-                " -> Valve open : " + timeOpen +
+                " -> Valve open : " + openTime +
                 "; Flow : " + flow;
     }
 }

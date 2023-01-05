@@ -20,7 +20,7 @@ public class Voyager {
     public Voyager(Voyager voyager) {
         this(voyager.id, null);
         this.visitedRooms = ValveRoom.copyList(voyager.visitedRooms);
-        this.timeLeft = this.visitedRooms.stream().map(ValveRoom::getTimeOpen).reduce(Integer::min).orElse(0);
+        this.timeLeft = this.visitedRooms.stream().map(ValveRoom::getOpenTime).reduce(Integer::min).orElse(0);
     }
 
     public static List<Voyager> copyList(List<Voyager> voyagers) {
@@ -31,7 +31,7 @@ public class Voyager {
         return copyOfVoyagers;
     }
 
-    public static int getPreasure(List<Voyager> voyagers) {
+    public static int getPreassure(List<Voyager> voyagers) {
         return voyagers.stream()
                 .mapToInt(voyager -> voyager.visitedRooms.stream()
                         .mapToInt(ValveRoom::getFlow)
@@ -44,7 +44,7 @@ public class Voyager {
             return;
         }
         this.visitedRooms.add(room);
-        timeLeft = room.getTimeOpen();
+        timeLeft = room.getOpenTime();
     }
 
     public ValveRoom getLastRoom() {
