@@ -79,7 +79,6 @@ public class AOCRunner implements AOC {
         visibilitySouth = getVisibility(currentTree, treesSouth);
         visibilityEast = getVisibility(currentTree, treesEast);
         visibilityWest = getVisibility(currentTree, treesWest);
-        Printer.println(visibilityNorth + " " + visibilitySouth + " " + visibilityEast + " " + visibilityWest);
         return visibilityNorth * visibilitySouth * visibilityEast * visibilityWest;
     }
 

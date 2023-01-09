@@ -8,7 +8,6 @@ import java.util.List;
 @Data
 public class Directory {
     private static final String RN = "\r\n";
-    private static final String T = "\t";
 
     private String name;
     private List<Directory> directories;
@@ -31,7 +30,7 @@ public class Directory {
     @Override
     public String toString() {
         String str = name + RN;
-        str += files.stream().map(File::toString).reduce(String::join);
+        str += files.stream().map(File::toString).reduce(String::join).orElse("");
         str += directories.stream()
                 .map(Directory::toString)
                 .reduce("", ((s, s2) ->
