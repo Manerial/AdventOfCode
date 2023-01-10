@@ -13,17 +13,13 @@ import java.util.List;
 public class AOCRunner implements AOC {
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            for (String item : list) {
-                Printer.print("Solution 1 : ");
-                findFirstPacket(item, 4);
-                Printer.print("Solution 2 : ");
-                findFirstPacket(item, 14);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        for (String item : list) {
+            Printer.print("Solution 1 : ");
+            findFirstPacket(item, 4);
+            Printer.print("Solution 2 : ");
+            findFirstPacket(item, 14);
         }
     }
 

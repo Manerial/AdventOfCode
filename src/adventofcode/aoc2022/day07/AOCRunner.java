@@ -18,28 +18,23 @@ public class AOCRunner implements AOC {
     private int minSizeThatMatch;
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            for (String item : list) {
-                parseLine(item);
-            }
-
-            Printer.println(mainDirectory);
-
-            int sum = getMaxSize(mainDirectory, 100000);
-            Printer.println("Solution 1 : " + sum);
-
-            int currentSpace = (70000000 - mainDirectory.getTotalSize());
-            int fileSizeToDelete = 30000000 - currentSpace;
-
-            minSizeThatMatch = mainDirectory.getTotalSize();
-            getFirstSize(mainDirectory, fileSizeToDelete);
-            Printer.println("Solution 2 : " + minSizeThatMatch);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        for (String item : list) {
+            parseLine(item);
         }
+
+        Printer.println(mainDirectory);
+
+        int sum = getMaxSize(mainDirectory, 100000);
+        Printer.println("Solution 1 : " + sum);
+
+        int currentSpace = (70000000 - mainDirectory.getTotalSize());
+        int fileSizeToDelete = 30000000 - currentSpace;
+
+        minSizeThatMatch = mainDirectory.getTotalSize();
+        getFirstSize(mainDirectory, fileSizeToDelete);
+        Printer.println("Solution 2 : " + minSizeThatMatch);
     }
 
     private int getMaxSize(Directory currentDirectory, int maxSize) {
@@ -119,12 +114,12 @@ public class AOCRunner implements AOC {
     }
 
     private Directory getParentOfCurrentDirectory(Directory superDirectory) {
-        if(superDirectory.getDirectories().contains(currentDirectory)) {
+        if (superDirectory.getDirectories().contains(currentDirectory)) {
             return superDirectory;
         } else {
-            for(Directory potentialParent : superDirectory.getDirectories()) {
+            for (Directory potentialParent : superDirectory.getDirectories()) {
                 Directory parentDir = getParentOfCurrentDirectory(potentialParent);
-                if(parentDir != null) {
+                if (parentDir != null) {
                     return parentDir;
                 }
             }

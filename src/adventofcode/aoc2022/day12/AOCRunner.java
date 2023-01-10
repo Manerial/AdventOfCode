@@ -16,26 +16,22 @@ public class AOCRunner implements AOC {
     private final HeightMap grid = new HeightMap();
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            Cell lastCell = initiateGridGetLastCell(list);
-            grid.calculateGridFromStartAndEnd();
-            Printer.println(grid);
-            grid.setFromStart(true);
-            Printer.println(grid);
-            Printer.println("Solution 1 :" + ((lastCell != null) ? lastCell.getDistanceFromStart() : -1));
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        Cell lastCell = initiateGridGetLastCell(list);
+        grid.calculateGridFromStartAndEnd();
+        Printer.println(grid);
+        grid.setFromStart(true);
+        Printer.println(grid);
+        Printer.println("Solution 1 :" + ((lastCell != null) ? lastCell.getDistanceFromStart() : -1));
 
-            int minDistanceFromEnd = grid.getGrid().values().stream()
-                    .filter(cell -> cell.getHeight() == 'a')
-                    .map(Cell::getDistanceFromEnd)
-                    .filter(integer -> integer > -1)
-                    .reduce(Integer::min)
-                    .orElse(0);
-            Printer.println("Solution 2 :" + minDistanceFromEnd);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int minDistanceFromEnd = grid.getGrid().values().stream()
+                .filter(cell -> cell.getHeight() == 'a')
+                .map(Cell::getDistanceFromEnd)
+                .filter(integer -> integer > -1)
+                .reduce(Integer::min)
+                .orElse(0);
+        Printer.println("Solution 2 :" + minDistanceFromEnd);
     }
 
     private Cell initiateGridGetLastCell(List<String> list) {

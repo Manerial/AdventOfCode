@@ -20,27 +20,23 @@ public class AOCRunner implements AOC {
     private int draw;
 
     @Override
-    public void run(String file) {
-        try {
-			// Inputs reading
-            List<String> list = FileLoader.readListFromFile(file);
-			// Set the score to 0
-            resetScore();
-            for (String item : list) {
-                item = system1(item);
-                getScore(item);
-            }
-            Printer.println("Solution 1 : " + (score + defeat * DEFEAT_POINT + draw * DRAW_POINT + victory * VICTORY_POINT));
-
-            resetScore();
-            for (String item : list) {
-                item = system2(item);
-                getScore(item);
-            }
-            Printer.println("Solution 2 : " + (score + defeat * DEFEAT_POINT + draw * DRAW_POINT + victory * VICTORY_POINT));
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void run(String file) throws IOException {
+        // Inputs reading
+        List<String> list = FileLoader.readListFromFile(file);
+        // Set the score to 0
+        resetScore();
+        for (String item : list) {
+            item = system1(item);
+            getScore(item);
         }
+        Printer.println("Solution 1 : " + (score + defeat * DEFEAT_POINT + draw * DRAW_POINT + victory * VICTORY_POINT));
+
+        resetScore();
+        for (String item : list) {
+            item = system2(item);
+            getScore(item);
+        }
+        Printer.println("Solution 2 : " + (score + defeat * DEFEAT_POINT + draw * DRAW_POINT + victory * VICTORY_POINT));
     }
 
     private void resetScore() {
@@ -48,7 +44,7 @@ public class AOCRunner implements AOC {
     }
 
     private void getScore(String item) {
-		// Get the current play
+        // Get the current play
         switch (item.split(" ")[1]) {
             case "C":
                 score += 3;
@@ -62,7 +58,7 @@ public class AOCRunner implements AOC {
             default:
                 break;
         }
-		// Get the correct case
+        // Get the correct case
         switch (item) {
             case "C C":
             case "B B":

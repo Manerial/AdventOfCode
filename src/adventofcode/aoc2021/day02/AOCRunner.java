@@ -19,20 +19,16 @@ public class AOCRunner implements AOC {
     private static final String DEPTH = "depth";
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            Map<String, Integer> positions = new HashMap<>();
-            resetPositions(positions);
-            solution1(list, positions);
-            Printer.println("Solution 1 : " + positions.get(FORWARD) * (positions.get(DOWN) - positions.get(UP)));
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        Map<String, Integer> positions = new HashMap<>();
+        resetPositions(positions);
+        solution1(list, positions);
+        Printer.println("Solution 1 : " + positions.get(FORWARD) * (positions.get(DOWN) - positions.get(UP)));
 
-            resetPositions(positions);
-            solution2(list, positions);
-            Printer.println("Solution 2 : " + positions.get(FORWARD) * positions.get(DEPTH));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        resetPositions(positions);
+        solution2(list, positions);
+        Printer.println("Solution 2 : " + positions.get(FORWARD) * positions.get(DEPTH));
     }
 
     private void resetPositions(Map<String, Integer> positions) {
@@ -55,7 +51,7 @@ public class AOCRunner implements AOC {
             String direction = item.split(" ")[0];
             int movement = Integer.parseInt(item.split(" ")[1]);
             positions.put(direction, movement + positions.get(direction));
-            if(direction.equals(FORWARD)) {
+            if (direction.equals(FORWARD)) {
                 positions.put(DEPTH, positions.get(DEPTH) + getAim(positions) * movement);
             }
         }

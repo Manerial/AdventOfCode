@@ -14,41 +14,36 @@ import java.util.stream.Collectors;
  */
 public class AOCRunner implements AOC {
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            List<Integer> binaryAverage = initList(list.get(0).length(), 0);
-            extractBinaryCount(list, binaryAverage);
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        List<Integer> binaryAverage = initList(list.get(0).length(), 0);
+        extractBinaryCount(list, binaryAverage);
 
-            StringBuilder stringBuilder1 = new StringBuilder();
-            StringBuilder stringBuilder2 = new StringBuilder();
-            for (Integer integer : binaryAverage) {
-                if (integer > list.size() / 2) {
-                    stringBuilder1.append("1");
-                    stringBuilder2.append("0");
-                } else {
-                    stringBuilder1.append("0");
-                    stringBuilder2.append("1");
-                }
+        StringBuilder stringBuilder1 = new StringBuilder();
+        StringBuilder stringBuilder2 = new StringBuilder();
+        for (Integer integer : binaryAverage) {
+            if (integer > list.size() / 2) {
+                stringBuilder1.append("1");
+                stringBuilder2.append("0");
+            } else {
+                stringBuilder1.append("0");
+                stringBuilder2.append("1");
             }
-            int gammaRate = Integer.parseInt(stringBuilder1.toString(), 2);
-            int epsilonRate = Integer.parseInt(stringBuilder2.toString(), 2);
-
-            Printer.println("Solution 1 : " + (gammaRate * epsilonRate));
-
-            String binaryO2Rate = extractBinaryCountFiltered(list, 0,  true);
-            String binaryCO2Rate = extractBinaryCountFiltered(list, 0, false);
-
-            int co2Rate = Integer.parseInt(binaryCO2Rate, 2);
-            int o2Rate = Integer.parseInt(binaryO2Rate, 2);
-
-            Printer.println(binaryO2Rate + " " + binaryCO2Rate);
-
-            Printer.println("Solution 2 : " + (o2Rate * co2Rate));
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        int gammaRate = Integer.parseInt(stringBuilder1.toString(), 2);
+        int epsilonRate = Integer.parseInt(stringBuilder2.toString(), 2);
+
+        Printer.println("Solution 1 : " + (gammaRate * epsilonRate));
+
+        String binaryO2Rate = extractBinaryCountFiltered(list, 0, true);
+        String binaryCO2Rate = extractBinaryCountFiltered(list, 0, false);
+
+        int co2Rate = Integer.parseInt(binaryCO2Rate, 2);
+        int o2Rate = Integer.parseInt(binaryO2Rate, 2);
+
+        Printer.println(binaryO2Rate + " " + binaryCO2Rate);
+
+        Printer.println("Solution 2 : " + (o2Rate * co2Rate));
     }
 
     private List<Integer> initList(int size, int defaultVal) {
@@ -87,6 +82,6 @@ public class AOCRunner implements AOC {
         }
         index++;
         List<String> filteredList = list.stream().filter(e -> e.charAt(finalIndex) == nextChar).collect(Collectors.toList());
-        return  filteredList.size() > 1 ? extractBinaryCountFiltered(filteredList, index, isO2) : filteredList.get(0);
+        return filteredList.size() > 1 ? extractBinaryCountFiltered(filteredList, index, isO2) : filteredList.get(0);
     }
 }

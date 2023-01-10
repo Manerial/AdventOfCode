@@ -18,32 +18,28 @@ public class AOCRunner implements AOC {
     private final List<Bingo> grids = new ArrayList<>();
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            List<String> plays = new ArrayList<>(Arrays.asList(list.get(0).split(",")));
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        List<String> plays = new ArrayList<>(Arrays.asList(list.get(0).split(",")));
 
-            List<String> gridLines = new ArrayList<>();
-            for (String str : list.subList(2, list.size())) {
-                if (str.equals("")) {
-                    grids.add(new Bingo(gridLines));
-                    gridLines = new ArrayList<>();
-                } else {
-                    gridLines.add(str);
-                }
+        List<String> gridLines = new ArrayList<>();
+        for (String str : list.subList(2, list.size())) {
+            if (str.equals("")) {
+                grids.add(new Bingo(gridLines));
+                gridLines = new ArrayList<>();
+            } else {
+                gridLines.add(str);
             }
-            grids.add(new Bingo(gridLines));
-
-            play(plays);
-            Printer.print("Solution 1 : ");
-            printFirstWinner(plays);
-
-            Collections.reverse(plays);
-            Printer.print("Solution 2 : ");
-            printFirstWinner(plays);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        grids.add(new Bingo(gridLines));
+
+        play(plays);
+        Printer.print("Solution 1 : ");
+        printFirstWinner(plays);
+
+        Collections.reverse(plays);
+        Printer.print("Solution 2 : ");
+        printFirstWinner(plays);
     }
 
     private void printFirstWinner(List<String> plays) {

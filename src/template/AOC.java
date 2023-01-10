@@ -1,5 +1,7 @@
 package template;
 
+import java.io.IOException;
+
 /**
  * AdventOfCode generic interface that is returned by the AOCFactory
  * Must be used to run a program
@@ -11,5 +13,5 @@ public interface AOC {
      *
      * @param file : The input file path (located in resources) to run
      */
-    void run(String file);
+    void run(String file) throws IOException;
 }

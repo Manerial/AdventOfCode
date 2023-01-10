@@ -15,26 +15,21 @@ import java.util.stream.Stream;
 public class AOCRunner implements AOC {
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
 
-            Cavern cavern = new Cavern(getDepth(list));
-            cavern.setDropPosition(new Position(500, 0));
-            cavern.fillWithAir();
+        Cavern cavern = new Cavern(getDepth(list));
+        cavern.setDropPosition(new Position(500, 0));
+        cavern.fillWithAir();
 
-            addRocks(cavern, list);
+        addRocks(cavern, list);
 
-            cavern.dropSandUntilAbyss();
-            Printer.println("Solution 1 : " + cavern.countSand());
+        cavern.dropSandUntilAbyss();
+        Printer.println("Solution 1 : " + cavern.countSand());
 
-            cavern.fillBottomWithRocks();
-            cavern.dropSandUntilFull();
-            Printer.println("Solution 2 : " + cavern.countSand());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        cavern.fillBottomWithRocks();
+        cavern.dropSandUntilFull();
+        Printer.println("Solution 2 : " + cavern.countSand());
     }
 
     private int getDepth(List<String> list) {

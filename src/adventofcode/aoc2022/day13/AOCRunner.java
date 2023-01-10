@@ -18,21 +18,17 @@ public class AOCRunner implements AOC {
     private final List<ImmutablePair<JSONArray, JSONArray>> pairPackets = new ArrayList<>();
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            parseListInPackets(list);
-            int sumOfIndex = getSumOfIndexSorted();
-            Printer.println("Solution 1 : " + sumOfIndex);
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        parseListInPackets(list);
+        int sumOfIndex = getSumOfIndexSorted();
+        Printer.println("Solution 1 : " + sumOfIndex);
 
-            list.add("[[2]]");
-            list.add("[[6]]");
+        list.add("[[2]]");
+        list.add("[[6]]");
 
-            List<String> sortedList = sortByArray(list);
-            Printer.println("Solution 2 : " + (sortedList.indexOf("[[2]]") + 1) * (sortedList.indexOf("[[6]]") + 1));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<String> sortedList = sortByArray(list);
+        Printer.println("Solution 2 : " + (sortedList.indexOf("[[2]]") + 1) * (sortedList.indexOf("[[6]]") + 1));
     }
 
     private void parseListInPackets(List<String> list) {

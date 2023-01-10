@@ -16,26 +16,22 @@ public class AOCRunner implements AOC {
     private int maxVisibility = 0;
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            List<String> listTransposed = new ArrayList<>(list);
-            listTransposed = listTransposed.stream().map(e -> "").collect(Collectors.toList());
-            for (String item : list) {
-                int i = 0;
-                for (char c : item.toCharArray()) {
-                    listTransposed.set(i, listTransposed.get(i) + c);
-                    i++;
-                }
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        List<String> listTransposed = new ArrayList<>(list);
+        listTransposed = listTransposed.stream().map(e -> "").collect(Collectors.toList());
+        for (String item : list) {
+            int i = 0;
+            for (char c : item.toCharArray()) {
+                listTransposed.set(i, listTransposed.get(i) + c);
+                i++;
             }
-
-            int count = getVisibleTree(list, listTransposed);
-            Printer.println("Solution 1 : " + count);
-
-            Printer.println("Solution 2 : " + maxVisibility);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+        int count = getVisibleTree(list, listTransposed);
+        Printer.println("Solution 1 : " + count);
+
+        Printer.println("Solution 2 : " + maxVisibility);
     }
 
     private int getVisibleTree(List<String> list, List<String> listTransposed) {

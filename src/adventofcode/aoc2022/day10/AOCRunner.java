@@ -18,17 +18,13 @@ public class AOCRunner implements AOC {
     private String screen = "";
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            for (String item : list) {
-                parseCPUInstruction(item);
-            }
-            Printer.println("Solution 1 : " + testOutput);
-            Printer.println("Solution 2 :\r\n" + screen);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        for (String item : list) {
+            parseCPUInstruction(item);
         }
+        Printer.println("Solution 1 : " + testOutput);
+        Printer.println("Solution 2 :\r\n" + screen);
     }
 
     private void parseCPUInstruction(String item) {
@@ -48,7 +44,8 @@ public class AOCRunner implements AOC {
     }
 
 
-    /**<pre>
+    /**
+     * <pre>
      * Start by ticking, then test the screen and print the sprite if it's current position allows it.
      * Then, move the sprite of spriteMove (can be positive or negative).
      * </pre>
@@ -62,7 +59,8 @@ public class AOCRunner implements AOC {
         spritePosition += spriteMove;
     }
 
-    /**<pre>
+    /**
+     * <pre>
      * Test the device input to know how it works.
      * Sum the multiplication of the current timer (tick) and the sum of inputs until now.
      * We do this save every 20 ticks

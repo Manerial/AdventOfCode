@@ -17,27 +17,23 @@ public class AOCRunner implements AOC {
     private Volcano volcano;
 
     @Override
-    public void run(String file) {
-        try {
-            Timer timer = new Timer();
-            List<String> list = FileLoader.readListFromFile(file);
-            initVolcano(list);
+    public void run(String file) throws IOException {
+        Timer timer = new Timer();
+        List<String> list = FileLoader.readListFromFile(file);
+        initVolcano(list);
 
-            ValveRoom startRoom = volcano.getValveRoom("AA");
-            startRoom.setOpenTime(30);
+        ValveRoom startRoom = volcano.getValveRoom("AA");
+        startRoom.setOpenTime(30);
 
-            Integer maxPresure = volcano.getMaxPressure(startRoom, 1);
-            Printer.println("Solution 1 : " + maxPresure);
-            timer.time();
+        Integer maxPresure = volcano.getMaxPressure(startRoom, 1);
+        Printer.println("Solution 1 : " + maxPresure);
+        timer.time();
 
-            // Will run in 26 minutes (quite long...)
-            startRoom.setOpenTime(26);
-            maxPresure = volcano.getMaxPressure(startRoom, 2);
-            Printer.println("Solution 2 : " + maxPresure);
-            timer.time();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Will run in 26 minutes (quite long...)
+        startRoom.setOpenTime(26);
+        maxPresure = volcano.getMaxPressure(startRoom, 2);
+        Printer.println("Solution 2 : " + maxPresure);
+        timer.time();
     }
 
     /**
@@ -53,6 +49,7 @@ public class AOCRunner implements AOC {
 
     /**
      * Clear the input so we can have something more useful
+     *
      * @param input : Something like -> alve AA has flow rate=0; tunnels lead to valves DD, II, BB
      * @return : Something like -> AA;O;DD,II,BB
      */
@@ -67,6 +64,7 @@ public class AOCRunner implements AOC {
 
     /**
      * Turn an input string into a new room
+     *
      * @param input : Something like -> AA;O;DD,II,BB
      */
     private void addRoom(String input) {

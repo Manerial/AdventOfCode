@@ -18,21 +18,17 @@ public class AOCRunner implements AOC {
     private List<Integer> backpacks = new ArrayList<>();
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            createBackPacks(list);
-            Collections.sort(backpacks);
-            int most = backpacks.get(backpacks.size() - 1);
-            int threeMost = backpacks.subList(backpacks.size() - 3, backpacks.size())
-                    .stream()
-                    .reduce(Integer::sum)
-                    .orElse(0);
-            Printer.println("Solution 1 : " + most);
-            Printer.println("Solution 2 : " + threeMost);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        createBackPacks(list);
+        Collections.sort(backpacks);
+        int most = backpacks.get(backpacks.size() - 1);
+        int threeMost = backpacks.subList(backpacks.size() - 3, backpacks.size())
+                .stream()
+                .reduce(Integer::sum)
+                .orElse(0);
+        Printer.println("Solution 1 : " + most);
+        Printer.println("Solution 2 : " + threeMost);
     }
 
     private void createBackPacks(List<String> list) {

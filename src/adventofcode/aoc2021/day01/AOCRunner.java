@@ -14,16 +14,12 @@ import java.util.List;
 public class AOCRunner implements AOC {
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            int count = countGreaterMeasure(list, 1);
-            Printer.println("Solution 1 : " + count);
-            int countGlide = countGreaterMeasure(list, 3);
-            Printer.println("Solution 2 : " + countGlide);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        int count = countGreaterMeasure(list, 1);
+        Printer.println("Solution 1 : " + count);
+        int countGlide = countGreaterMeasure(list, 3);
+        Printer.println("Solution 2 : " + countGlide);
     }
 
     private int countGreaterMeasure(List<String> list, int glide) {
@@ -32,10 +28,10 @@ public class AOCRunner implements AOC {
         List<Integer> glider = new ArrayList<>();
         for (String item : list) {
             glider.add(Integer.parseInt(item));
-            if(glider.size() > glide) {
+            if (glider.size() > glide) {
                 glider.remove(0);
                 int current = glider.stream().reduce(0, Integer::sum);
-                if(last < current) {
+                if (last < current) {
                     count++;
                 }
                 last = current;

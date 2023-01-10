@@ -20,8 +20,7 @@ public class AOCRunner implements AOC {
     private final List<Sensor> sensors = new ArrayList<>();
 
     @Override
-    public void run(String file) {
-        try {
+    public void run(String file) throws IOException {
             List<String> list = FileLoader.readListFromFile(file);
             int yCoordinate = 2000000;
             fillBeacons(list);
@@ -34,9 +33,6 @@ public class AOCRunner implements AOC {
             Position nonScannedPosition = getNonScannedPosition(yCoordinate);
             long operation = nonScannedPosition.getX() * 4000000L + nonScannedPosition.getY();
             Printer.println("Solution 2 : " + operation);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void fillBeacons(List<String> list) {

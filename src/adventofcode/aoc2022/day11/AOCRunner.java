@@ -19,31 +19,27 @@ public class AOCRunner implements AOC {
     private int sumOfModules;
 
     @Override
-    public void run(String file) {
-        try {
-            List<String> list = FileLoader.readListFromFile(file);
-            for (String item : list) {
-                parseLine(item);
-            }
-            // This is the trickiest part to comprehend :D
-            // We can manage a simple long as item using the multiplication of all the dividers factors.
-            // This will be used as a modulo before sending item to another monkey
-            sumOfModules = monkeys.stream().map(Monkey::getTestDivisorBeforeLaunch).reduce((a, b) -> a * b).orElse(0);
-            // copy all the monkeys to another list to avoid a new parsing of our input
-            monkeys.forEach(monkey -> monkeys2.add(new Monkey(monkey)));
-            playRounds(20);
-            playRoundsNoDivision(10000);
-            Collections.sort(monkeys);
-            Collections.sort(monkeys2);
-            Collections.reverse(monkeys);
-            Collections.reverse(monkeys2);
-            long solution1 = monkeys.stream().limit(2).map(Monkey::getInspections).reduce((a, b) -> a * b).orElse(0L);
-            long solution2 = monkeys2.stream().limit(2).map(Monkey::getInspections).reduce((a, b) -> a * b).orElse(0L);
-            Printer.println("Solution 1 : " + solution1);
-            Printer.println("Solution 2 : " + solution2);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void run(String file) throws IOException {
+        List<String> list = FileLoader.readListFromFile(file);
+        for (String item : list) {
+            parseLine(item);
         }
+        // This is the trickiest part to comprehend :D
+        // We can manage a simple long as item using the multiplication of all the dividers factors.
+        // This will be used as a modulo before sending item to another monkey
+        sumOfModules = monkeys.stream().map(Monkey::getTestDivisorBeforeLaunch).reduce((a, b) -> a * b).orElse(0);
+        // copy all the monkeys to another list to avoid a new parsing of our input
+        monkeys.forEach(monkey -> monkeys2.add(new Monkey(monkey)));
+        playRounds(20);
+        playRoundsNoDivision(10000);
+        Collections.sort(monkeys);
+        Collections.sort(monkeys2);
+        Collections.reverse(monkeys);
+        Collections.reverse(monkeys2);
+        long solution1 = monkeys.stream().limit(2).map(Monkey::getInspections).reduce((a, b) -> a * b).orElse(0L);
+        long solution2 = monkeys2.stream().limit(2).map(Monkey::getInspections).reduce((a, b) -> a * b).orElse(0L);
+        Printer.println("Solution 1 : " + solution1);
+        Printer.println("Solution 2 : " + solution2);
     }
 
     private void playRounds(int rounds) {
@@ -96,7 +92,8 @@ public class AOCRunner implements AOC {
         }
     }
 
-    /**<pre>
+    /**
+     * <pre>
      * Just add a monkey to a list
      * </pre>
      */

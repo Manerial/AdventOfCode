@@ -12,28 +12,22 @@ import java.io.IOException;
 public class AOCRunner implements AOC {
 
     @Override
-    public void run(String file) {
-        try {
-            String item = FileLoader.readListFromFile(file).get(0);
+    public void run(String file) throws IOException {
+        String item = FileLoader.readListFromFile(file).get(0);
 
-            long parenthesesOpen = item.chars().filter(value -> value == '(').count();
-            long parenthesesClose = item.length() - parenthesesOpen;
-            Printer.println(parenthesesOpen - parenthesesClose);
+        long parenthesesOpen = item.chars().filter(value -> value == '(').count();
+        long parenthesesClose = item.length() - parenthesesOpen;
+        Printer.println(parenthesesOpen - parenthesesClose);
 
-            int basementIndex = 1;
-            int floor = 0;
-            for (char c : item.toCharArray()) {
-                floor += (c == '(') ? 1 : -1;
-                if(floor == -1) {
-                    break;
-                }
-                basementIndex++;
+        int basementIndex = 1;
+        int floor = 0;
+        for (char c : item.toCharArray()) {
+            floor += (c == '(') ? 1 : -1;
+            if (floor == -1) {
+                break;
             }
-            Printer.println(basementIndex);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            basementIndex++;
         }
+        Printer.println(basementIndex);
     }
 }
