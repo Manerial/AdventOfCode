@@ -1,0 +1,8 @@
+231 -> b
+123 -> c
+b LSHIFT 2 -> d
+c RSHIFT 2 -> e
+b OR e -> f
+NOT d -> g
+g -> h
+f AND h -> a
