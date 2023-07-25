@@ -16,15 +16,15 @@ class AOCRunnerTest {
         AbstractAOC aocRunner = AOCRunnerTestBuilder.getAOCRunner(this.getClass(), true);
         aocRunner.run();
         assertAll(
-                () -> assertEquals(String.valueOf(0), aocRunner.getSolution1().toString()),
-                () -> assertEquals(String.valueOf(0), aocRunner.getSolution2().toString()));
+                () -> assertEquals("1985", aocRunner.getSolution1().toString()),
+                () -> assertEquals("5DB3", aocRunner.getSolution2().toString()));
     }
     @Test
     void test_puzzle() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         AbstractAOC aocRunner = AOCRunnerTestBuilder.getAOCRunner(this.getClass(), false);
         aocRunner.run();
         assertAll(
-                () -> assertEquals(String.valueOf(0), aocRunner.getSolution1().toString()),
-                () -> assertEquals(String.valueOf(0), aocRunner.getSolution2().toString()));
+                () -> assertEquals("44558", aocRunner.getSolution1().toString()),
+                () -> assertEquals("6BBAD", aocRunner.getSolution2().toString()));
     }
 }
