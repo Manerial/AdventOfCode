@@ -8,10 +8,19 @@ import utilities.AbstractAOC;
  * </pre>
  */
 public class AOCRunner extends AbstractAOC {
+    private final GridOfMoves grid2 = new GridOfMoves(2);
+    private final GridOfMoves grid10 = new GridOfMoves(10);
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        for (String item : inputList) {
+            String direction = item.split(" ")[0];
+            int move = Integer.parseInt(item.split(" ")[1]);
+
+            grid2.move(direction, move);
+            grid10.move(direction, move);
+        }
+        solution1 = grid2.countQueue();
+        solution2 = grid10.countQueue();
     }
 }
