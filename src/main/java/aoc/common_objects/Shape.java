@@ -2,35 +2,29 @@ package aoc.common_objects;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 public class Shape {
-    private final List<Position> positions;
+    private final Set<Position> positions;
     private int id;
+
     public Shape(int id) {
-        this.positions = new ArrayList<>();
+        this.positions = new HashSet<>();
         this.id = id;
     }
 
-    public Shape(List<Position> positions) {
+    public Shape(Set<Position> positions) {
         this.positions = positions;
     }
 
-    public Shape copy() {
-        List<Position> copyPositions = new ArrayList<>();
-        for (Position position : this.positions) {
-            copyPositions.add(new Position(position));
-        }
+    public Shape copyWithOffset(int x, int y) {
+        Set<Position> copyPositions = this.positions.stream()
+                .map(position -> new Position(position.getX() + x, position.getY() + y))
+                .collect(Collectors.toSet());
         return new Shape(copyPositions);
-    }
-
-    public void initPosition(int x, int y) {
-        for(Position position : positions) {
-            position.setX(position.getX() + x);
-            position.setY(position.getY() + y);
-        }
     }
 
     public int getMinY() {
@@ -62,8 +56,8 @@ public class Shape {
     }
 
     public void setRectangle(Position from, Position to) {
-        for(int x = from.getX(); x <= to.getX(); x++) {
-            for(int y = from.getY(); y <= to.getY(); y++) {
+        for (int x = from.getX(); x <= to.getX(); x++) {
+            for (int y = from.getY(); y <= to.getY(); y++) {
                 positions.add(new Position(x, y));
             }
         }

@@ -3,7 +3,9 @@ package aoc.common_objects;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class Position {
@@ -71,14 +73,14 @@ public class Position {
         return new ArrayList<>(positions.stream().distinct().toList());
     }
 
-    public static List<Position> shape(List<Position> positions) {
-        List<Position> shape = new ArrayList<>();
+    public static Set<Position> shape(List<Position> positions) {
+        Set<Position> shape = new HashSet<>();
         for (Position positionA : positions) {
             int indexOfB = positions.indexOf(positionA) + 1;
             Position positionB = (indexOfB < positions.size()) ? positions.get(indexOfB) : positionA;
             shape.addAll(Position.interval(positionA, positionB));
         }
-        return shape.stream().distinct().toList();
+        return shape;
     }
 
     public static boolean isDiagonal(Position position1, Position position2) {
