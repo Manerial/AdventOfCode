@@ -11,7 +11,10 @@ public class AOCRunner extends AbstractAOC {
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        InputParser inputParser = new InputParser(inputList);
+        Node root = inputParser.parseInput();
+        solution1 = root.getSumMetadata();
+        solution2 = root.getValue();
     }
+
 }
