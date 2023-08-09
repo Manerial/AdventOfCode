@@ -11,7 +11,12 @@ public class AOCRunner extends AbstractAOC {
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        int width = (isExample) ? 2 : 25;
+        int height = (isExample) ? 2 : 6;
+        InputParser inputParser = new InputParser(inputList, width, height);
+        Screen screen = inputParser.parseInput();
+        Layer layerWithFewestZero = screen.getLayerWithFewestZero();
+        solution1 = layerWithFewestZero.countIntegers(1) * layerWithFewestZero.countIntegers(2);
+        solution2 = screen.getDisplayedLayer().toDisplayString();
     }
 }
