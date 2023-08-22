@@ -9,6 +9,7 @@ tmp/
 .settings/
 bin/
 /.idea
+*.iml
 
 ######################
 # Maven
