@@ -49,8 +49,7 @@ public abstract class AbstractAOC {
      * @throws IllegalAccessException should not be thrown
      */
     public static AbstractAOC build(AOCArguments aocArguments) throws ClassNotFoundException, NoSuchMethodException, IOException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        String dayStr = String.format("%02d", aocArguments.getDay());
-        String classPath = "aoc.exercises.year" + aocArguments.getYear() + ".day" + dayStr + ".AOCRunner";
+        String classPath = getAOCPath(aocArguments.getYear(), aocArguments.getDay());
 
         // Get the AOC class to run
         Class<?> classRef = Class.forName(classPath);
@@ -121,15 +120,23 @@ public abstract class AbstractAOC {
         inputList = ResourceIO.readListFromResourceFile(file);
     }
 
+    private static String getAOCPath(int year, int day) {
+        return  "aoc.exercises.year" + year + ".day" + dayToStr(day) + ".AOCRunner";
+    }
+
     private String getPuzzleInputURL() {
         return "https://adventofcode.com/" + year + "/day/" + day + "/input";
     }
 
     private String getExampleInputPath() {
-        return "example_input/" + year + "/aoc" + day + ".txt";
+        return "example_input/year" + year + "/day" + dayToStr(day) + ".txt";
     }
 
     private String getPuzzleInputPath() {
-        return "puzzle_input/" + year + "/aoc" + day + ".txt";
+        return "puzzle_input/year" + year + "/day" + dayToStr(day) + ".txt";
+    }
+
+    private static String dayToStr(int day) {
+        return String.format("%02d", day);
     }
 }
