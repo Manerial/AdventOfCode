@@ -11,7 +11,12 @@ public class AOCRunner extends AbstractAOC {
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        InputParser inputParser = new InputParser(inputList);
+        InputParser.Result result = inputParser.parseInput();
+        solution1 = result.races().stream()
+                .mapToLong(Race::getWaysToWin)
+                .reduce((left, right) -> left * right)
+                .orElse(0);
+        solution2 = result.race().getWaysToWin();
     }
 }
