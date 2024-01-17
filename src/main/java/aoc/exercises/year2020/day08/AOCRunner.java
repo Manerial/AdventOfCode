@@ -11,7 +11,11 @@ public class AOCRunner extends AbstractAOC {
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        InputParser inputParser = new InputParser(inputList);
+        Program program = inputParser.parseInput();
+        program.executeUntilLoop();
+        solution1 = program.getAccumulator();
+        program.debug();
+        solution2 = program.getAccumulator();
     }
 }
