@@ -11,7 +11,9 @@ public class AOCRunner extends AbstractAOC {
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        InputParser inputParser = new InputParser(inputList);
+        DesertMap desertMap = inputParser.parseInput();
+        solution1 = desertMap.getStepsToEnd();
+        solution2 = desertMap.getGhostStepsToEnd();
     }
 }
