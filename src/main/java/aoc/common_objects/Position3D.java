@@ -2,6 +2,8 @@ package aoc.common_objects;
 
 import lombok.*;
 
+import java.util.Set;
+
 @Data
 public class Position3D {
     private int x;
@@ -77,5 +79,22 @@ public class Position3D {
         return Math.sqrt(Math.pow(x - position.x, 2) +
                 Math.pow(y - position.y, 2) +
                 Math.pow(z - position.z, 2));
+    }
+
+    public long countNeighbors(Set<Position3D> positions) {
+        Set<Position3D> neighbors = getNeighbors();
+        return neighbors.stream().filter(positions::contains).count();
+    }
+
+    public Set<Position3D> getNeighbors() {
+        return Set.of(
+                new Position3D(this.x + 1, this.y, this.z),
+                new Position3D(this.x - 1, this.y, this.z),
+                new Position3D(this.x, this.y + 1, this.z),
+                new Position3D(this.x, this.y - 1, this.z),
+                new Position3D(this.x, this.y, this.z + 1),
+                new Position3D(this.x, this.y, this.z - 1)
+        );
+
     }
 }
