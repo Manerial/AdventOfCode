@@ -11,7 +11,14 @@ public class AOCRunner extends AbstractAOC {
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        InputParser inputParser = new InputParser(inputList);
+        Grid grid = inputParser.parseInput();
+        grid.resetPosition();
+        grid.moveThrough();
+        solution1 = grid.getFinalPassword();
+        grid.resetPosition();
+        grid.useCube(true);
+        grid.moveThrough();
+        solution2 = grid.getFinalPassword();
     }
 }
