@@ -1,6 +1,10 @@
 package aoc.exercises.year2022.day19;
 
 import utilities.AbstractAOC;
+import utilities.Timer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -8,10 +12,26 @@ import utilities.AbstractAOC;
  * </pre>
  */
 public class AOCRunner extends AbstractAOC {
+    List<RobotFactory> robotFactories = new ArrayList<>();
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        Timer timer = new Timer();
+        for (String blueprint : inputList) {
+            RobotFactory robotFactory = new RobotFactory(blueprint);
+            robotFactories.add(robotFactory);
+        }
+        robotFactories.forEach(robotFactory -> robotFactory.runFor(24));
+        solution1 = robotFactories.stream().mapToInt(RobotFactory::getBlueprintQuality).sum();
+        timer.time();
+
+        robotFactories.stream()
+                .limit(3)
+                .forEach(robotFactory -> robotFactory.runFor(32));
+        solution2 = robotFactories.stream().map(RobotFactory::getMaxGeodes)
+                .limit(3)
+                .reduce((left, right) -> left * right)
+                .orElse(0);
+        timer.time();
     }
 }
