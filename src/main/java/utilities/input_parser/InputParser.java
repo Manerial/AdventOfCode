@@ -1,5 +1,5 @@
 package utilities.input_parser;
 
-public interface InputParserInterface<T> {
+public interface InputParser<T> {
     T parseInput();
 }
