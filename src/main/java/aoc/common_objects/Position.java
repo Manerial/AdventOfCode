@@ -54,7 +54,6 @@ public class Position {
      *
      * @param p1 The first position
      * @param p2 The second position
-     *
      * @return all the position between p1 and p2 (included)
      */
     public static List<Position> interval(Position p1, Position p2) {
@@ -136,5 +135,30 @@ public class Position {
 
     public int getDistanceFrom0() {
         return Math.abs(x) + Math.abs(y);
+    }
+
+    public List<Position> getAllNeighbors() {
+        List<Position> neighbors = new ArrayList<>();
+        neighbors.addAll(getDirectNeighbors());
+        neighbors.addAll(getDiagNeighbors());
+        return neighbors;
+    }
+
+    public List<Position> getDirectNeighbors() {
+        return List.of(
+                new Position(x - 1, y),
+                new Position(x + 1, y),
+                new Position(x, y - 1),
+                new Position(x, y + 1)
+        );
+    }
+
+    public List<Position> getDiagNeighbors() {
+        return List.of(
+                new Position(x - 1, y - 1),
+                new Position(x + 1, y - 1),
+                new Position(x - 1, y + 1),
+                new Position(x + 1, y + 1)
+        );
     }
 }
