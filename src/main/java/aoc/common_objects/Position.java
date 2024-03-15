@@ -144,12 +144,28 @@ public class Position {
         return neighbors;
     }
 
+    public Position getNorth() {
+        return new Position(x, y - 1);
+    }
+
+    public Position getSouth() {
+        return new Position(x, y + 1);
+    }
+
+    public Position getEast() {
+        return new Position(x + 1, y);
+    }
+
+    public Position getWest() {
+        return new Position(x - 1, y);
+    }
+
     public List<Position> getDirectNeighbors() {
         return List.of(
-                new Position(x - 1, y),
-                new Position(x + 1, y),
-                new Position(x, y - 1),
-                new Position(x, y + 1)
+                getNorth(),
+                getSouth(),
+                getEast(),
+                getWest()
         );
     }
 
