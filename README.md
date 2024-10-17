@@ -6,7 +6,7 @@ More information here : https://adventofcode.com/
 ## Installation & Run
 
 ### Installation
-The project uses [JAVA 17](https://jdk.java.net/archive/) and [Maven](https://maven.apache.org/download.cgi) to run.
+The project uses [JAVA 17 or more](https://jdk.java.net/archive/) and [Maven](https://maven.apache.org/download.cgi) to run.
 
 ### Run with parameters
 To run the project, go to src/main/java/application and run the [Application.java](src/main/java/application/Application.java) class.
@@ -31,8 +31,11 @@ or you can use :
 
 These parameters are parsed in [AOCArguments.java](src/main/java/utilities/AOCArguments.java)
 
+Here is the config you should use by default :
+![img.png](img.png)
+
 ## Architecture
-The project is split in two parts : the exercises and the tests.
+The project is split in three parts : the exercises, the tests and the resources.
 
 ### Exercises
 The main/java folder contains 3 parts :
