@@ -53,3 +53,17 @@ That can be useful if an update is made somewhere on the application,
 and we want to ensure we still have the expected results.
 
 WARNING : the tests are also path-dependant. They should be under the same path as the exercise it wants to test.
+
+### Resources
+The resources folder, at the root of the project, contains all the inputs of the exercises.
+
+You have to fill them in order to launch an exercise.
+
+Example : If you want to run the exercise 1 of 2015, you must fill the files
+ - resources/example_input/year2015/day01.txt
+ - resources/puzzle_input/year2015/day01.txt
+
+NB : The puzzle_input can also be auto-filled if you fill the localSession file.
+ - For this, you MUST place it under the resources directory ("resources/localSession", with no extension)
+ - It will contain your authentication token to the AOC website.
+ - When starting the application, you also must use the -u argument.
