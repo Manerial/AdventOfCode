@@ -1,4 +1,4 @@
-package aoc.exercises.year2023.day18;
+package aoc.exercises.year2024.day03;
 
 import aoc.AOCRunnerTestBuilder;
 import org.junit.jupiter.api.Test;
