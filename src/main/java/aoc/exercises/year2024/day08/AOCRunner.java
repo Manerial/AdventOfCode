@@ -11,7 +11,11 @@ public class AOCRunner extends AbstractAOC {
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        InputParser inputParser = new InputParser(inputList);
+        AntennaMap antennaMap = inputParser.parseInput();
+        antennaMap.setAllLine(false);
+        solution1 = antennaMap.countAntinodesWithinMap();
+        antennaMap.setAllLine(true);
+        solution2 = antennaMap.countAntinodesWithinMap();
     }
 }
