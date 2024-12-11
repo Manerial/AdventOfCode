@@ -2,6 +2,7 @@ package aoc.exercises.year2016.day11;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -11,9 +12,16 @@ import java.util.Map;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Data
 public class RadioisotopeTestingFacility {
     private Map<Integer, RTFFloor> floors = new HashMap<>();
+
+    public RadioisotopeTestingFacility(RadioisotopeTestingFacility rtf) {
+        for (Map.Entry<Integer, RTFFloor> entry : rtf.floors.entrySet()) {
+            this.floors.put(entry.getKey(), new RTFFloor(entry.getValue()));
+        }
+    }
 
     public void addFloor(RTFFloor rttFloor) {
         floors.put(floors.size(), rttFloor);
@@ -25,16 +33,8 @@ public class RadioisotopeTestingFacility {
 
     public boolean hasAllMovedUp() {
         return floors.entrySet().stream()
-                .filter(entry -> entry.getKey() == floors.size() - 1)
-                .noneMatch(entry -> entry.getValue().hasElements());
-    }
-
-    public RadioisotopeTestingFacility cloneRTF() {
-        Map<Integer, RTFFloor> clonedMap = new HashMap<>();
-        for (Map.Entry<Integer, RTFFloor> entry : floors.entrySet()) {
-            clonedMap.put(entry.getKey(), new RTFFloor(entry.getValue()));
-        }
-        return new RadioisotopeTestingFacility(clonedMap);
+                .filter(entry -> entry.getKey() != floors.size() - 1)
+                .allMatch(entry -> entry.getValue().hasNoElements());
     }
 
     public List<Pair<FactoryElement, FactoryElement>> getElementsThatCanMoveDown(int currentFloor) {
@@ -69,5 +69,11 @@ public class RadioisotopeTestingFacility {
         floors.get(currentFloor).addElement(pairOfElements.getLeft());
         floors.get(currentFloor).addElement(pairOfElements.getRight());
         return currentFloor;
+    }
+
+    public int countAllElements() {
+        return floors.values().stream()
+                .mapToInt(RTFFloor::countAllElements)
+                .sum();
     }
 }
