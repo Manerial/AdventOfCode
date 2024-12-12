@@ -119,8 +119,8 @@ public class Position {
         switch (cardinal) {
             case EAST -> x++;
             case WEST -> x--;
-            case NORTH -> y++;
-            case SOUTH -> y--;
+            case NORTH -> y--;
+            case SOUTH -> y++;
         }
     }
 
@@ -128,8 +128,8 @@ public class Position {
         switch (cardinal) {
             case EAST -> x += steps;
             case WEST -> x -= steps;
-            case NORTH -> y += steps;
-            case SOUTH -> y -= steps;
+            case NORTH -> y -= steps;
+            case SOUTH -> y += steps;
         }
     }
 
@@ -142,22 +142,6 @@ public class Position {
         neighbors.addAll(getDirectNeighbors());
         neighbors.addAll(getDiagNeighbors());
         return neighbors;
-    }
-
-    public Position getNorth() {
-        return new Position(x, y - 1);
-    }
-
-    public Position getSouth() {
-        return new Position(x, y + 1);
-    }
-
-    public Position getEast() {
-        return new Position(x + 1, y);
-    }
-
-    public Position getWest() {
-        return new Position(x - 1, y);
     }
 
     public List<Position> getDirectNeighbors() {
@@ -185,5 +169,21 @@ public class Position {
             case SOUTH -> getSouth();
             case WEST -> getWest();
         };
+    }
+
+    public Position getNorth() {
+        return new Position(x, y - 1);
+    }
+
+    public Position getSouth() {
+        return new Position(x, y + 1);
+    }
+
+    public Position getEast() {
+        return new Position(x + 1, y);
+    }
+
+    public Position getWest() {
+        return new Position(x - 1, y);
     }
 }
