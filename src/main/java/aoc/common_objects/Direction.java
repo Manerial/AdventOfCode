@@ -40,4 +40,13 @@ public enum Direction {
             case WEST -> nextWest;
         };
     }
+
+    public char toChar() {
+        return switch (this) {
+            case NORTH -> '^';
+            case EAST -> '>';
+            case SOUTH -> 'v';
+            case WEST -> '<';
+        };
+    }
 }

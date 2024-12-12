@@ -177,4 +177,13 @@ public class Position {
                 new Position(x + 1, y + 1)
         );
     }
+
+    public Position getNeighbor(Direction direction) {
+        return switch (direction) {
+            case NORTH -> getNorth();
+            case EAST -> getEast();
+            case SOUTH -> getSouth();
+            case WEST -> getWest();
+        };
+    }
 }
