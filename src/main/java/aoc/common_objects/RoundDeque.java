@@ -5,6 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoundDeque<T> extends ArrayDeque<T> {
+    public RoundDeque() {
+        super();
+    }
+
+    public RoundDeque(List<T> list) {
+        super(list);
+    }
+
     public void rotate(long rotation) {
         rotation = rotation % this.size();
         if (rotation > 0) {
