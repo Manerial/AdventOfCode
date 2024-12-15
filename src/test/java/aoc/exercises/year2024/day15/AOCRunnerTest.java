@@ -16,8 +16,8 @@ class AOCRunnerTest {
         AbstractAOC aocRunner = AOCRunnerTestBuilder.getAOCRunner(this.getClass(), true);
         aocRunner.run();
         assertAll(
-                () -> assertEquals(String.valueOf(0), aocRunner.getSolution1().toString()),
-                () -> assertEquals(String.valueOf(0), aocRunner.getSolution2().toString()));
+                () -> assertEquals(String.valueOf(10092), aocRunner.getSolution1().toString()),
+                () -> assertEquals(String.valueOf(9021), aocRunner.getSolution2().toString()));
     }
 
     @Test
@@ -25,7 +25,7 @@ class AOCRunnerTest {
         AbstractAOC aocRunner = AOCRunnerTestBuilder.getAOCRunner(this.getClass(), false);
         aocRunner.run();
         assertAll(
-                () -> assertEquals(String.valueOf(0), aocRunner.getSolution1().toString()),
-                () -> assertEquals(String.valueOf(0), aocRunner.getSolution2().toString()));
+                () -> assertEquals(String.valueOf(1446158), aocRunner.getSolution1().toString()),
+                () -> assertEquals(String.valueOf(1446175), aocRunner.getSolution2().toString()));
     }
 }
