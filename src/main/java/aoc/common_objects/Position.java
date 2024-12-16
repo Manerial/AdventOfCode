@@ -186,4 +186,13 @@ public class Position {
     public Position getWest() {
         return new Position(x - 1, y);
     }
+
+    public static Direction directionFromTo(Position from, Position to) {
+        if (from.x == to.x) {
+            return from.y > to.y ? Direction.NORTH : Direction.SOUTH;
+        } else if (from.y == to.y) {
+            return from.x > to.x ? Direction.WEST : Direction.EAST;
+        }
+        return null;
+    }
 }

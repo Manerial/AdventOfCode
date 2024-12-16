@@ -49,4 +49,13 @@ public enum Direction {
             case WEST -> '<';
         };
     }
+
+    public boolean isOpposite(Direction currentDirection) {
+        return switch (this) {
+            case NORTH -> currentDirection == SOUTH;
+            case EAST -> currentDirection == WEST;
+            case SOUTH -> currentDirection == NORTH;
+            case WEST -> currentDirection == EAST;
+        };
+    }
 }
