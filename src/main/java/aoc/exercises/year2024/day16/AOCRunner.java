@@ -11,7 +11,10 @@ public class AOCRunner extends AbstractAOC {
 
     @Override
     public void run() {
-        solution1 = 0;
-        solution2 = 0;
+        InputParser inputParser = new InputParser(inputList);
+        Maze maze = inputParser.parseInput();
+        maze.computePathScore();
+        solution1 = maze.getPathToEndValue();
+        solution2 = maze.countTilesOnCriticalPath();
     }
 }
