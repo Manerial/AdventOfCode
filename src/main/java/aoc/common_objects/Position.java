@@ -171,6 +171,31 @@ public class Position {
         };
     }
 
+    public List<Position> getNeighbors(Direction direction) {
+        return switch (direction) {
+            case NORTH -> List.of(
+                    new Position(x, y - 1), // N
+                    new Position(x + 1, y - 1), // NE
+                    new Position(x - 1, y - 1) // NW
+            );
+            case SOUTH -> List.of(
+                    new Position(x, y + 1), // S
+                    new Position(x + 1, y + 1), // SE
+                    new Position(x - 1, y + 1) // SW
+            );
+            case EAST -> List.of(
+                    new Position(x + 1, y), // E
+                    new Position(x + 1, y + 1), // NE
+                    new Position(x + 1, y - 1) // SE
+            );
+            case WEST -> List.of(
+                    new Position(x - 1, y), // W
+                    new Position(x - 1, y + 1), // NW
+                    new Position(x - 1, y - 1) // SW
+            );
+        };
+    }
+
     public Position getNorth() {
         return new Position(x, y - 1);
     }
