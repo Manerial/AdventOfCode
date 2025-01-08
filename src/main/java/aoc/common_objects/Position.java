@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 
 @Data
 public class Position {
@@ -219,5 +221,33 @@ public class Position {
             return from.x > to.x ? Direction.WEST : Direction.EAST;
         }
         return null;
+    }
+
+    public static List<Position> pathTo(Position startPosition, Position targetPosition, boolean leftFirst) {
+        AtomicPosition currentPosition = new AtomicPosition(startPosition);
+        AtomicPosition finalPosition = new AtomicPosition(targetPosition);
+        List<Position> path = new ArrayList<>();
+        path.add(new Position(startPosition));
+        if (leftFirst) {
+            path.addAll(getPath(currentPosition, finalPosition, AtomicPosition::getX));
+            path.addAll(getPath(currentPosition, finalPosition, AtomicPosition::getY));
+        } else {
+            path.addAll(getPath(currentPosition, finalPosition, AtomicPosition::getY));
+            path.addAll(getPath(currentPosition, finalPosition, AtomicPosition::getX));
+        }
+        return path;
+    }
+
+    private static List<Position> getPath(AtomicPosition currentPosition, AtomicPosition targetPosition, Function<AtomicPosition, AtomicInteger> coordinate) {
+        List<Position> path = new ArrayList<>();
+        while (coordinate.apply(currentPosition).get() != coordinate.apply(targetPosition).get()) {
+            if (coordinate.apply(currentPosition).get() < coordinate.apply(targetPosition).get()) {
+                coordinate.apply(currentPosition).incrementAndGet();
+            } else {
+                coordinate.apply(currentPosition).decrementAndGet();
+            }
+            path.add(new Position(currentPosition.getX().get(), currentPosition.getY().get()));
+        }
+        return path;
     }
 }
