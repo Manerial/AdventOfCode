@@ -4,6 +4,7 @@ import utilities.errors.LocalSessionCreated;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +14,8 @@ public class ResourceIO {
     public static final String DELIMITER = "\r\n";
     private static String localSession;
 
-    private ResourceIO() {} // Necessary
+    private ResourceIO() {
+    } // Necessary
 
     /**
      * Read a resource file and return its content
@@ -37,7 +39,7 @@ public class ResourceIO {
      * @throws IOException when cannot read the url or open the connexion
      */
     public static List<String> readListFromURL(String urlStr) throws IOException {
-        URL url = new URL(urlStr);
+        URL url = URI.create(urlStr).toURL();
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("GET");
         httpURLConnection.setRequestProperty("Cookie", "session=" + localSession);
@@ -75,7 +77,7 @@ public class ResourceIO {
 
     public static void writeInFile(String fileName, String content) throws IOException {
         try (FileWriter fileWriter = new FileWriter(RESOURCE_PATH + fileName, false);
-            BufferedWriter writer = new BufferedWriter(fileWriter)) {
+             BufferedWriter writer = new BufferedWriter(fileWriter)) {
             writer.append(content);
         }
     }
