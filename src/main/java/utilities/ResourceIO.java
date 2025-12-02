@@ -68,7 +68,7 @@ public class ResourceIO {
 
     public static void saveLocalSession() throws IOException {
         try {
-            localSession = readListFromResourceFile("localSession").get(0);
+            localSession = readListFromResourceFile("localSession").getFirst();
         } catch (IOException e) {
             writeInFile("localSession", "REGISTER YOUR AOC SESSION HERE");
             throw new LocalSessionCreated();
