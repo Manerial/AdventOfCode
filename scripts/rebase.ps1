@@ -24,11 +24,11 @@ foreach ($branch in $remoteBranches) {
         git reset origin/$branch --hard
         # On rebase sur la branche source
         git rebase $sourceBranch
-
-        # Pousser la branche rebasée
-        git push --force
     }
 }
+
+# Pousser toutes les branches
+git push --all --force
 
 # Revenir à la branche initiale
 git checkout $sourceBranch

@@ -71,11 +71,10 @@ foreach ($branch in $remoteBranches) {
 
     # Lancer le rebase automatique
     git rebase --interactive --autosquash HEAD~$count --rebase-merges --autostash --exec "echo Rewriting branch..."
-
-    # Forcer le push
-    Write-Host "Push forcé de la branche $branch"
-    git push --force
 }
+
+# Pousser toutes les branches
+git push --force --all
 
 # Retour sur la branche source
 git checkout $sourceBranch
