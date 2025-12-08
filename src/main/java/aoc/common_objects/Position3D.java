@@ -1,6 +1,6 @@
 package aoc.common_objects;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
 public class Position3D {
@@ -17,7 +17,7 @@ public class Position3D {
     public Position3D(String coordinates, String splitter) {
         x = Integer.parseInt(coordinates.split(splitter)[0]);
         y = Integer.parseInt(coordinates.split(splitter)[1]);
-        z = Integer.parseInt(coordinates.split(splitter)[1]);
+        z = Integer.parseInt(coordinates.split(splitter)[2]);
     }
 
     public Position3D(Position3D position) {
@@ -70,5 +70,12 @@ public class Position3D {
 
     public int getManhattanZ(Position3D position) {
         return Math.abs(z - position.z);
+    }
+
+
+    public double euclidianDistanceTo(Position3D position) {
+        return Math.sqrt(Math.pow(x - position.x, 2) +
+                Math.pow(y - position.y, 2) +
+                Math.pow(z - position.z, 2));
     }
 }
